@@ -1,0 +1,31 @@
+
+.font-primary-34-black {
+  font-weight:400;
+  font-size:34rpx;
+  color: #353535
+}
+
+.font-mute-30-gray {
+  color: #888;
+  font-size: 30rpx
+}
+
+.font-mute-28-gray {
+  color: #888;
+  font-size: 28rpx;
+}
+
+.font-mute-28-black {
+  color: #353535;
+  font-size: 28rpx;
+}
+
+.font-mute-26-gray {
+  color: #888;
+  font-size: 26rpx;
+}
+
+.font-mute-26-black {
+  color: #353535;
+  font-size: 26rpx;
+}

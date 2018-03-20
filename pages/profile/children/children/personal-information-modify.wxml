@@ -1,0 +1,76 @@
+<toptip id="toptip"></toptip>
+<view class="weui-cells">
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">姓名</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="姓名" bindinput="onInput" data-label="name" value="{{name}}" />
+    </view>
+  </view>
+  <view class="weui-cell weui-cell_select">
+    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+      <view class="weui-label">出生年月</view>
+    </view>
+    <view class="weui-cell__bd">
+      <picker bindchange="onInput" mode="date" value="{{birthday}}" data-label="birthday">
+        <view class="weui-select weui-select_in-select-after">{{birthday}}</view>
+      </picker>
+    </view>
+  </view>
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">身份证号</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入身份证号" bindinput="onInput" data-label="idNumber" value="{{idNumber}}" />
+    </view>
+  </view>
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">详细地址</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input placeholder="街道门牌信息" class="weui-input" bindinput="onInput" data-label="address" value="{{address}}" />
+    </view>
+  </view>
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">邮政编码</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入邮政编码" bindinput="onInput" data-label="postcode" value="{{postcode}}" />
+    </view>
+  </view>
+  <view class="weui-cell">
+    <view class="weui-cell__bd">
+      <view class="weui-uploader">
+        <view class="weui-uploader__hd">
+          <view class="weui-uploader__title">身份证照片上传（正反面）</view>
+        </view>
+        <view class="weui-uploader__bd">
+          <view class="weui-uploader__files">
+            <view wx:if="{{idCardFront}}" class="weui-uploader__file">
+              <image class="weui-uploader__img" src="{{idCardFront}}" mode="aspectFill" catchtap="onPreviewImage" id="Front" />
+              <icon size="25" type="cancel" id="Front" catchtap="onDeleteImage"></icon>
+            </view>
+            <view wx:else class="weui-uploader__input-box">
+              <view class="weui-uploader__input" bindtap="onChooseImage" id="Front"></view>
+            </view>
+            <view wx:if="{{idCardBack}}" class="weui-uploader__file">
+              <image class="weui-uploader__img" src="{{idCardBack}}" mode="aspectFill" catchtap="onPreviewImage" id="Back" />
+              <icon size="25" type="cancel" id="Back" catchtap="onDeleteImage"></icon>
+            </view>
+            <view wx:else class="weui-uploader__input-box">
+              <view class="weui-uploader__input" bindtap="onChooseImage" id="Back"></view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="font-mute-28-gray notice">
+  请确保你的信息真实有效，我们会保护好你的个人信息，不会对外提供
+</view>
+<button type="primary" style="margin: 0 40rpx" catchtap="onSubmit">提交</button>

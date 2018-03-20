@@ -1,0 +1,1 @@
+<view class="toptip {{ show ? 'toptip--show' : '' }} {{ type }}">{{ content }}</view>

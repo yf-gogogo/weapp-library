@@ -1,0 +1,13 @@
+.container {
+  padding: 100rpx 40rpx 0 40rpx;
+  text-align: center;
+}
+
+.title {
+  margin: 40rpx 0 30rpx 0;
+  font-size: 40rpx;
+}
+
+navigator {
+  margin-top: 15px;
+}

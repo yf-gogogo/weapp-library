@@ -1,0 +1,62 @@
+{
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": true,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "1.9.93",
+	"appid": "wx0eff868e8d0bef7f",
+	"projectname": "weapp-library",
+	"isGameTourist": false,
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 3,
+			"list": [
+				{
+					"id": 0,
+					"name": "注册结果",
+					"pathName": "pages/register/children/result",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "修改个人信息",
+					"pathName": "pages/profile/children/children/personal-information-modify",
+					"query": "from=register"
+				},
+				{
+					"id": -1,
+					"name": "注册页",
+					"pathName": "pages/register/register",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "主页",
+					"pathName": "pages/home/home",
+					"query": ""
+				}
+			]
+		}
+	}
+}

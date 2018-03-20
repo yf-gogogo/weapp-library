@@ -1,0 +1,13 @@
+<view class="container">
+  <icon class="icon" type="success" size="100" />
+  <view class="title">注册成功</view>
+  <view class="font-mute-28-gray">
+    <view> 完善个人信息后即可在线借阅图书</view>
+  </view>
+  <navigator url="/pages/profile/children/children/personal-information-modify?from=register">
+    <button type="primary">完善个人信息</button>
+  </navigator>
+  <navigator url="/pages/home/home" open-type="switchTab">
+    <button type="default">稍后完善，先去逛逛</button>
+  </navigator>
+</view>

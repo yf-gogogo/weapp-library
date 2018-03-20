@@ -1,0 +1,6 @@
+
+App({
+  globalData: {
+    phone: null
+  }
+})

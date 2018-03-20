@@ -1,0 +1,50 @@
+{
+  "pages": [
+    "pages/register/register",
+    "pages/register/children/result",
+    "pages/home/home",
+    "pages/booklist/booklist",
+    "pages/cart/cart",
+    "pages/profile/profile",
+    "pages/profile/children/children/personal-information-modify"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#000",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "images/icon_home_line.png",
+        "selectedIconPath": "images/icon_home_fill.png",
+        "selectedColor": "#09BB07"
+      },
+      {
+        "pagePath": "pages/booklist/booklist",
+        "text": "书单",
+        "color": "#ddd",
+        "selectedColor": "#09BB07",
+        "iconPath": "images/icon_booklist_line.png",
+        "selectedIconPath": "images/icon_booklist_fill.png"
+      },
+      {
+        "pagePath": "pages/cart/cart",
+        "text": "借书栏",
+        "iconPath": "images/icon_cart_line.png",
+        "selectedIconPath": "images/icon_cart_fill.png",
+        "selectedColor": "#09BB07"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "images/icon_me_line.png",
+        "selectedIconPath": "images/icon_me_fill.png",
+        "selectedColor": "#09BB07"
+      }
+    ]
+  }
+}

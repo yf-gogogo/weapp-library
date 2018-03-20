@@ -1,0 +1,14 @@
+.notice {
+  margin: 20rpx 40rpx;
+  text-align: center;
+}
+
+.weui-uploader__file {
+  position: relative;
+}
+
+icon {
+  position: absolute;
+  right: 0rpx;
+  top: 0rpx;
+}
