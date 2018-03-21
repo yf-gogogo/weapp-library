@@ -3,11 +3,7 @@ var timer = undefined;
 
 
 /**
- * TopTip组件
- *
- * @param option {Object} 
- *        duration：持续时长，默认 1500 ms 
- *        type：提示类型，默认error，可选 warning、success、error
+ * TopTip 顶部提示
  */
 Component({
   data: {
@@ -17,6 +13,12 @@ Component({
   },
 
   methods: {
+    /** 
+     * 显示TopTip
+     * @param option {Object} 
+     *        duration：持续时长，默认 1500 ms 
+     *        type：提示类型，默认error，可选 warning、success、error
+     */
     show(content = '', options = {}) {
       // 如果已经有一个计时器在了，就先清理掉
       if (timer) {

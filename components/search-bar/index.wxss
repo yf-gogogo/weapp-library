@@ -1,0 +1,2 @@
+/**index.wxss**/
+@import '/styles/weui.wxss';

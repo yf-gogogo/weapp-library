@@ -1,0 +1,33 @@
+<view class="home-search-bar">
+  <view wx:if="{{isFocus}}" class="home-search-bar__hd">
+    <!-- 搜索类型 -->
+    <view class="home-search-bar__option-btn" hover-class="home-search-bar__option-btn--active" catchtap="onTapOptionBtn">
+      <view>{{options.selected}}</view>
+    </view>
+    <view class="home-search-bar__option-list" hidden="{{!options.show}}">
+      <view wx:for="{{options.list}}" class="hd-search__option-list-item" data-option="{{item}}" catchtap="onSelectOption">{{item}}</view>
+    </view>
+  </view>
+  <view class="home-search-bar__bd {{isFocus ? 'focus' : ''}}">
+    <!-- 聚焦后的搜索输入框 -->
+    <view wx:if="{{isFocus}}" class="home-search-bar__input-box">
+      <icon class="home-search-bar__icon-search--inbox" type="search" size="14"></icon>
+      <input type="text" class="home-search-bar__input" placeholder="搜索" value="{{value}}" focus="{{isFocus}}" bindinput="onInput" bindconfirm="onSearch" />
+      <view class="home-search-bar__icon-clear" wx:if="{{value.length > 0}}" bindtap="onClear">
+        <icon type="clear" size="14"></icon>
+      </view>
+    </view>
+    <!-- 未聚焦时的搜索标签 -->
+    <label wx:else class="home-search-bar__label" hidden="{{isFocus}}" bindtap="onFocus">
+      <icon class="home-search-bar__icon-search" type="search" size="14"></icon>
+      <view class="home-search-bar__label-text">搜索图书</view>
+    </label>
+  </view>
+  <view class="home-search-bar__ft">
+    <view wx:if="{{isFocus}}" class="color-green" bindtap="onCancel">取消</view>
+    <navigator wx:else class="home-search-bar__category" url="./children/class">
+      <span>分类</span>
+    </navigator>
+  </view>
+  <!-- 输入框 -->
+</view>

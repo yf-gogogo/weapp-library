@@ -1,0 +1,100 @@
+@import "/styles/color.wxss";
+
+.home-search-bar {
+  position: relative;
+  padding: 8px 10px;
+  display: -webkit-flex;
+  display: flex;
+  background-color: #EFEFF4;
+  border-top: 1rpx solid #D7D6DC;
+  border-bottom: 1rpx solid #D7D6DC;
+}
+
+/* 搜索框左部，设置圆角以和body相连 */
+.home-search-bar__hd {
+  z-index: 2;
+  background: #FFFFFF;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-right: 1rpx solid #ddd;
+}
+
+/* 搜索框中部，输入框 */
+.home-search-bar__bd {
+  position: relative;
+  flex: auto;
+  border-radius: 5px;
+  background: #FFFFFF;
+}
+.home-search-bar__bd.focus {
+  border-radius: 0 5px 5px 0; /* 显示出head时，设置圆角以相连 */
+}
+
+/* 搜索框右部，文字按钮 */
+.home-search-bar__ft {
+  margin-left: 10px;
+  line-height: 28px;
+  white-space: nowrap;
+}
+
+.home-search-bar__label {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: #9B9B9B;
+  line-height: 28px;
+}
+
+.home-search-bar__label-text {
+  display: inline-block;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.home-search-bar__option-btn {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px;
+  height: 100%;
+  font-size: 28rpx;
+  color: #353535;
+}
+
+.home-search-bar__option-btn--active {
+  background-color: #ECECEC;
+}
+
+.home-search-bar__icon-search {
+  margin-right: 8px;
+  font-size: inherit;
+}
+
+.home-search-bar__icon-search--inbox {
+  position: absolute;
+  left: 15px;
+  top: 7px;
+}
+
+.home-search-bar__input-box {
+  padding-left: 35px;
+  padding-right: 30px;
+}
+
+.home-search-bar__input {
+  height: 28px;
+  line-height: 28px;
+  font-size: 14px;
+}
+
+.home-search-bar__icon-clear {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 7px 8px;
+  font-size: 0;
+}
