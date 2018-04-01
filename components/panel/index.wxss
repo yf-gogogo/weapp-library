@@ -1,0 +1,6 @@
+@import "/styles/weui.wxss"
+@import "/styles/icon.wxss"
+
+.panel {
+  margin-bottom: 20rpx;
+}

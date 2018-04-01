@@ -1,0 +1,32 @@
+.showcase-container {
+  box-sizing: border-box;
+  padding: 30rpx;
+  width: 100%;
+}
+
+.showcase {
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: row;
+  align-items: stretch;   /* TODO 这里想让作者名字紧贴底部，但是没实现 */
+}
+
+.showcase__item {
+  position: relative;
+  width: 200rpx;
+  margin-right: 47rpx;
+}
+
+.showcase__item-image {
+  width: 200rpx;
+}
+
+.showcase__item-title {
+}
+
+/*
+.showcase__item-author {
+  position: relative;
+  bottom: 0;
+}
+*/

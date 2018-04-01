@@ -1,7 +1,7 @@
 @import 'styles/weui.wxss';
-@import 'styles/color.wxss';
 @import 'styles/font.wxss';
+@import 'styles/color.wxss';
 @import 'styles/icon.wxss';
-@import 'styles/container.wxss';
 @import 'styles/ui.wxss';
+@import 'styles/helper.wxss';
 

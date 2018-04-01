@@ -1,0 +1,11 @@
+<view class="panel weui-panel">
+  <navigator url="{{url}}" hover-class="weui-cell_active">
+    <view class="weui-panel__hd">
+      <view class="weui-panel__hd-cell">
+        <view class="weui-panel__hd-title">{{title}}</view>
+        <view class="arrow-right"></view>
+      </view>
+    </view>
+  </navigator>
+  <slot></slot>
+</view>

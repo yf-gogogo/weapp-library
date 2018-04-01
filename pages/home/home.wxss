@@ -1,3 +1,8 @@
+@import "/templates/showcase/index.wxss"
+
+
+/* TODO 抵掉最后一个 panel 的 margin-bottom */
+
 .search-box {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;

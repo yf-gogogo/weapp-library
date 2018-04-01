@@ -1,3 +1,5 @@
+<import src="/templates/showcase/index" />
+
 <home-search-bar bindfocus="onFocus" bindcancel="onCancel" bindsearch="onSearch"></home-search-bar>
 <!-- 搜索栏容器 -->
 <view hidden="{{!search.isFocus}}" class="search-box">
@@ -18,7 +20,7 @@
         <image class="search-box-trending__icon" mode="widthFix" src="{{index < 3 ? '/images/icon_trending_' + (index + 1) : '../../images/icon_trending_up'}}.png">
         </image>
         <view class="search-box-trending__item-info">
-          <view class="font-primary-34-black">{{item.title}}</view>
+          <view class="font-primary-34">{{item.title}}</view>
           <view class="font-mute-26-gray">{{item.author || ""}}</view>
         </view>
       </view>
@@ -27,22 +29,19 @@
 </view>
 <!-- 主页 -->
 <view hidden="{{search.isFocus}}">
-<!-- 阅读统计 -->
-  <navigator class="weui-panel weui-panel_access" url="/pages/profile/children/order-history" hover-class="weui-cell_active">
-    <view class="weui-panel__hd weui-panel__hd-cell">
-      <view class="weui-panel__hd-title">阅读统计</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+  <!-- 阅读统计 -->
+  <panel title="阅读统计" url="/pages/profile/children/order-history">
+    <view class="color-green statistics-panel__number">
+      {{statistics.book_num}}<span class="statistics-panel__unit">本</span>
     </view>
-    <view class="weui-panel__bd">
-      <view class="color-green statistics-panel__number">
-        {{statistics.book_num}}<span class="statistics-panel__unit">本</span>
-      </view>
-      <view class="color-orange statistics-panel__number">
-        {{statistics.page_num}}<span class="statistics-panel__unit">页</span>
-      </view>
+    <view class="color-orange statistics-panel__number">
+      {{statistics.page_num}}<span class="statistics-panel__unit">页</span>
     </view>
-  </navigator>
-  <template is="book-panel" data="{{type: 'recommend_book', title: '推荐图书', data: recommendBooks}}" />
-  <template is="book-panel" data="{{type: 'ranking', title: '近期热门图书', data: ranking}}" />
-  <template is="booklist-panel" data="{{type: 'recommend_booklist', title: '推荐书单', data: recommendBooklists}}" />
+  </panel>
+  <panel title="推荐图书" url="./children/list?type=recommend">
+    <template is="showcase-book" data="{{books: recommendBooks}}"></template>
+  </panel>
+  <panel title="近期借阅排行" url="./children/list?type=ranking">
+    <template is="showcase-book" data="{{books: ranking}}"></template>
+  </panel>
 </view>

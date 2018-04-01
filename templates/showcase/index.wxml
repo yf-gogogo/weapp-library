@@ -1,0 +1,11 @@
+<template name="showcase-book">
+  <scroll-view class="showcase-container" scroll-x="true">
+    <view class="showcase">
+      <navigator wx:for="{{books}}" wx:key="{{item.id}}" url="/pages/book-detail/book-detail?id={{item.id}}" class="showcase__item">
+        <image class="showcase__item-image" src="{{item.imgs.small}}" mode="widthFix" />
+        <view class="font-primary-30 ellipsis-l2 showcase__item-title">{{item.title}}</view>
+        <view class="font-mute-28 ellipsis showcase__item-author">{{item.author}}</view>
+      </navigator>
+    </view>
+  </scroll-view>
+</template>

@@ -1,5 +1,6 @@
 import { getRankingBooks, getRecommendedBooksByPhone } from "../../apis/book"
 import { getRecommendedBooklistsByPhone } from "../../apis/booklist"
+import { getUserInfoByPhone } from "../../apis/user"
 
 var app = getApp()
 
@@ -19,11 +20,25 @@ Page({
   },
 
   onLoad: function(options) {
-    this._fetchData()
+    wx.showNavigationBarLoading()
+    this._fetchData().then(() => {
+      wx.hideNavigationBarLoading()
+    }).catch(() => {
+      wx.hideNavigationBarLoading()
+    })
     app.promisify(wx.getStorage)({ key: "history" }).then((res) => {
       this.setData({
-        "search.history": res.data || [] // 保证有 filter 方法
+        "search.history": res.data || [] // res.data 可能是 undefined，下面要用  
+        // filter 方法，因此必须是数组
       })
+    })
+  },
+
+  onPullDownRefresh: function() {
+    this._fetchData().then(() => {
+      wx.stopPullDownRefresh()
+    }).catch(() => {
+      wx.stopPullDownRefresh()
     })
   },
 
@@ -45,8 +60,7 @@ Page({
 
   onClearHistory: function() {
     wx.showModal({
-      title: "提示信息",
-      content: "清除所有搜索历史，清除后将无法恢复",
+      content: "确定清除所有搜索历史？这项操作无法撤销",
       success: res => {
         if (res.confirm) {
           wx.removeStorage({ key: "history" })
@@ -94,20 +108,18 @@ Page({
    * 获取首页数据
    */
   _fetchData: function() {
-    wx.showNavigationBarLoading()
     return Promise.all([
       getRecommendedBooksByPhone(app.globalData.phone),
       getRankingBooks(),
-      getRecommendedBooklistsByPhone(app.globalData.phone)
+      getRecommendedBooklistsByPhone(app.globalData.phone),
+      getUserInfoByPhone(app.globalData.phone)
     ]).then((res) => {
-      wx.hideNavigationBarLoading()
       this.setData({
-        "recommendBooks": res[0],
+        "recommendBooks": res[0].map( i => i.book),
         "ranking": res[1].books,
-        "recommendBooklists": res[2]
+        "recommendBooklists": res[2],
+        "statistics": res[3].reading_statistics
       })
-    }).catch(() => {
-      wx.hideNavigationBarLoading()
     })
   }
 })

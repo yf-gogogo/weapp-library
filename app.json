@@ -8,7 +8,8 @@
     "pages/profile/profile",
     "pages/profile/children/children/personal-information-modify",
     "pages/home/children/list",
-    "pages/book-detail/book-detail"
+    "pages/book-detail/book-detail",
+    "templates/showcase/index"
   ],
   "window": {
     "backgroundTextStyle": "dark",
