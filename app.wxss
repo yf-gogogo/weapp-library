@@ -3,4 +3,5 @@
 @import 'styles/font.wxss';
 @import 'styles/icon.wxss';
 @import 'styles/container.wxss';
+@import 'styles/ui.wxss';
 

@@ -6,7 +6,9 @@
     "pages/booklist/booklist",
     "pages/cart/cart",
     "pages/profile/profile",
-    "pages/profile/children/children/personal-information-modify"
+    "pages/profile/children/children/personal-information-modify",
+    "pages/home/children/list",
+    "pages/book-detail/book-detail"
   ],
   "window": {
     "backgroundTextStyle": "dark",

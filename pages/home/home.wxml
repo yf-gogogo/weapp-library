@@ -1,1 +1,48 @@
-<home-search-bar></home-search-bar>
+<home-search-bar bindfocus="onFocus" bindcancel="onCancel" bindsearch="onSearch"></home-search-bar>
+<!-- 搜索栏容器 -->
+<view hidden="{{!search.isFocus}}" class="search-box">
+  <scroll-view scroll-y="true" style="height: 100%">
+    <!-- 搜索历史 -->
+    <block wx:if="{{search.history.length}}">
+      <view class="ui-label search-history__label">搜索历史
+        <view class="search-box-history__clear color-green" bindtap="onClearHistory">清除</view>
+      </view>
+      <view class="search-box-history">
+        <view class="search-box-history__item" wx:for="{{search.history}}" wx:key="{{*this}}" data-title="{{item}}" data-type="history" bindtap="onClickSearchItem">{{item}}</view>
+      </view>
+    </block>
+    <!-- 热门图书 -->
+    <view class="ui-label">热门图书</view>
+    <view class="search-box-trending">
+      <view class="search-box-trending__item" wx:for="{{ranking}}" data-title="{{item.title}}" catchtap="onClickSearchItem">
+        <image class="search-box-trending__icon" mode="widthFix" src="{{index < 3 ? '/images/icon_trending_' + (index + 1) : '../../images/icon_trending_up'}}.png">
+        </image>
+        <view class="search-box-trending__item-info">
+          <view class="font-primary-34-black">{{item.title}}</view>
+          <view class="font-mute-26-gray">{{item.author || ""}}</view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+<!-- 主页 -->
+<view hidden="{{search.isFocus}}">
+<!-- 阅读统计 -->
+  <navigator class="weui-panel weui-panel_access" url="/pages/profile/children/order-history" hover-class="weui-cell_active">
+    <view class="weui-panel__hd weui-panel__hd-cell">
+      <view class="weui-panel__hd-title">阅读统计</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </view>
+    <view class="weui-panel__bd">
+      <view class="color-green statistics-panel__number">
+        {{statistics.book_num}}<span class="statistics-panel__unit">本</span>
+      </view>
+      <view class="color-orange statistics-panel__number">
+        {{statistics.page_num}}<span class="statistics-panel__unit">页</span>
+      </view>
+    </view>
+  </navigator>
+  <template is="book-panel" data="{{type: 'recommend_book', title: '推荐图书', data: recommendBooks}}" />
+  <template is="book-panel" data="{{type: 'ranking', title: '近期热门图书', data: ranking}}" />
+  <template is="booklist-panel" data="{{type: 'recommend_booklist', title: '推荐书单', data: recommendBooklists}}" />
+</view>

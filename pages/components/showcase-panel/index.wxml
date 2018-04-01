@@ -1,0 +1,21 @@
+<view class="panel book-panel">
+  <navigator url="{{url}}" hover-class="weui-cell_active">
+    <view class="weui-panel__hd">
+      <view class="weui-panel__hd-cell">
+        <view class="weui-panel__hd-title">{{title}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </view>
+    </view>
+  </navigator>
+  <scroll-view class="panel__content" scroll-x="true">
+    <view class="panel__content-inner">
+      <navigator wx:for="{{data}}" wx:key="{{item.book_brief.id}}" url="/pages/book_detail/book_detail?id={{item.book_brief.id}}" class="panel__content-item">
+        <image src="{{item.book_brief.img_small}}" mode="aspectFill" />
+        <view class="panel__content-item-title weui-article__h3">{{item.book_brief.title}}</view>
+        <view class="panel__content-item-author">
+          {{item.book_brief.author ? item.book_brief.author : ""}}
+        </view>
+      </navigator>
+    </view>
+  </scroll-view>
+</view>

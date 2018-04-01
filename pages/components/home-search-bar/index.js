@@ -1,6 +1,7 @@
 /**
  * 主页的搜索输入框
  */
+
 Component({
   properties: {
 
@@ -10,7 +11,7 @@ Component({
     options: {
       selected: "书名",
       list: [
-        "书名", "作者", "ISBN", "高级搜索" //'标签' '全部'
+        "书名", "作者", "ISBN", "高级搜索", '标签' 
       ],
       show: false
     },
@@ -18,15 +19,13 @@ Component({
     value: ""
   },
 
-  /**
-   * 组件的方法列表
-   */
   methods: {
     onFocus: function() {
       this.setData({
         "options.selected": this.data.options.list[0],
         "isFocus": true
       })
+      this.triggerEvent("focus")
     },
 
     onClear: function() {
@@ -41,6 +40,7 @@ Component({
         "isFocus": false,
         "options.show": false
       })
+      this.triggerEvent("cancel")
     },
 
     onInput: function(e) {
@@ -67,11 +67,21 @@ Component({
     },
 
     onScan: function() {
-      
+      var scanfn = getApp().promisify(wx.scanCode)
+      scanfn().then((res) => {
+            if (res.scanType != "CODE_128")
+                return wx.showModal({ title: "扫描内容不合法", content: "请扫描图书ISBN条形码", showCancel: false })
+            wx.navigateTo({
+                url: "../book_detail/book_detail?isbn=" + res.result
+            })
+        }).finally(() => console.log(1))
     },
 
     onSearch: function(e) {
-      
+      this.triggerEvent("search", { 
+        type: this.data.options.selected, 
+        value: this.data.value 
+      })
     }
   }
 })

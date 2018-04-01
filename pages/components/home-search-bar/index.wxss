@@ -1,57 +1,10 @@
-@import "/styles/color.wxss";
+@import "/styles/weui.wxss";
+@import "/styles/icon.wxss";
 
 .home-search-bar {
-  position: relative;
-  padding: 8px 10px;
-  display: -webkit-flex;
-  display: flex;
-  background-color: #EFEFF4;
-  border-top: 1rpx solid #D7D6DC;
-  border-bottom: 1rpx solid #D7D6DC;
-}
-
-/* 搜索框左部，设置圆角以和body相连 */
-.home-search-bar__hd {
   z-index: 2;
-  background: #FFFFFF;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  border-right: 1rpx solid #ddd;
-}
-
-/* 搜索框中部，输入框 */
-.home-search-bar__bd {
-  position: relative;
-  flex: auto;
-  border-radius: 5px;
-  background: #FFFFFF;
-}
-.home-search-bar__bd.focus {
-  border-radius: 0 5px 5px 0; /* 显示出head时，设置圆角以相连 */
-}
-
-/* 搜索框右部，文字按钮 */
-.home-search-bar__ft {
-  margin-left: 10px;
-  line-height: 28px;
-  white-space: nowrap;
-}
-
-.home-search-bar__label {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  text-align: center;
-  color: #9B9B9B;
-  line-height: 28px;
-}
-
-.home-search-bar__label-text {
-  display: inline-block;
-  font-size: 14px;
-  vertical-align: middle;
+  flex-direction: row;
+  align-items: stretch;
 }
 
 .home-search-bar__option-btn {
@@ -59,42 +12,73 @@
   display: -webkit-flex;
   justify-content: center;
   align-items: center;
-  padding: 0 10px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20%;
   height: 100%;
+  font-size: 28rpx;
+  color: #353535;
+  border-right: 1rpx solid #ddd;
+}
+
+.home-search-bar__option-btn .icon-down {
+  margin-left: 15rpx;
+  padding-right: 0;
+  color: #00C302;
+}
+
+.home-search-bar__option-list {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: auto;
+  border: 1rpx solid #ddd;
+  border-radius: 8rpx;
+  background-color: #fff;
+}
+
+.home-search-bar__option-item {
+  padding: 20rpx 30rpx;
+  margin-bottom: -1rpx;
+  border-bottom: 1rpx solid #ddd;  
+  white-space: nowrap;
   font-size: 28rpx;
   color: #353535;
 }
 
-.home-search-bar__option-btn--active {
-  background-color: #ECECEC;
-}
-
-.home-search-bar__icon-search {
-  margin-right: 8px;
-  font-size: inherit;
-}
-
-.home-search-bar__icon-search--inbox {
-  position: absolute;
-  left: 15px;
-  top: 7px;
-}
-
 .home-search-bar__input-box {
-  padding-left: 35px;
-  padding-right: 30px;
+  position: relative;
+  left: 20%;
+  width: 80%;
 }
 
-.home-search-bar__input {
-  height: 28px;
-  line-height: 28px;
-  font-size: 14px;
-}
-
-.home-search-bar__icon-clear {
+.home-search-bar__icon-scan {
+  z-index: 2;
   position: absolute;
   top: 0;
   right: 0;
-  padding: 7px 8px;
-  font-size: 0;
+  width: 40rpx;
+  height: 37rpx;
+  padding: 10rpx 18rpx;
+}
+
+.home-search-bar__category {
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin-left: 30rpx;
+  margin-right: 10rpx;
+}
+
+.home-search-bar__category > image {
+  width: 40rpx;
+}
+
+.home-search-bar__category > span {
+  color: #888;
+  line-height: 1.2;
+  font-size: 20rpx;
 }

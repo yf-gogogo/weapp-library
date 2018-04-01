@@ -1,0 +1,27 @@
+/**
+ * 自定义通用 UI 样式
+ */
+
+
+/* 表单项标签 */
+
+.ui-label {
+  font-size: 28rpx;
+  color: #888;
+  margin: 30rpx 30rpx 16rpx 30rpx;
+}
+
+
+/* 重写 weui panel head，使右侧小箭头竖直居中 */
+
+.weui-panel__hd-cell {
+  display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
+}
+
+.weui-panel__hd-title {
+  flex: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+}
