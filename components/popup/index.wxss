@@ -24,4 +24,3 @@
 .popup--show .popup__mask {
   display: block;
 }
-

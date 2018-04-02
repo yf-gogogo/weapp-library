@@ -1,9 +1,8 @@
 @import "/templates/showcase/index.wxss";
 
 page {
-  padding-bottom: 115rpx;
+  padding-bottom: 100rpx;
 }
-
 .ui-book-card__img {
   flex: 0 0 40%;
 }

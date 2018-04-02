@@ -44,6 +44,6 @@
   <button class="menubar__btn" type="primary" bindtap="onShowPopup">借阅此书</button>
 </view>
 <!-- 馆藏列表 -->
-<popup-window id="popup">
-  内容
-</popup-window>
+<popup id="popup" show="{{isPopupShow}}">
+  <view catchtap="onClosePopup">关闭</view>
+</popup>

@@ -2,6 +2,6 @@
   "navigationBarTitleText": "图书详情",
   "usingComponents":
   {
-    "popup-window": "/components/popup-window/index"
+    "popup": "/components/popup/index"
   }
 }
