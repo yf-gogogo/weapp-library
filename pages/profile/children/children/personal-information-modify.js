@@ -3,7 +3,7 @@ var fromRegisterPage = false
 var toptip; // 保存toptip组件的引用
 var userApi = require("../../../../apis/user")
 
-var schema = [
+var scheme = [
   ["name", "请填写用户名"],
   ["birthday", "请填写出生日期"],
   ["idNumber", "请填写身份证号"],
@@ -85,9 +85,9 @@ Page({
 
   onSubmit: function() {
     // 检查信息是否全部填写
-    for (var i = 0; i < schema.length; i++) {
-      if (!this.data[schema[i][0]]) {
-        toptip.show(schema[i][1])
+    for (var i = 0; i < scheme.length; i++) {
+      if (!this.data[scheme[i][0]]) {
+        toptip.show(scheme[i][1])
         return
       }
     }

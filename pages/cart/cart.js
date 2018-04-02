@@ -42,7 +42,7 @@ Page({
 
   onScan: function() {
     if (this.data.selectedBooks.length >= 2) {
-      return wx.showModal({ title: "一次性最多只能借阅两本图书", showCancel: false })
+      return wx.showModal({ content: "一次性最多只能借阅两本图书", showCancel: false })
     }
 
     var scanfn = app.promisify(wx.scanCode)

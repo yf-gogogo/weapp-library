@@ -32,3 +32,10 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
+
+
+/* 保留空白符 */
+
+.pre-wrap {
+  white-space: pre-wrap;
+}

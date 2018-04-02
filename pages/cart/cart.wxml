@@ -1,13 +1,13 @@
 <view class="weui-panel weui-panel_access">
-  <view class="weui-panel__hd font-primary-34">已选图书</view>
+  <view class="weui-panel__hd font-black-34">已选图书</view>
   <view class="weui-panel__bd">
     <view wx:if="{{!selectedBooks.length}}" class="weui-media-box weui-media-box_text">
       <view class="weui-media-box__desc">你还没有选择任何图书</view>
     </view>
-    <navigator wx:if="{{selectedBooks.length}}" wx:for="{{selectedBooks}}" class=" ui-card ui-book-card cart-book-card" url="/pages/book_detail/book-detail?id={{item.id}}">
+    <navigator wx:if="{{selectedBooks.length}}" wx:for="{{selectedBooks}}" wx:key="{{item.id}}" class=" ui-card ui-book-card cart-book-card" url="/pages/book_detail/book-detail?id={{item.id}}">
       <image class="ui-book-card__img" mode="widthFix" src="{{item.imgs.small}}"></image>
-      <view class="ui-book-card__info font-mute-26">
-        <view class="font-primary-34">{{item.title}}</view>
+      <view class="ui-book-card__info font-gray-26">
+        <view class="font-black-34">{{item.title}}</view>
         <view>作者： {{item.author}}
         </view>
         <view>出版社：{{item.publisher}}</view>
@@ -26,9 +26,9 @@
   </view>
 </view>
 <view wx:if="{{!selectedBooks.length}}" class="weui-panel weui-panel_access">
-  <view class="weui-panel__hd font-primary-34">借书步骤</view>
+  <view class="weui-panel__hd font-black-34">借书步骤</view>
   <view class="weui-panel__bd">
-    <view class="weui-media-box weui-media-box_text step font-primary-26">
+    <view class="weui-media-box weui-media-box_text step font-black-26">
       <view>1、扫描图书馆图书的ISBN条形码，将其添加入借书栏，一次最多可添加两本图书</view>
       <view>2、携带图书到前台，向管理员出示借书二维码</view>
       <view>3、管理员确认后，微信支付提交押金，借书成功</view>

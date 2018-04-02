@@ -1,6 +1,9 @@
 import { get } from "./request.js";
 
 module.exports = {
+  getBookById: function(id) {
+    return get("/books/" + id)
+  },
   getBookByISBN: function(isbn) {
     return get("/books/isbn/" + isbn)
   },

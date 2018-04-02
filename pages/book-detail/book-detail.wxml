@@ -1,2 +1,33 @@
-<!--pages/book-detail/book-detail.wxml-->
-<text>pages/book-detail/book-detail.wxml</text>
+<import src="/templates/showcase/index" />
+<!-- 图书信息 -->
+<view class="ui-card ui-book-card">
+  <view class="ui-book-card__info font-gray-26">
+    <view class="font-black-34">{{book.title}}</view>
+    <view>评分：<span class="color-yellow">{{book.total_score}} </span>({{book.review_num}}条评论)</view>
+    <view wx:for="{{bookInfo}}" wx:if="{{item.value}}">{{item.key}}: {{item.value}}</view>
+  </view>
+  <image class="ui-book-card__img" src="{{book.imgs.small}}" mode="widthFix"></image>
+</view>
+<!-- 馆藏信息 -->
+<view class="ui-label">馆藏信息</view>
+<view class="weui-cells weui-cells_after-title" bindtap="showLibraryPicker" hover-class="weui-cell_active">
+  <view class="weui-cell weui-cell_access">
+    <view class="weui-cell__bd font-black-26">共有<span class="color-green"> {{book.available_num}} </span>本可借</view>
+    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+  </view>
+</view>
+<!-- 图书详情 -->
+<block wx:for="{{bookDetail}}">
+  <view class="ui-label">{{item.key}}</view>
+  <view class="ui-card font-black-26 pre-wrap">{{ item.value || "暂无" + item.key }}</view>
+</block>
+<!-- 相关图书 -->
+<view class="ui-label">相关图书</view>
+<template wx:if="{{book.relevant_books && book.relevant_books.length}}" is="showcase-book" data="{{books: book.relevant_books}}"></template>
+<view wx:else class="font-black-26 ui-card">暂无</view>
+<!-- 包含这本书的书单 -->
+<view class="ui-label">包含这本书的书单</view>
+<template wx:if="{{book.relevant_booklists && book.relevant_booklists.length}}" is="showcase-booklist" data="{{booklists: book.relevant_booklists}}"></template>
+<view wx:else class="font-black-26 ui-card">暂无</view>
+<!-- 底部链接 -->
+<view class="font-28 color-blue" style="margin: 20rpx 0 15rpx; text-align: center;" catchtap="showTip">对本页内容有疑问？</view>

@@ -39,8 +39,8 @@
         <image class="search-box-trending__icon" mode="widthFix" src="{{index < 3 ? '/images/icon_trending_' + (index + 1) : '../../images/icon_trending_up'}}.png">
         </image>
         <view class="search-box-trending__item-info">
-          <view class="font-primary-34">{{item.title}}</view>
-          <view class="font-mute-26-gray">{{item.author || ""}}</view>
+          <view class="font-black-34">{{item.title}}</view>
+          <view class="font-gray-26-gray">{{item.author || ""}}</view>
         </view>
       </view>
     </view>

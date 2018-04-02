@@ -1,7 +1,7 @@
 .font-34 {
   font-size: 34rpx;
 }
-.font-primary-34 {
+.font-black-34 {
   font-weight:400;
   font-size:34rpx;
   color: #353535
@@ -10,7 +10,7 @@
 .font-32 {
   font-size: 32rpx;
 }
-.font-primary-32 {
+.font-black-32 {
   font-weight:400;
   font-size:32rpx;
   color: #353535
@@ -19,11 +19,11 @@
 .font-30 {
   font-size: 30rpx;
 }
-.font-primary-30 {
+.font-black-30 {
   font-size: 30rpx;
   color: #353535
 }
-.font-mute-30 {
+.font-gray-30 {
   color: #888;
   font-size: 30rpx
 }
@@ -31,11 +31,11 @@
 .font-28 {
   font-size: 28rpx;
 }
-.font-mute-28 {
+.font-gray-28 {
   color: #888;
   font-size: 28rpx;
 }
-.font-primary-28 {
+.font-black-28 {
   color: #353535;
   font-size: 28rpx;
 }
@@ -43,11 +43,11 @@
 .font-26 {
   font-size: 26rpx;
 }
-.font-mute-26 {
+.font-gray-26 {
   color: #888;
   font-size: 26rpx;
 }
-.font-primary-26 {
+.font-black-26 {
   color: #353535;
   font-size: 26rpx;
 }

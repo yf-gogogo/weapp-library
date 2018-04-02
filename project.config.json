@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 6,
 			"list": [
 				{
 					"id": 0,
@@ -67,6 +67,12 @@
 					"name": "借书二维码",
 					"pathName": "pages/cart/children/qrcode",
 					"query": ""
+				},
+				{
+					"id": 6,
+					"name": "图书详情",
+					"pathName": "pages/book-detail/book-detail",
+					"query": "id=15"
 				}
 			]
 		}

@@ -1,1 +1,5 @@
-/* pages/book-detail/book-detail.wxss */
+@import "/templates/showcase/index.wxss"
+
+.ui-book-card__img {
+  flex: 0 0 40%;
+}
