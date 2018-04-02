@@ -1,6 +1,8 @@
 import { getBookById, getBookByISBN } from "../../apis/book"
+import { showRegisterModal } from "../../utils/biz"
 
 var app = getApp()
+var popup // 保存弹出菜单的引用
 
 Page({
   data: {
@@ -41,11 +43,39 @@ Page({
     })
   },
 
+  onReady: function() {
+    popup = this.selectComponent("#popup")
+  },
+
+  onShowTip: function() {
+    wx.showModal({
+      title: '参与贡献',
+      content: '您可访问 https://api.my-web-site.cn/wiki/#/book/' + this.data.book.id + ' 编辑本页内容 (PS: 这个维基项目还没重构完成)',
+      showCancel: false
+    })
+  },
+
+  onShowPopup: function() {
+    popup.show()
+  },
+
+  // 如果没有注册，显示对话框
+  onAdd: function() {
+    if (app.globalData.phone) {
+      wx.navigateTo({
+        url: "./children/add?id=" + this.data.book.id
+      })
+    } else {
+      showRegisterModal()
+    }
+  },
 })
+
 
 /**
  * 将 Book 对象范式化，使能通过 wx:for 遍历
  */
+
 var infoScheme = [
   ["author", "作者"],
   ["translator", "译者"],

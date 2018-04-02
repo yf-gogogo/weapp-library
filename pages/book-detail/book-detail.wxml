@@ -10,7 +10,7 @@
 </view>
 <!-- 馆藏信息 -->
 <view class="ui-label">馆藏信息</view>
-<view class="weui-cells weui-cells_after-title" bindtap="showLibraryPicker" hover-class="weui-cell_active">
+<view class="weui-cells weui-cells_after-title" bindtap="onShowPopup" hover-class="weui-cell_active">
   <view class="weui-cell weui-cell_access">
     <view class="weui-cell__bd font-black-26">共有<span class="color-green"> {{book.available_num}} </span>本可借</view>
     <view class="weui-cell__ft weui-cell__ft_in-access"></view>
@@ -30,4 +30,20 @@
 <template wx:if="{{book.relevant_booklists && book.relevant_booklists.length}}" is="showcase-booklist" data="{{booklists: book.relevant_booklists}}"></template>
 <view wx:else class="font-black-26 ui-card">暂无</view>
 <!-- 底部链接 -->
-<view class="font-28 color-blue" style="margin: 20rpx 0 15rpx; text-align: center;" catchtap="showTip">对本页内容有疑问？</view>
+<view class="font-28 color-blue" style="margin: 20rpx 0 15rpx; text-align: center;" catchtap="onShowTip">对本页内容有疑问？</view>
+<!-- 底部菜单 -->
+<view class="menubar">
+  <view class="menubar__add" catchtap="onAdd">
+    <image src="/images/icon_add_to_booklist.png" mode="aspectFit"></image>
+    <span>加入书单</span>
+  </view>
+  <navigator class="menubar__review" url="./children/review?id={{bookData.book_detail.id}}">
+    <image src="/images/icon_review.png" mode="widthFix"></image>
+    <span>查看书评</span>
+  </navigator>
+  <button class="menubar__btn" type="primary" bindtap="onShowPopup">借阅此书</button>
+</view>
+<!-- 馆藏列表 -->
+<popup-window id="popup">
+  内容
+</popup-window>
