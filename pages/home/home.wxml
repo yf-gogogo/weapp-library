@@ -1,8 +1,27 @@
 <import src="/templates/showcase/index" />
-
 <home-search-bar bindfocus="onFocus" bindcancel="onCancel" bindsearch="onSearch"></home-search-bar>
+<!-- 主页 -->
+<block wx:if="{{!search.isFocus}}">
+  <panel title="阅读统计" url="/pages/profile/children/order-history">
+    <view class="color-green statistics-panel__number">
+      {{statistics.book_num}}<span class="statistics-panel__unit">本</span>
+    </view>
+    <view class="color-orange statistics-panel__number">
+      {{statistics.page_num}}<span class="statistics-panel__unit">页</span>
+    </view>
+  </panel>
+  <panel title="推荐图书" url="./children/list?type=recommend">
+    <template is="showcase-book" data="{{books: recommendBooks}}"></template>
+  </panel>
+  <panel title="近期借阅排行" url="./children/list?type=ranking">
+    <template is="showcase-book" data="{{books: ranking}}"></template>
+  </panel>
+  <panel title="推荐书单" url="/pages/booklist/children/list?type=recommend" is-last-child>
+    <template is="showcase-booklist" data="{{booklists: recommendBooklists}}"></template>
+  </panel>
+</block>
 <!-- 搜索栏容器 -->
-<view hidden="{{!search.isFocus}}" class="search-box">
+<view wx:else class="search-box">
   <scroll-view scroll-y="true" style="height: 100%">
     <!-- 搜索历史 -->
     <block wx:if="{{search.history.length}}">
@@ -26,22 +45,4 @@
       </view>
     </view>
   </scroll-view>
-</view>
-<!-- 主页 -->
-<view hidden="{{search.isFocus}}">
-  <!-- 阅读统计 -->
-  <panel title="阅读统计" url="/pages/profile/children/order-history">
-    <view class="color-green statistics-panel__number">
-      {{statistics.book_num}}<span class="statistics-panel__unit">本</span>
-    </view>
-    <view class="color-orange statistics-panel__number">
-      {{statistics.page_num}}<span class="statistics-panel__unit">页</span>
-    </view>
-  </panel>
-  <panel title="推荐图书" url="./children/list?type=recommend">
-    <template is="showcase-book" data="{{books: recommendBooks}}"></template>
-  </panel>
-  <panel title="近期借阅排行" url="./children/list?type=ranking">
-    <template is="showcase-book" data="{{books: ranking}}"></template>
-  </panel>
 </view>

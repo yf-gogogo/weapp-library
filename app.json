@@ -9,7 +9,9 @@
     "pages/profile/children/children/personal-information-modify",
     "pages/home/children/list",
     "pages/book-detail/book-detail",
-    "templates/showcase/index"
+    "templates/showcase/index",
+    "pages/cart/children/help",
+    "pages/cart/children/qrcode"
   ],
   "window": {
     "backgroundTextStyle": "dark",

@@ -74,7 +74,7 @@ Component({
             wx.navigateTo({
                 url: "../book_detail/book_detail?isbn=" + res.result
             })
-        }).finally(() => console.log(1))
+        })
     },
 
     onSearch: function(e) {

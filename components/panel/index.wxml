@@ -1,4 +1,4 @@
-<view class="panel weui-panel">
+<view class="panel weui-panel {{isLastChild ? 'is-last' : '' }}">
   <navigator url="{{url}}" hover-class="weui-cell_active">
     <view class="weui-panel__hd">
       <view class="weui-panel__hd-cell">

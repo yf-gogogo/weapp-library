@@ -1,1 +1,16 @@
-/* pages/cart/cart.wxss */
+.step>view {
+  line-height: 1.5;
+  margin-top: 10rpx;
+}
+
+.step>view:first-child {
+  margin-top: 0;
+}
+
+.cart-btn {
+  margin: 30rpx 40rpx;
+}
+
+.cart-book-card:before {
+  left: 15px;
+}

@@ -47,7 +47,7 @@
   color: #888;
   font-size: 26rpx;
 }
-.font-black-26 {
+.font-primary-26 {
   color: #353535;
   font-size: 26rpx;
 }
