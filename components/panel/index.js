@@ -1,7 +1,7 @@
 
 /**
  * 带有一个导航标题栏的面板
- * 定义成组件主要是因为 slot 功能
+ * slot： 面板内容
  */
 Component({
   properties: {

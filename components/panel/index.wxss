@@ -2,9 +2,49 @@
 @import "/styles/icon.wxss"
 
 .panel {
+  position: relative;
   margin-bottom: 20rpx;
+  overflow: hidden;
+  background-color: #FFFFFF;
 }
 
-.is-last {
+.panel:before {
+  content: " ";
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 1px;
+  border-top: 1rpx solid #E5E5E5;
+  color: #E5E5E5;
+}
+.panel:after {
+  content: " ";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 1px;
+  border-bottom: 1rpx solid #E5E5E5;
+  color: #E5E5E5;
+}
+.panel-hd {
+  padding: 14px 15px 10px;
+  color: #999999;
+  font-size: 13px;
+  position: relative;
+}
+.panel-hd:after {
+  content: " ";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 1px;
+  border-bottom: 1rpx solid #E5E5E5;
+  color: #E5E5E5;
+  left: 15px;
+}
+.panel--is-last {
   margin-bottom: 0;
 }

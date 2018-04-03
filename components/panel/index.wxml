@@ -1,10 +1,8 @@
-<view class="panel weui-panel {{isLastChild ? 'is-last' : '' }}">
+<view class="panel {{isLastChild ? 'panel--is-last' : '' }}">
   <navigator url="{{url}}" hover-class="weui-cell_active">
-    <view class="weui-panel__hd">
-      <view class="weui-panel__hd-cell">
-        <view class="weui-panel__hd-title">{{title}}</view>
-        <view class="arrow-right"></view>
-      </view>
+    <view class="panel-hd">
+      <view>{{title}}</view>
+      <view class="arrow-right"></view>
     </view>
   </navigator>
   <slot></slot>

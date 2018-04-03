@@ -1,3 +1,6 @@
+@import "/styles/color.wxss";
+@import "/styles/font.wxss";
+
 .popup__mask {
   position: fixed;
   top: 0;
@@ -23,4 +26,24 @@
 }
 .popup--show .popup__mask {
   display: block;
+}
+
+.popup__hd {
+  padding: 30rpx 30rpx 18rpx;
+  line-height: 1em;
+  border-bottom: 1rpx solid #eee;
+}
+
+.popup__hd-title,
+.popup__hd-close {
+  display: inline-block;
+  width: 50%;
+}
+
+.popup__hd-title {
+  text-align: left;
+}
+
+.popup__hd-close {
+  text-align: right;
 }

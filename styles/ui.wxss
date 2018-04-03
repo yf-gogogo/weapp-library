@@ -13,15 +13,16 @@ page {
   margin: 30rpx 30rpx 16rpx 30rpx;
 }
 
-/* 卡片 */
+/* 卡片, 可在一个列表里显示，列表中以横线分隔 */
 .ui-card {
-  padding: 30rpx;
+  position: relative;
+  padding: 30rpx; 
   background-color: #fff;
 }
 .ui-card:before {
   content: " ";
   position: absolute;
-  left: 0;
+  left: 15px;
   top: 0;
   right: 0;
   height: 1px;
@@ -30,6 +31,9 @@ page {
 }
 .ui-card:first-child:before {
   display: none;
+}
+.ui-card--active {
+  background-color: #ECECEC;
 }
 
 /* 图书卡片, 包括图书封面、图书信息、操作按钮（可选）*/

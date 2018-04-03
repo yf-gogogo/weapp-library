@@ -10,7 +10,3 @@
 .cart-btn {
   margin: 30rpx 40rpx;
 }
-
-.cart-book-card:before {
-  left: 15px;
-}

@@ -63,3 +63,7 @@ page {
 .menubar__btn::after {
   display: none;
 }
+
+.library-list {
+  max-height: 600rpx;
+}

@@ -11,7 +11,8 @@
     "pages/book-detail/book-detail",
     "templates/showcase/index",
     "pages/cart/children/help",
-    "pages/cart/children/qrcode"
+    "pages/cart/children/qrcode",
+    "pages/test/test"
   ],
   "window": {
     "backgroundTextStyle": "dark",

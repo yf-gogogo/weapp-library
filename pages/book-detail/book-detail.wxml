@@ -44,6 +44,14 @@
   <button class="menubar__btn" type="primary" bindtap="onShowPopup">借阅此书</button>
 </view>
 <!-- 馆藏列表 -->
-<popup id="popup" show="{{isPopupShow}}">
-  <view catchtap="onClosePopup">关闭</view>
+<popup title="请选择图书馆" close-text="取消" show="{{libraryList.show}}" bindclose="onClosePopup">
+  <scroll-view class="library-list" scroll-y>
+    <view wx:if="{{libraryList.data.length}}" wx:for="{{libraryList.data}}" class="ui-card">{{item}}</view>
+    <load-more wx:if="{{libraryList.status == 'loading' || libraryList.status == 'nomore'}}" status="{{libraryList.status}}"></load-more>
+    <navigator class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__bd font-26 color-blue">查看所有图书馆</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+    <no-data wx:if="{{libraryList.status == 'nodata' }}"></no-data>
+  </scroll-view>
 </popup>

@@ -73,6 +73,12 @@
 					"name": "图书详情",
 					"pathName": "pages/book-detail/book-detail",
 					"query": "id=15"
+				},
+				{
+					"id": -1,
+					"name": "测试",
+					"pathName": "pages/test/test",
+					"query": ""
 				}
 			]
 		}

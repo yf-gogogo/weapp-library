@@ -1,6 +1,6 @@
 
 /**
- * SearchBar 搜索输入框
+ * 搜索输入框
  */
 Component({
   data: {

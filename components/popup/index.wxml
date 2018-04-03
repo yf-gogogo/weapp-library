@@ -1,6 +1,12 @@
 <view class="popup {{ show ? 'popup--show' : '' }}">
   <view class="popup__mask" bindtap="onTapMask" />
   <view class="popup__container">
+    <view class="popup__hd">
+      <view class="popup__hd-title font-gray-28">{{title}}</view>
+      <view class="popup__hd-close font-28 color-green">
+        <view bindtap="onClose">{{closeText}}</view>
+      </view>
+    </view>
     <slot></slot>
   </view>
 </view>

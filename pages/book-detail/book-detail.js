@@ -5,16 +5,24 @@ var app = getApp()
 
 Page({
   data: {
-    book: {}, // 原 Book 对象
-    bookInfo: [{ // 范式化后的图书信息
+    // 原 Book 对象
+    book: {}, 
+    // 范式化后的图书信息
+    bookInfo: [{ 
       key: "",
       value: ""
     }],
-    bookDetail: [{ // 范式化后的图书详细介绍
+    // 范式化后的图书详细介绍
+    bookDetail: [{ 
       key: "",
       value: ""
     }],
-    isPopupShow: false
+    // 图书馆列表
+    libraryList: {  
+      show: false,
+      status: "loading",   // nomore, nodata
+      data: []
+    }
   },
 
   onLoad: function(options) {
@@ -41,6 +49,11 @@ Page({
       // 未找到该图书
       wx.navigateBack()
     })
+
+    setTimeout(() => {this.setData({
+      "libraryList.status" : 'nomore',
+      
+    })}, 4000)
   },
 
   onShowTip: function() {
@@ -49,14 +62,6 @@ Page({
       content: '您可访问 https://api.my-web-site.cn/wiki/#/book/' + this.data.book.id + ' 编辑本页内容 (PS: 这个维基项目还没有重构完成，暂时无公开链接)',
       showCancel: false
     })
-  },
-
-  onShowPopup: function() {
-    this.setData({isPopupShow: true})
-  },
-
-  onClosePopup: function(){
-    this.setData({isPopupShow: false})
   },
 
   // 如果没有注册，显示对话框
@@ -69,6 +74,14 @@ Page({
       showRegisterModal()
     }
   },
+
+  onShowPopup: function() {
+    this.setData({"libraryList.show": true})
+  },
+
+  onClosePopup: function(){
+    this.setData({"libraryList.show": false})
+  }
 })
 
 
