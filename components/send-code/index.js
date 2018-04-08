@@ -1,3 +1,4 @@
+import { sendCode } from "../../apis/user"
 var reg = require("../../utils/regexp")
 var timer, leftTime = 60
 
@@ -12,7 +13,6 @@ Component({
     str: "获取验证码",
     isCounting: false // 是否正在倒计时
   },
-
   methods: {
     onTapSend: function() {
       if (!reg.phone.test(this.data.phone)) {
@@ -23,7 +23,14 @@ Component({
         isCounting: true,
         str: "获取中"
       })
-      setTimeout(() => { this.countDown() }, 1000)
+      sendCode(this.phone).then(()=>{
+        this.countDown()
+      }).catch(()=>{
+        this.setData({
+            isCounting: false,
+            str: "获取验证码"
+          })
+      })
     },
 
     countDown: function() {

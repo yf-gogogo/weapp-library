@@ -1,3 +1,4 @@
+import { checkCode } from "../../apis/user"
 var reg = require("../../utils/regexp")
 var toptip; // 保存toptip组件的引用
 
@@ -42,6 +43,10 @@ Page({
       title: "加载中",
       icon: "loading"
     })
-    setTimeout(() => { wx.hideToast() }, 1000)
+    checkCode(this.phone, this.code).then(() => {
+      wx.navigateTo({url: './children/result'})
+    }).finally(()=> {
+      wx.hideToast()
+    })
   }
 })

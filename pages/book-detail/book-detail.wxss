@@ -7,6 +7,11 @@ page {
   flex: 0 0 40%;
 }
 
+.tip {
+  margin: 20rpx; 
+  text-align: center;
+}
+
 .menubar {
   position: fixed;
   bottom: 0;
@@ -66,4 +71,20 @@ page {
 
 .library-list {
   max-height: 600rpx;
+}
+.library-list:before {
+  display: none;
+}
+.library-item__info {
+  flex: auto;
+  padding-right: 5rpx;
+  overflow: hidden;  /* 必须有这一行，否则不会有省略号 */
+}
+
+.library-item__collection {
+  flex: none;
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: row;
+  align-items: baseline;
 }

@@ -28,7 +28,7 @@ Component({
 
       // 扩展默认参数
       options = Object.assign({
-        duration: 2000,
+        duration: 3000,
         type: "error"
       }, options);
 

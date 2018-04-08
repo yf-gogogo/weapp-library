@@ -10,11 +10,9 @@
 </view>
 <!-- 馆藏信息 -->
 <view class="ui-label">馆藏信息</view>
-<view class="weui-cells weui-cells_after-title" bindtap="onShowPopup" hover-class="weui-cell_active">
-  <view class="weui-cell weui-cell_access">
-    <view class="weui-cell__bd font-black-26">共有<span class="color-green"> {{book.available_num}} </span>本可借</view>
-    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-  </view>
+<view class="ui-cell" bindtap="onShowPopup" hover-class="ui-cell--active">
+  <view class="weui-cell__bd font-black-26">共有<span class="color-green"> {{book.available_num}} </span>本可借</view>
+  <view class="weui-cell__ft_in-access"></view>
 </view>
 <!-- 图书详情 -->
 <block wx:for="{{bookDetail}}">
@@ -30,7 +28,7 @@
 <template wx:if="{{book.relevant_booklists && book.relevant_booklists.length}}" is="showcase-booklist" data="{{booklists: book.relevant_booklists}}"></template>
 <view wx:else class="font-black-26 ui-card">暂无</view>
 <!-- 底部链接 -->
-<view class="font-28 color-blue" style="margin: 20rpx 0 15rpx; text-align: center;" catchtap="onShowTip">对本页内容有疑问？</view>
+<view class="font-28 color-blue tip" catchtap="onShowTip">对本页内容有疑问？</view>
 <!-- 底部菜单 -->
 <view class="menubar">
   <view class="menubar__add" catchtap="onAdd">
@@ -45,13 +43,27 @@
 </view>
 <!-- 馆藏列表 -->
 <popup title="请选择图书馆" close-text="取消" show="{{libraryList.show}}" bindclose="onClosePopup">
-  <scroll-view class="library-list" scroll-y>
-    <view wx:if="{{libraryList.data.length}}" wx:for="{{libraryList.data}}" class="ui-card">{{item}}</view>
-    <load-more wx:if="{{libraryList.status == 'loading' || libraryList.status == 'nomore'}}" status="{{libraryList.status}}"></load-more>
-    <navigator class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd font-26 color-blue">查看所有图书馆</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+  <scroll-view class="weui-cells weui-cells_after-title library-list" scroll-y>
+    <navigator url="" wx:if="{{libraryList.data.length}}" wx:for="{{libraryList.data}}" class="weui-cell" hover-class="weui-cell_active">
+      <view class="library-item__info">
+        <view class="font-black-34 ellipsis">
+          <text>{{item.library.name}}</text>
+          <!-- <image src="/images/icon_certificate.png" mode="aspectFit"></image> -->
+        </view>
+        <view class="font-gray-26 ellipsis">
+          {{item.library.address}}
+        </view>
+      </view>
+      <view class="library-item__collection font-gray-26">
+        馆藏：{{item.total_num}} | 可借：<span class="{{item.available_num == 0 ? 'color-gray' : 'color-orange'}}">{{item.available_num}}</span>
+      </view>
+      <view class="weui-cell__ft_in-access"></view>
     </navigator>
-    <no-data wx:if="{{libraryList.status == 'nodata' }}"></no-data>
+    <load-more wx:if="{{libraryList.status == 'loading' || libraryList.status == 'nomore'}}" status="{{libraryList.status}}" loading-text="正在加载馆藏列表"></load-more>
+    <no-data wx:if="{{libraryList.status == 'nodata'}}" text="暂无馆藏信息"></no-data>
+    <navigator wx:if="{{libraryList.data.length}}" class="weui-cell" hover-class="weui-cell_active">
+      <view class="weui-cell__bd font-26 color-blue">查看所有图书馆</view>
+      <view class="weui-cell__ft_in-access"></view>
+    </navigator>
   </scroll-view>
 </popup>

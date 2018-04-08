@@ -70,7 +70,7 @@
     </view>
   </view>
 </view>
-<view class="font-gray-28-gray notice">
+<view class="font-gray-28 notice">
   请确保你的信息真实有效，我们会保护好你的个人信息，不会对外提供
 </view>
 <button type="primary" style="margin: 0 40rpx" catchtap="onSubmit">提交</button>

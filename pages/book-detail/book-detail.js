@@ -1,4 +1,4 @@
-import { getBookById, getBookByISBN } from "../../apis/book"
+import { getBookById, getBookByISBN, getCollectionsByBookId, getCollectionsByBookISBN } from "../../apis/book"
 import { showRegisterModal } from "../../utils/biz"
 
 var app = getApp()
@@ -20,8 +20,8 @@ Page({
     // 图书馆列表
     libraryList: {  
       show: false,
-      status: "loading",   // nomore, nodata
-      data: []
+      status: "loading",    // loading, nodata, done
+      data: [ ]
     }
   },
 
@@ -36,13 +36,12 @@ Page({
       fn = getBookByISBN(options.isbn)
     }
 
-    fn.then(res =>
+    fn.then(res => {
       this.setData({
         book: res,
         bookInfo: normalize(infoScheme, res),
         bookDetail: normalize(detailScheme, res)
       })
-    ).then(_ => {
       wx.hideLoading()
     }).catch(_ => {
       wx.hideLoading()
@@ -50,10 +49,19 @@ Page({
       wx.navigateBack()
     })
 
-    setTimeout(() => {this.setData({
-      "libraryList.status" : 'nomore',
-      
-    })}, 4000)
+    // 根据 id 或根据 isbn 获取图书馆藏信息
+    let fn_c;
+    if (options.id) {
+      fn_c = getCollectionsByBookId(options.id)
+    } else if (options.isbn) {
+      fn_c = getCollectionsByBookISBN(options.isbn)
+    }
+    fn_c.then(res =>
+      this.setData({
+        "libraryList.status": res.total ? "done" : "nodata",
+        "libraryList.data": res.collections
+      })
+    )
   },
 
   onShowTip: function() {

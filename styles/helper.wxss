@@ -1,5 +1,4 @@
 /* 一行省略号 */
-
 .ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -7,9 +6,7 @@
   word-wrap: normal;
 }
 
-
 /* 两行省略号 */
-
 .ellipsis-l2 {
   max-height: 40px;
   line-height: 20px;
@@ -20,9 +17,7 @@
   -webkit-box-orient: vertical;
 }
 
-
 /* 三行省略号 */
-
 .ellipsis-l3 {
   max-height: 60px;
   line-height: 20px;
@@ -33,9 +28,7 @@
   -webkit-box-orient: vertical;
 }
 
-
 /* 保留空白符 */
-
 .pre-wrap {
   white-space: pre-wrap;
 }

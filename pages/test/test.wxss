@@ -1,1 +1,15 @@
-/* pages/test/test.wxss */
+.library-item__info {
+  box-sizing: border-box;
+  flex: auto;
+  padding-right: 5rpx;
+  overflow: hidden;
+}
+
+.library-item__collection {
+  flex: none;
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+

@@ -40,7 +40,7 @@
         </image>
         <view class="search-box-trending__item-info">
           <view class="font-black-34">{{item.title}}</view>
-          <view class="font-gray-26-gray">{{item.author || ""}}</view>
+          <view class="font-gray-26">{{item.author || ""}}</view>
         </view>
       </view>
     </view>

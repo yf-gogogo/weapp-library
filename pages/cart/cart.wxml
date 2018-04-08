@@ -4,7 +4,7 @@
     <view wx:if="{{!selectedBooks.length}}" class="weui-media-box weui-media-box_text">
       <view class="weui-media-box__desc">你还没有选择任何图书</view>
     </view>
-    <navigator wx:if="{{selectedBooks.length}}" wx:for="{{selectedBooks}}" wx:key="{{item.id}}" class=" ui-card ui-book-card cart-book-card" url="/pages/book_detail/book-detail?id={{item.id}}">
+    <navigator wx:if="{{selectedBooks.length}}" wx:for="{{selectedBooks}}" wx:key="{{item.id}}" class="weui-cell ui-book-card cart-book-card" url="/pages/book_detail/book-detail?id={{item.id}}">
       <image class="ui-book-card__img" mode="widthFix" src="{{item.imgs.small}}"></image>
       <view class="ui-book-card__info font-gray-26">
         <view class="font-black-34">{{item.title}}</view>

@@ -1,7 +1,7 @@
 <view class="container">
   <icon class="icon" type="success" size="100" />
   <view class="title">注册成功</view>
-  <view class="font-gray-28-gray">
+  <view class="font-gray-28">
     <view> 完善个人信息后即可在线借阅图书</view>
   </view>
   <navigator url="/pages/profile/children/children/personal-information-modify?from=register">
