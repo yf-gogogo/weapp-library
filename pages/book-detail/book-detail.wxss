@@ -72,13 +72,28 @@ page {
 .library-list {
   max-height: 600rpx;
 }
+
 .library-list:before {
   display: none;
 }
+
 .library-item__info {
   flex: auto;
-  padding-right: 5rpx;
   overflow: hidden;  /* 必须有这一行，否则不会有省略号 */
+}
+
+.library-item__info-name {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+}
+
+.library-item__info-name image {
+  flex: 0 0 40rpx;
+  width: 30rpx;
+  height: 30rpx;
+  vertical-align: middle;
 }
 
 .library-item__collection {

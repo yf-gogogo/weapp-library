@@ -1,51 +1,9 @@
-<view class="weui-cell">
-  <view class="library-item__info">
-    <view class="picker-item-library__name font-primary-34rpx-black">
-      <text>1231231241大放送 </text>
-      <image wx:if="{{item.state == 1}}" style="margin-left: 5rpx; width: {{iconWidth}}rpx; height: {{iconHeight}}rpx; flex: 0 0 {{iconWidth}}rpx;" src="/images/icon_certificate.png" mode="aspectFit"></image>
-    </view>
-    <view class="picker-item-library__location font-mute-26rpx-gray">
-      阿傻大个读后感考试大纲和的算法考拉海购但是
-    </view>
+<view class="library-item__info">
+  <view class="font-black-34 ellipsis library-item__info-name">
+    <text>123123</text>
+    <image src="/images/icon_certificate.png" mode="aspectFit"></image>
   </view>
-  <view class="library-item__collection font-mute-26rpx-gray">
-    <view class="picker-item-collection__info">
-      馆藏：123 | 可借：<span class="{{item.available_num == 0 ? 'color-gray' : 'color-orange'}}">123</span>
-    </view>
-    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+  <view class="font-gray-26 ellipsis">
+    {{item.library.address}}
   </view>
 </view>
-
-
-
-<navigator class="weui-cell" hover-class="weui-cell_active">
-  <view class="library-item__info">
-    <view class="font-black-34 ellipsis">
-      <text>1231231241大放送</text>
-      <!-- <image src="/images/icon_certificate.png" mode="aspectFit"></image> -->
-    </view>
-    <view class="font-gray-26 ellipsis">
-      阿傻大个读后感考试大纲和的算法考拉海购但是
-    </view>
-  </view>
-  <view class="font-gray-26 library-item__collection">
-    馆藏：{{item.total_num}} | 可借：<span class="{{item.available_num == 0 ? 'color-gray' : 'color-orange'}}">{{item.available_num}}</span>
-  </view>
-  <view class="weui-cell__ft_in-access"></view>
-</navigator>
-
-<navigator url="" class="weui-cell" hover-class="weui-cell_active">
-      <view class="library-item__info">
-        <view class="font-black-34 ellipsis">
-          <text>阿傻大个读后感考试大纲和的算法考拉海购但是</text>
-          <!-- <image src="/images/icon_certificate.png" mode="aspectFit"></image> -->
-        </view>
-        <view class="font-gray-26 ellipsis">
-          阿傻大个读后感考试大纲和的算法考拉海购但是
-        </view>
-      </view>
-      <view class="library-item__collection font-gray-26">
-        馆藏：{{item.total_num}} | 可借：<span class="{{item.available_num == 0 ? 'color-gray' : 'color-orange'}}">{{item.available_num}}</span>
-      </view>
-      <view class="weui-cell__ft_in-access"></view>
-    </navigator>

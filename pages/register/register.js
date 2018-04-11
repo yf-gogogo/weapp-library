@@ -1,51 +1,61 @@
-import { checkCode } from "../../apis/user"
-var reg = require("../../utils/regexp")
-var toptip; // 保存toptip组件的引用
+import { checkCode } from '../../apis/user'
+
+var app = getApp()
+var reg = require('../../utils/regexp')
+var toptip // 保存toptip组件的引用
 
 Page({
   data: {
-    countries: ["中国(86)"],
+    countries: ['中国(86)'],
     countryIndex: 0,
-    phone: "",
-    vrcode: ""
+    phone: '',
+    vrcode: ''
   },
 
-  onReady: function() {
-    toptip = this.selectComponent("#toptip")
+  onReady: function () {
+    toptip = this.selectComponent('#toptip')
   },
 
-  onCountryChange: function(e) {
+  onCountryChange: function (e) {
     this.setData({
       countryIndex: e.detail.value
     })
   },
 
-  onInput: function(e) {
+  onInput: function (e) {
     var params = {}
     params[e.currentTarget.dataset.label] = e.detail.value
     this.setData(params)
   },
 
-  onInvalid: function() {
-    toptip.show("手机号格式不正确")
+  onInvalid: function () {
+    toptip.show('手机号格式不正确')
   },
 
-  onSubmit: function() {
+  onSubmit: function () {
     if (!reg.phone.test(this.data.phone)) {
-      toptip.show("手机号格式不正确")
+      toptip.show('手机号格式不正确')
       return
     }
     if (!reg.vrcode.test(this.data.vrcode)) {
-      toptip.show("请输入6位数字验证码")
+      toptip.show('请输入6位数字验证码')
       return
     }
     wx.showToast({
-      title: "加载中",
-      icon: "loading"
+      title: '加载中',
+      icon: 'loading'
     })
-    checkCode(this.phone, this.code).then(() => {
-      wx.navigateTo({url: './children/result'})
-    }).finally(()=> {
+    checkCode(this.data.phone, this.data.vrcode).then((res) => {
+      wx.setStorageSync('phone', this.data.phone)
+      app.globalData.phone = this.data.phone
+
+      // 201：创建了新的用户 200：登录成功
+      if (res.statusCode === 201) {
+        wx.redirectTo({ url: './children/result' })
+      } else {
+        wx.switchTab({ url: '/pages/home/home' })
+      }
+    }).finally(() => {
       wx.hideToast()
     })
   }

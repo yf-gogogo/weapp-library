@@ -14,7 +14,7 @@ Component({
     // 关闭按钮文字
     closeText: {
       type: String,
-      value: "关闭"
+      value: '关闭'
     },
     // 由父组件控制菜单显示
     show: {
@@ -24,13 +24,13 @@ Component({
   },
 
   methods: {
-    onTapMask: function() {
+    onTapMask: function () {
       if (this.data.tappableMask) {
-        this.triggerEvent("close")
+        this.triggerEvent('close')
       }
     },
-    onClose: function() {
-        this.triggerEvent("close")
+    onClose: function () {
+      this.triggerEvent('close')
     }
   }
 })

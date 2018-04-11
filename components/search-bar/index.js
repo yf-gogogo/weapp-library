@@ -5,29 +5,29 @@
 Component({
   data: {
     inputShowed: false,
-    inputVal: ""
+    inputVal: ''
   },
   methods: {
-    showInput: function() {
+    showInput: function () {
       this.setData({
         inputShowed: true
-      });
+      })
     },
-    hideInput: function() {
+    hideInput: function () {
       this.setData({
-        inputVal: "",
+        inputVal: '',
         inputShowed: false
-      });
+      })
     },
-    clearInput: function() {
+    clearInput: function () {
       this.setData({
-        inputVal: ""
-      });
+        inputVal: ''
+      })
     },
-    inputTyping: function(e) {
+    inputTyping: function (e) {
       this.setData({
         inputVal: e.detail.value
-      });
+      })
     }
   }
 })

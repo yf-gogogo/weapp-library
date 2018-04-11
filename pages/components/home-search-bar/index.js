@@ -1,7 +1,6 @@
 /**
  * 主页的搜索输入框
  */
-
 Component({
   properties: {
 
@@ -9,78 +8,77 @@ Component({
 
   data: {
     options: {
-      selected: "书名",
+      selected: '书名',
       list: [
-        "书名", "作者", "ISBN", "高级搜索", '标签' 
+        '书名', '作者', 'ISBN', '高级搜索', '标签'
       ],
       show: false
     },
     isFocus: false,
-    value: ""
+    value: ''
   },
 
   methods: {
-    onFocus: function() {
+    onFocus: function () {
       this.setData({
-        "options.selected": this.data.options.list[0],
-        "isFocus": true
+        'options.selected': this.data.options.list[0],
+        'isFocus': true
       })
-      this.triggerEvent("focus")
+      this.triggerEvent('focus')
     },
 
-    onClear: function() {
+    onClear: function () {
       this.setData({
-        "value": ""
-      })
-    },
-
-    onCancel: function() {
-      this.setData({
-        "value": "",
-        "isFocus": false,
-        "options.show": false
-      })
-      this.triggerEvent("cancel")
-    },
-
-    onInput: function(e) {
-      this.setData({
-        "value": e.detail.value
+        'value': ''
       })
     },
 
-    onTapOptionBtn: function() {
+    onCancel: function () {
       this.setData({
-        "options.show": !this.data.options.show // 切换列表显示
+        'value': '',
+        'isFocus': false,
+        'options.show': false
+      })
+      this.triggerEvent('cancel')
+    },
+
+    onInput: function (e) {
+      this.setData({
+        'value': e.detail.value
       })
     },
 
-    onSelectOption: function(e) {
-      if (e.currentTarget.dataset.option == "高级搜索") {
-        wx.navigateTo({ url: "./children/advance_search" })
+    onTapOptionBtn: function () {
+      this.setData({
+        'options.show': !this.data.options.show // 切换列表显示
+      })
+    },
+
+    onSelectOption: function (e) {
+      if (e.currentTarget.dataset.option == '高级搜索') {
+        wx.navigateTo({ url: './children/advance_search' })
         return
       }
       this.setData({
-        "options.selected": e.currentTarget.dataset.option,
-        "options.show": false
+        'options.selected': e.currentTarget.dataset.option,
+        'options.show': false
       })
     },
 
-    onScan: function() {
+    onScan: function () {
       var scanfn = getApp().promisify(wx.scanCode)
       scanfn().then((res) => {
-            if (res.scanType != "CODE_128")
-                return wx.showModal({ title: "扫描内容不合法", content: "请扫描图书ISBN条形码", showCancel: false })
-            wx.navigateTo({
-                url: "../book_detail/book_detail?isbn=" + res.result
-            })
+        if (res.scanType != 'CODE_128') { return wx.showModal({ title: '扫描内容不合法', content: '请扫描图书ISBN条形码', showCancel: false }) }
+        wx.navigateTo({
+          url: '../book_detail/book_detail?isbn=' + res.result
         })
+      })
     },
 
-    onSearch: function(e) {
-      this.triggerEvent("search", { 
-        type: this.data.options.selected, 
-        value: this.data.value 
+    onSearch: function (e) {
+      this.triggerEvent('search', {
+        type: this.data.options.selected,
+        value: this.data.value
       })
     }
   }

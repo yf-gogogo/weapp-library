@@ -31,7 +31,7 @@
 .search-box-history__clear {
   position: absolute;
   top: 0;
-  right: 0;
+  right: 15px;
   width: 20%;
   /* 加大热区 */
   text-align: right;

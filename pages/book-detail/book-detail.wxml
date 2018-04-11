@@ -46,9 +46,9 @@
   <scroll-view class="weui-cells weui-cells_after-title library-list" scroll-y>
     <navigator url="" wx:if="{{libraryList.data.length}}" wx:for="{{libraryList.data}}" class="weui-cell" hover-class="weui-cell_active">
       <view class="library-item__info">
-        <view class="font-black-34 ellipsis">
-          <text>{{item.library.name}}</text>
-          <!-- <image src="/images/icon_certificate.png" mode="aspectFit"></image> -->
+        <view class="library-item__info-name">
+          <text class="font-black-34 ellipsis">{{item.library.name}}</text>
+          <image wx:if="{{item.library.status}}" src="/images/icon_certificate.png" mode="aspectFit"></image>
         </view>
         <view class="font-gray-26 ellipsis">
           {{item.library.address}}

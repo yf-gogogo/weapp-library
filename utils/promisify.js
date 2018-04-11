@@ -3,8 +3,8 @@
  * @params fn {Function} 小程序原始API，如wx.login
  */
 
-var Promise = require("./es6-promise.js")
-module.exports = function wxPromisify(fn) {
+var Promise = require('./es6-promise.js')
+module.exports = function wxPromisify (fn) {
   return function (obj = {}) {
     return new Promise((resolve, reject) => {
       obj.success = function (res) {
@@ -29,10 +29,10 @@ var getLocationPromisified = promisify(wx.getLocation)
 getLocationPromisified({
   type: 'wgs84'
 }).then(function (res) {
-  var latitude = res.latitude 
-  var longitude = res.longitude 
-  var speed = res.speed 
-  var accuracy = res.accuracy 
+  var latitude = res.latitude
+  var longitude = res.longitude
+  var speed = res.speed
+  var accuracy = res.accuracy
 }).catch(function () {
   console.error("get location failed")
 })

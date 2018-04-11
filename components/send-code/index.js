@@ -1,5 +1,5 @@
-import { sendCode } from "../../apis/user"
-var reg = require("../../utils/regexp")
+import { sendCode } from '../../apis/user'
+var reg = require('../../utils/regexp')
 var timer, leftTime = 60
 
 /**
@@ -10,41 +10,41 @@ Component({
     phone: String
   },
   data: {
-    str: "获取验证码",
+    str: '获取验证码',
     isCounting: false // 是否正在倒计时
   },
   methods: {
-    onTapSend: function() {
+    onTapSend: function () {
       if (!reg.phone.test(this.data.phone)) {
-        this.triggerEvent("invalid")
+        this.triggerEvent('invalid')
         return
       }
       this.setData({
         isCounting: true,
-        str: "获取中"
+        str: '获取中'
       })
-      sendCode(this.phone).then(()=>{
+      sendCode(this.phone).then(() => {
         this.countDown()
-      }).catch(()=>{
+      }).catch(() => {
         this.setData({
-            isCounting: false,
-            str: "获取验证码"
-          })
+          isCounting: false,
+          str: '获取验证码'
+        })
       })
     },
 
-    countDown: function() {
+    countDown: function () {
       if (leftTime > 0) {
         leftTime--
-        this.setData({ str: "已发送(" + leftTime + ")" })
+        this.setData({ str: '已发送(' + leftTime + ')' })
         timer = setTimeout(() => {
           this.countDown()
         }, 1000)
       } else {
-        this.setData({ "isCounting": false })
+        this.setData({ 'isCounting': false })
         clearTimeout(timer)
         leftTime = 60
       }
-    },
+    }
   }
 })

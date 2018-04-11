@@ -1,46 +1,46 @@
-import { getBookById, getBookByISBN, getCollectionsByBookId, getCollectionsByBookISBN } from "../../apis/book"
-import { showRegisterModal } from "../../utils/biz"
+import { getBookById, getBookByISBN, getCollectionsByBookId, getCollectionsByBookISBN } from '../../apis/book'
+import { showRegisterModal } from '../../utils/biz'
 
 var app = getApp()
 
 Page({
   data: {
     // 原 Book 对象
-    book: {}, 
+    book: {},
     // 范式化后的图书信息
-    bookInfo: [{ 
-      key: "",
-      value: ""
+    bookInfo: [{
+      key: '',
+      value: ''
     }],
     // 范式化后的图书详细介绍
-    bookDetail: [{ 
-      key: "",
-      value: ""
+    bookDetail: [{
+      key: '',
+      value: ''
     }],
     // 图书馆列表
-    libraryList: {  
+    libraryList: {
       show: false,
-      status: "loading",    // loading, nodata, done
+      status: 'loading', // loading, nodata, done
       data: [ ]
     }
   },
 
-  onLoad: function(options) {
-    wx.showLoading({ title: "加载中", mask: true })
+  onLoad: function (options) {
+    wx.showLoading({ title: '加载中', mask: true })
 
     // 根据 id 或根据 isbn 获取图书信息
-    let fn;
+    let bookFn
     if (options.id) {
-      fn = getBookById(options.id)
+      bookFn = getBookById(options.id)
     } else if (options.isbn) {
-      fn = getBookByISBN(options.isbn)
+      bookFn = getBookByISBN(options.isbn)
     }
 
-    fn.then(res => {
+    bookFn.then(res => {
       this.setData({
-        book: res,
-        bookInfo: normalize(infoScheme, res),
-        bookDetail: normalize(detailScheme, res)
+        book: res.data,
+        bookInfo: normalize(infoScheme, res.data),
+        bookDetail: normalize(detailScheme, res.data)
       })
       wx.hideLoading()
     }).catch(_ => {
@@ -50,21 +50,21 @@ Page({
     })
 
     // 根据 id 或根据 isbn 获取图书馆藏信息
-    let fn_c;
+    let collFn
     if (options.id) {
-      fn_c = getCollectionsByBookId(options.id)
+      collFn = getCollectionsByBookId(options.id)
     } else if (options.isbn) {
-      fn_c = getCollectionsByBookISBN(options.isbn)
+      collFn = getCollectionsByBookISBN(options.isbn)
     }
-    fn_c.then(res =>
+    collFn.then(res =>
       this.setData({
-        "libraryList.status": res.total ? "done" : "nodata",
-        "libraryList.data": res.collections
+        'libraryList.status': res.data.total ? 'done' : 'nodata',
+        'libraryList.data': res.data.collections
       })
     )
   },
 
-  onShowTip: function() {
+  onShowTip: function () {
     wx.showModal({
       title: '参与贡献',
       content: '您可访问 https://api.my-web-site.cn/wiki/#/book/' + this.data.book.id + ' 编辑本页内容 (PS: 这个维基项目还没有重构完成，暂时无公开链接)',
@@ -73,65 +73,64 @@ Page({
   },
 
   // 如果没有注册，显示对话框
-  onAdd: function() {
+  onAdd: function () {
     if (app.globalData.phone) {
       wx.navigateTo({
-        url: "./children/add?id=" + this.data.book.id
+        url: './children/add?id=' + this.data.book.id
       })
     } else {
       showRegisterModal()
     }
   },
 
-  onShowPopup: function() {
-    this.setData({"libraryList.show": true})
+  onShowPopup: function () {
+    this.setData({'libraryList.show': true})
   },
 
-  onClosePopup: function(){
-    this.setData({"libraryList.show": false})
+  onClosePopup: function () {
+    this.setData({'libraryList.show': false})
   }
 })
-
 
 /**
  * 将 Book 对象范式化，使能通过 wx:for 遍历
  */
 
 var infoScheme = [
-  ["author", "作者"],
-  ["translator", "译者"],
-  ["publisher", "作者"],
-  ["pubdate", "出版时间"],
-  ["class_num", "分类号"],
-  ["call_number", "索书号"],
-  ["pages", "页数"],
-  ["words", "字数"],
-  ["isbn", "ISBN"]
+  ['author', '作者'],
+  ['translator', '译者'],
+  ['publisher', '作者'],
+  ['pubdate', '出版时间'],
+  ['class_num', '分类号'],
+  ['call_number', '索书号'],
+  ['pages', '页数'],
+  ['words', '字数'],
+  ['isbn', 'ISBN']
 ]
 
 var detailScheme = [
-  ["summary", "内容简介"],
-  ["author_intro", "作者简介"],
-  ["translator_intro", "译者简介"],
-  ["catalog", "目录"],
-  ["preview", "试读"]
+  ['summary', '内容简介'],
+  ['author_intro', '作者简介'],
+  ['translator_intro', '译者简介'],
+  ['catalog', '目录'],
+  ['preview', '试读']
 ]
 
-function normalize(scheme, book) {
+function normalize (scheme, book) {
   var res = []
   scheme.forEach((el) => {
     var t = {
       key: el[1],
       value: book[el[0]]
     }
-    if (el[0] == "作者" || el[0] == "译者") {
-      t.value = t.value.join(" / ")
+    if (el[0] === '作者' || el[0] === '译者') {
+      t.value = t.value.join(' / ')
     }
-    if (el[0] == "页数") {
-      t.value += " 页"
+    if (el[0] === '页数') {
+      t.value += ' 页'
     }
-    if (el[0] == "字数") {
-      t.value = "约 " + t.value + "字"
+    if (el[0] === '字数') {
+      t.value = '约 ' + t.value + '字'
     }
     res.push(t)
   })
