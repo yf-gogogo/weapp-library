@@ -1,9 +1,1 @@
-<view class="library-item__info">
-  <view class="font-black-34 ellipsis library-item__info-name">
-    <text>123123</text>
-    <image src="/images/icon_certificate.png" mode="aspectFit"></image>
-  </view>
-  <view class="font-gray-26 ellipsis">
-    {{item.library.address}}
-  </view>
-</view>
+<collapse></collapse>

@@ -1,9 +1,6 @@
-@import "/styles/weui.wxss"
-@import "/styles/icon.wxss"
-
 .panel {
   position: relative;
-  margin-bottom: 20rpx;
+  margin-bottom: 10px;
   overflow: hidden;
   background-color: #FFFFFF;
 }
@@ -44,6 +41,21 @@
   border-bottom: 1rpx solid #E5E5E5;
   color: #E5E5E5;
   left: 15px;
+}
+.panel-hd--active {
+  background-color: #ECECEC !important; 
+}
+.panel-hd__arrow {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  display: inline-block;
+  height: 6px;
+  width: 6px;
+  border-width: 2px 2px 0 0;
+  border-color: #c8c8c8;
+  border-style: solid;
+  transform: translateY(-50%) matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
 }
 .panel--is-last {
   margin-bottom: 0;

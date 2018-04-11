@@ -1,6 +1,7 @@
 import { getRankingBooks, getRecommendedBooksByPhone } from '../../apis/book'
 import { getRecommendedBooklistsByPhone } from '../../apis/booklist'
 import { getUserInfoByPhone } from '../../apis/user'
+import { showTip } from '../../utils/tip'
 
 var app = getApp()
 
@@ -26,10 +27,10 @@ Page({
     }).catch(() => {
       wx.hideNavigationBarLoading()
     })
-    app.promisify(wx.getStorage)({ key: 'history' }).then((res) => {
-      this.setData({
-        'search.history': res.data || [] // res.data 可能是 undefined，下面要用filter 方法，因此必须是数组
-      })
+
+    let tmp = wx.getStorageSync('history')
+    this.setData({
+      'search.history': tmp || [] // res.data 可能是 undefined，下面要用filter 方法，因此必须是数组
     })
   },
 
@@ -49,7 +50,11 @@ Page({
     this.setData({ 'search.isFocus': false })
   },
 
-  onClickSearchItem: function (e) {
+  onClickHistoryItem: function (e) {
+    showTip('HISTORY').then(() => this._search(e.currentTarget.dataset.type, e.currentTarget.dataset.value))
+  },
+
+  onClickTrendingItem: function (e) {
     this._search('书名', e.currentTarget.dataset.title)
   },
 
@@ -77,13 +82,13 @@ Page({
   _search: function (type, value) {
     // 保存搜索记录，最多保存6个
     // 最新搜索的放在最前面
-    let history = this.data.search.history.filter(v => v !== value)
-    history.unshift(value)
+    let history = this.data.search.history.filter(v => v.value !== value)
+    history.unshift({type, value})
     if (history.length > 6) {
       history = history.slice(0, 6)
     }
     this.setData({ 'search.history': history })
-    app.promisify(wx.setStorage)({
+    wx.setStorage({
       key: 'history',
       data: history
     })
@@ -92,8 +97,9 @@ Page({
     switch (type) {
       case '书名':
       case '作者':
+      case '标签':
         wx.navigateTo({
-          url: './children/list?type=search&search_type=' + type + '&keyword=' + value
+          url: '/pages/list/book?type=search&search_type=' + type + '&keyword=' + value
         })
         break
       case 'ISBN':

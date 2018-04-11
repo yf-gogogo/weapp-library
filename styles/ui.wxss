@@ -16,44 +16,71 @@ page {
   color: #999999;
 }
 
-/* 卡片、单元 */
+/* 通用卡片容器 */
 .ui-card {
   position: relative;
-  padding: 30rpx; 
-  background-color: #fff;
-}
-.ui-cell {
-  padding: 20rpx 30rpx;
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  align-items: center;
+  padding: 15px; 
   background-color: #fff;
 }
 
-/* 图书卡片, 包括图书封面、图书信息、操作按钮（可选）*/
+/* 图书卡片 */
 .ui-book-card {
   position: relative;
   display: flex;
   display: -webkit-flex;
   flex-direction: row;
   align-items: flex-start;
+  padding: 15px; 
+  background-color: #fff;
 }
 .ui-book-card__img {
-  flex: 0 0 175rpx;
+  flex: 0 0 90px;
 }
 .ui-book-card__info {
   flex: 1;
-  margin-left: 20rpx;
+  margin-left: 10px;
 }
-.ui-book-card__action {
+.ui-book-card__info > view {
+  line-height: 1.7em;
+}
+.ui-book-card__info > .font-black-34 {
+  line-height: 1.5em;
+}
+.ui-book-card__description {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #F3F3F3;
+  border-radius: 4px;
+  white-space:pre-line;
+}
+
+/* 书单卡片 */
+.ui-booklist-card {
+  position: relative;
   display: flex;
   display: -webkit-flex;
-  align-self: stretch;
-  /** 扩大响应区域 **/
-  justify-content: flex-end;
-  min-width: 60rpx;
+  flex-direction: row;
+  align-items: center;
+  padding: 12px 15px;
+  background-color: #fff;
+}
+.ui-booklist-card__img {
+  width: 50px;
+  height: 50px;
+  flex: 0 0 50px;
+}
+.ui-booklist-card__info {
+  flex: 1;
+  margin-left: 12px;
+}
+.ui-booklist-card__info > .font-black-34 {
+  margin-bottom: 5px;
+}
+.ui-booklist-card__icon-more {
+  width: 20px;
+}
+
+/* hover 类 */
+.ui--active {
+  background-color: #ECECEC; 
 }

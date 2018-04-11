@@ -10,7 +10,7 @@ Component({
     },
     loadingText: {
       type: String,
-      value: '加载中'
+      value: '正在加载'
     },
     nomoreText: {
       type: String,

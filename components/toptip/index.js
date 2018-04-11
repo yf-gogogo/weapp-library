@@ -1,8 +1,8 @@
 
-var timer = undefined
+var timer
 
 /**
- * TopTip 顶部提示
+ * 顶部提示
  */
 Component({
   data: {
@@ -13,7 +13,8 @@ Component({
 
   methods: {
     /**
-     * 显示TopTip
+     * 显示 TopTip，父组件通过 TopTip 组件的引用调用
+     * @param content {String}
      * @param option {Object}
      *        duration：持续时长，默认 1500 ms
      *        type：提示类型，默认error，可选 warning、success、error

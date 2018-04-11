@@ -1,33 +1,69 @@
 
 /**
- * 搜索输入框
+ * 搜索框
+ * @event <search>
  */
 Component({
+  properties: {
+    defaultText: {
+      type: String,
+      value: '搜索'
+    },
+    focusText: {
+      type: String,
+      value: '搜索'
+    },
+    // 是否显示背景遮罩
+    showMask: {
+      type: Boolean,
+      value: true
+    },
+    // 点击背景是否自动关闭，默认是
+    tappableMask: {
+      type: Boolean,
+      value: true
+    }
+  },
   data: {
-    inputShowed: false,
-    inputVal: ''
+    isFocus: false,
+    value: ''
   },
   methods: {
-    showInput: function () {
+    onFocus: function () {
       this.setData({
-        inputShowed: true
+        isFocus: true
       })
     },
-    hideInput: function () {
+    onHide: function () {
       this.setData({
-        inputVal: '',
-        inputShowed: false
+        value: '',
+        isFocus: false
       })
     },
-    clearInput: function () {
+    onClear: function () {
       this.setData({
-        inputVal: ''
+        value: ''
       })
     },
-    inputTyping: function (e) {
+    onInput: function (e) {
       this.setData({
-        inputVal: e.detail.value
+        value: e.detail.value
       })
+    },
+    onTapMask: function () {
+      if (this.data.tappableMask) {
+        this.onHide()
+      }
+    },
+
+    // 在输入框不为空时搜索
+    onSearch: function (e) {
+      if (this.data.value) {
+        this.triggerEvent('search', {
+          type: this.data.options.selected,
+          value: this.data.value
+        })
+      }
     }
   }
 })

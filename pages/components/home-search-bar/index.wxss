@@ -1,5 +1,6 @@
 @import "/styles/weui.wxss";
 @import "/styles/icon.wxss";
+@import "/styles/ui.wxss";
 
 .home-search-bar {
   z-index: 2;

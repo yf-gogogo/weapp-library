@@ -1,10 +1,8 @@
-import { get } from './request.js'
+import { get, post } from './request.js'
 
 module.exports = {
   sendCode: function (phone) {
-    return new Promise(function (resolve, reject) {
-      setTimeout(() => resolve(), 1000)
-    })
+    return post('/vrcodes?phone=' + phone)
   },
   checkCode: function (phone, vrcode) {
     return get('/vrcodes/check', { phone, vrcode })

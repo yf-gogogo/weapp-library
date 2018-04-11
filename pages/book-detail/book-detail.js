@@ -1,7 +1,5 @@
 import { getBookById, getBookByISBN, getCollectionsByBookId, getCollectionsByBookISBN } from '../../apis/book'
-import { showRegisterModal } from '../../utils/biz'
-
-var app = getApp()
+import { isLogin } from '../../utils/permission'
 
 Page({
   data: {
@@ -46,7 +44,7 @@ Page({
     }).catch(_ => {
       wx.hideLoading()
       // 未找到该图书
-      wx.navigateBack()
+      // wx.navigateBack()
     })
 
     // 根据 id 或根据 isbn 获取图书馆藏信息
@@ -61,7 +59,11 @@ Page({
         'libraryList.status': res.data.total ? 'done' : 'nodata',
         'libraryList.data': res.data.collections
       })
-    )
+    ).catch(() => {
+      this.setData({
+        'libraryList.status': 'nodata'
+      })
+    })
   },
 
   onShowTip: function () {
@@ -72,14 +74,12 @@ Page({
     })
   },
 
-  // 如果没有注册，显示对话框
+  // 如果没有登录，显示登录对话框
   onAdd: function () {
-    if (app.globalData.phone) {
+    if (isLogin(true)) {
       wx.navigateTo({
         url: './children/add?id=' + this.data.book.id
       })
-    } else {
-      showRegisterModal()
     }
   },
 
@@ -89,6 +89,15 @@ Page({
 
   onClosePopup: function () {
     this.setData({'libraryList.show': false})
+  },
+
+  // 如果没有登录，显示登录对话框
+  onClickLibraryItem: function (e) {
+    if (isLogin(true)) {
+      wx.navigateTo({
+        url: `./children/confirm_order?book_id=${this.data.book.id}&library_id=${e.currentTarget.dataset.id}`
+      })
+    }
   }
 })
 

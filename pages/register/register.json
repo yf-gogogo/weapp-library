@@ -3,6 +3,7 @@
   "usingComponents":
   {
     "send-code": "/components/send-code/index",
-    "toptip": "/components/toptip/index"
+    "toptip": "/components/toptip/index",
+    "toast": "/components/toast/index"
   }
 }

@@ -1,3 +1,14 @@
-.library-item__info-name image {
-  vertical-align: middle;
+.collapse {
+  background-color: #333;
+  border: 1px solid red;
+  transform: translateY(150%);
+  transition: all 0.4s ease;
+}
+
+.collapse--show {
+  transform: translateY(0);
+}
+
+.collapse {
+  background-color: red;
 }

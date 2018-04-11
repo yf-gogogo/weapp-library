@@ -30,8 +30,14 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 6,
+			"current": 3,
 			"list": [
+				{
+					"id": -1,
+					"name": "测试",
+					"pathName": "pages/test/test",
+					"query": ""
+				},
 				{
 					"id": 0,
 					"name": "注册结果",
@@ -76,8 +82,32 @@
 				},
 				{
 					"id": -1,
-					"name": "测试",
-					"pathName": "pages/test/test",
+					"name": "修改个人信息",
+					"pathName": "pages/book/children/list",
+					"query": "from=register"
+				},
+				{
+					"id": 9,
+					"name": "图书列表",
+					"pathName": "pages/list/book",
+					"query": "type=search&search_type=书名"
+				},
+				{
+					"id": -1,
+					"name": "推荐图书",
+					"pathName": "pages/list/book",
+					"query": "type=recommend"
+				},
+				{
+					"id": 11,
+					"name": "自动登录",
+					"pathName": "pages/login/login",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "书单",
+					"pathName": "pages/booklist/booklist",
 					"query": ""
 				}
 			]

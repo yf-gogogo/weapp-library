@@ -1,18 +1,22 @@
 {
   "pages": [
+    "pages/login/login",
     "pages/register/register",
     "pages/register/children/result",
     "pages/home/home",
+    "pages/list/book",
+    "pages/list/booklist",
     "pages/booklist/booklist",
     "pages/cart/cart",
     "pages/profile/profile",
     "pages/profile/children/children/personal-information-modify",
-    "pages/home/children/list",
     "pages/book-detail/book-detail",
     "templates/showcase/index",
     "pages/cart/children/help",
     "pages/cart/children/qrcode",
-    "pages/test/test"
+    "pages/test/test",
+    "pages/booklist/children/modify",
+    "pages/booklist/children/booklist-detail"
   ],
   "window": {
     "backgroundTextStyle": "dark",

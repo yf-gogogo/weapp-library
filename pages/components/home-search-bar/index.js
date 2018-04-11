@@ -1,6 +1,10 @@
 /**
  * 主页的搜索输入框
  */
+
+import Promisify from '../../../utils/promisify'
+import { showTip } from '../../../utils/tip'
+
 Component({
   properties: {
 
@@ -10,7 +14,7 @@ Component({
     options: {
       selected: '书名',
       list: [
-        '书名', '作者', 'ISBN', '高级搜索', '标签'
+        '书名', '作者', 'ISBN', '标签', '高级搜索'
       ],
       show: false
     },
@@ -55,9 +59,12 @@ Component({
     },
 
     onSelectOption: function (e) {
-      if (e.currentTarget.dataset.option == '高级搜索') {
+      if (e.currentTarget.dataset.option === '高级搜索') {
         wx.navigateTo({ url: './children/advance_search' })
         return
+      }
+      if (e.currentTarget.dataset.option === 'ISBN') {
+        showTip('SEARCH_SCAN')
       }
       this.setData({
         'options.selected': e.currentTarget.dataset.option,
@@ -66,20 +73,23 @@ Component({
     },
 
     onScan: function () {
-      var scanfn = getApp().promisify(wx.scanCode)
+      var scanfn = Promisify(wx.scanCode)
       scanfn().then((res) => {
-        if (res.scanType != 'CODE_128') { return wx.showModal({ title: '扫描内容不合法', content: '请扫描图书ISBN条形码', showCancel: false }) }
+        if (res.scanType !== 'CODE_128') { return wx.showModal({ title: '扫描内容不合法', content: '请扫描图书ISBN条形码', showCancel: false }) }
         wx.navigateTo({
-          url: '../book_detail/book_detail?isbn=' + res.result
+          url: '../book-detail/book-detail?isbn=' + res.result
         })
       })
     },
 
+    // 在输入框不为空时搜索
     onSearch: function (e) {
-      this.triggerEvent('search', {
-        type: this.data.options.selected,
-        value: this.data.value
-      })
+      if (this.data.value) {
+        this.triggerEvent('search', {
+          type: this.data.options.selected,
+          value: this.data.value
+        })
+      }
     }
   }
 })

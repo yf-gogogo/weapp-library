@@ -1,5 +1,5 @@
 {
   "standard": {
-    "globals": [ "wx", "getApp", "Page", "App" ]
+    "globals": [ "wx", "getApp", "Page", "App", "Component" ]
   }
 }

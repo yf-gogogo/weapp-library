@@ -10,13 +10,13 @@
       {{statistics.page_num}}<span class="statistics-panel__unit">页</span>
     </view>
   </panel>
-  <panel title="推荐图书" url="./children/list?type=recommend">
+  <panel title="推荐图书" url="/pages/list/book?type=recommend">
     <template is="showcase-book" data="{{books: recommendBooks}}"></template>
   </panel>
-  <panel title="近期借阅排行" url="./children/list?type=ranking">
+  <panel title="近期借阅排行" url="/pages/list/book?type=ranking">
     <template is="showcase-book" data="{{books: ranking}}"></template>
   </panel>
-  <panel title="推荐书单" url="/pages/booklist/children/list?type=recommend" is-last-child>
+  <panel title="推荐书单" url="/pages/list/booklist?type=recommend" is-last-child>
     <template is="showcase-booklist" data="{{booklists: recommendBooklists}}"></template>
   </panel>
 </block>
@@ -29,13 +29,13 @@
         <view class="search-box-history__clear color-green" bindtap="onClearHistory">清除</view>
       </view>
       <view class="search-box-history">
-        <view class="search-box-history__item" wx:for="{{search.history}}" wx:key="{{*this}}" data-title="{{item}}" data-type="history" bindtap="onClickSearchItem">{{item}}</view>
+        <view class="search-box-history__item" wx:for="{{search.history}}" wx:key="{{*this}}" data-type="{{item.type}}" data-value="{{item.value}}" bindtap="onClickHistoryItem">{{item.value}}</view>
       </view>
     </block>
     <!-- 热门图书 -->
     <view class="ui-label">热门图书</view>
     <view class="search-box-trending">
-      <view class="search-box-trending__item" wx:for="{{ranking}}" data-title="{{item.title}}" catchtap="onClickSearchItem">
+      <view class="search-box-trending__item" hover-class="ui--active" wx:for="{{ranking}}" data-title="{{item.title}}" catchtap="onClickTrendingItem">
         <image class="search-box-trending__icon" mode="widthFix" src="{{index < 3 ? '/images/icon_trending_' + (index + 1) : '../../images/icon_trending_up'}}.png">
         </image>
         <view class="search-box-trending__item-info">

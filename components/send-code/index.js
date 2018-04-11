@@ -1,9 +1,12 @@
 import { sendCode } from '../../apis/user'
+
 var reg = require('../../utils/regexp')
-var timer, leftTime = 60
+var timer
+var leftTime = 60
 
 /**
  * 带倒计时的短信发送按钮
+ * @event <invalid> <send>
  */
 Component({
   properties: {
@@ -23,7 +26,8 @@ Component({
         isCounting: true,
         str: '获取中'
       })
-      sendCode(this.phone).then(() => {
+      sendCode(this.data.phone).then(() => {
+        this.triggerEvent('send')
         this.countDown()
       }).catch(() => {
         this.setData({
@@ -41,7 +45,10 @@ Component({
           this.countDown()
         }, 1000)
       } else {
-        this.setData({ 'isCounting': false })
+        this.setData({
+          isCounting: false,
+          str: '获取验证码'
+        })
         clearTimeout(timer)
         leftTime = 60
       }

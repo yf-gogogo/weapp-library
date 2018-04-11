@@ -3,6 +3,7 @@ import { checkCode } from '../../apis/user'
 var app = getApp()
 var reg = require('../../utils/regexp')
 var toptip // 保存toptip组件的引用
+var toast // 保存toast组件的引用
 
 Page({
   data: {
@@ -14,6 +15,7 @@ Page({
 
   onReady: function () {
     toptip = this.selectComponent('#toptip')
+    toast = this.selectComponent('#toast')
   },
 
   onCountryChange: function (e) {
@@ -30,6 +32,10 @@ Page({
 
   onInvalid: function () {
     toptip.show('手机号格式不正确')
+  },
+
+  onSend: function () {
+    toast.show('验证码将以短信的形式发送至您的手机')
   },
 
   onSubmit: function () {

@@ -1,6 +1,8 @@
+
 /**
  * 底部弹出菜单
  * slot： 菜单内容
+ * @event <close>
  */
 Component({
   properties: {

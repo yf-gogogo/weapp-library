@@ -2,7 +2,7 @@
   <!-- 输入框 -->
   <view class="weui-search-bar__form">
     <!-- 聚焦后的搜索类型列表 -->
-    <view class="home-search-bar__option-btn" hover-class="weui-cell_active" catchtap="onTapOptionBtn">
+    <view class="home-search-bar__option-btn" hover-class="ui--active" catchtap="onTapOptionBtn">
       <view>{{options.selected}}</view>
       <view class="icon-down"></view>
     </view>

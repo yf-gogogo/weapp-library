@@ -1,66 +1,54 @@
-// pages/booklist/booklist.js
+import { getBooklistsByPhone, deleteBooklistById } from '../../apis/booklist'
+
+var app = getApp()
+
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    booklists: {
+      create: [], // 我创建的书单
+      favorite: [] // 我收藏的书单
+    }
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
-
+    wx.showNavigationBarLoading()
+    this._fetchData().then(() => {
+      wx.hideNavigationBarLoading()
+    }).catch(() => {
+      wx.hideNavigationBarLoading()
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
+  // 从书单详情页返回后更新数据，因为有可能在书单详情页操作过
   onShow: function () {
-
+    this._fetchData()
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
   onPullDownRefresh: function () {
-
+    this._fetchData().then(() => {
+      wx.stopPullDownRefresh()
+    }).catch(() => {
+      wx.stopPullDownRefresh()
+    })
   },
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
+  onSearch: function (e) {
+    wx.navigateTo({
+      url: '/pages/list/booklist?type=search&keyword=' + e.detail.value
+    })
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
+  onCreate: function () {
+    wx.navigateTo({
+      url: './children/modify?action=create'
+    })
+  },
 
+  _fetchData: function () {
+    return getBooklistsByPhone(app.globalData.phone).then(res => {
+      this.setData({
+        booklists: res.data
+      })
+    })
   }
 })

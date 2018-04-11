@@ -26,7 +26,7 @@ Page({
   },
 
   onLoad: function (options) {
-    if (options.from == 'register') {
+    if (options.from === 'register') {
       fromRegisterPage = true
       return
     }

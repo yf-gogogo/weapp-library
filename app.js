@@ -1,10 +1,18 @@
-import Promisify from './utils/promisify.js' // 小程序 API promise 化
-import promisePolyfill from './utils/promise-polyfill.js' // 添加 promise.finally
+import promisePolyfill from './utils/promise-polyfill' // 添加 promise.finally
+import { setTipSettings } from './utils/tip' // 使用帮助
 
 App({
-  promisify: Promisify,
-
   globalData: {
     phone: null
+  },
+
+  onLaunch: function () {
+    this.globalData.phone = wx.getStorageSync('phone')
+
+    // 从本地缓存中加载 TIP_SETTINGS
+    let tmp = wx.getStorageSync('TIP_SETTINGS')
+    if (tmp) {
+      setTipSettings(tmp)
+    }
   }
 })

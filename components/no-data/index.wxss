@@ -1,11 +1,15 @@
+icon {
+  color: #ccc;
+}
+
 .no-data {
   text-align: center;
-  padding: 20px 0;
+  margin: 30px 0;
 }
 
 .no-data__text {
   text-align: center;
   display: block;
-  color: #ccc;
+  color: #aaa;
   margin: 6px 0 0 0;
 }

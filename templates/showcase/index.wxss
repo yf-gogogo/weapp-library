@@ -18,7 +18,7 @@
 }
 
 /*  
-TODO 这里想让作者名字紧贴底部，但是没实现 
+ * TODO --- 这里想让作者名字紧贴底部，但是没实现 
 
 .showcase__item-author {
   position: relative;

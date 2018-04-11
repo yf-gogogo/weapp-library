@@ -4,7 +4,7 @@
     <view wx:if="{{!selectedBooks.length}}" class="weui-media-box weui-media-box_text">
       <view class="weui-media-box__desc">你还没有选择任何图书</view>
     </view>
-    <navigator wx:if="{{selectedBooks.length}}" wx:for="{{selectedBooks}}" wx:key="{{item.id}}" class="weui-cell ui-book-card cart-book-card" url="/pages/book-detail/book-detail?id={{item.id}}">
+    <navigator wx:if="{{selectedBooks.length}}" wx:for="{{selectedBooks}}" wx:key="{{item.id}}" class="ui-book-card cart-book-card" hover-class="ui--active" url="/pages/book-detail/book-detail?id={{item.id}}">
       <image class="ui-book-card__img" mode="widthFix" src="{{item.imgs.small}}"></image>
       <view class="ui-book-card__info font-gray-26">
         <view class="font-black-34">{{item.title}}</view>
@@ -15,7 +15,7 @@
         <view>ISBN：{{item.isbn}}</view>
         <view>索书号：{{item.call_number}}</view>
       </view>
-      <view class="ui-book-card__action font-28 color-red" data-index="{{index}}" catchtap="onDelete">删除</view>
+      <view class="font-28 color-red" data-index="{{index}}" catchtap="onDelete">删除</view>
     </navigator>
   </view>
   <view class="weui-panel__ft" wx:if="{{selectedBooks.length}}" catchtap="showHelpModal">

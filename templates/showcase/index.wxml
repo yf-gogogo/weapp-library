@@ -1,7 +1,7 @@
 <template name="showcase-book">
   <scroll-view class="showcase-container" scroll-x="true">
     <view class="showcase">
-      <navigator wx:for="{{books}}" wx:key="{{item.id}}" url="/pages/book-detail/book-detail?id={{item.id}}" class="showcase__item">
+      <navigator wx:for="{{books}}" wx:key="{{item.id}}" url="/pages/book-detail/book-detail?id={{item.id}}" class="showcase__item" hover-class="ui--active">
         <image class="showcase__item-image--book" src="{{item.imgs.small}}" mode="aspectFill" />
         <view class="font-black-30 ellipsis-l2">{{item.title}}</view>
         <view class="font-gray-28 ellipsis">{{item.author}}</view>
@@ -13,7 +13,7 @@
 <template name="showcase-booklist">
   <scroll-view class="showcase-container" scroll-x="true">
     <view class="showcase">
-      <navigator wx:for="{{booklists}}" wx:key="{{item.id}}" url="/pages/booklist/children/booklist-detail?id={{item.id}}" class="showcase__item">
+      <navigator wx:for="{{booklists}}" wx:key="{{item.id}}" url="/pages/booklist/children/booklist-detail?id={{item.id}}" class="showcase__item" hover-class="ui--active">
         <image class="showcase__item-image--booklist" src="{{item.image}}" mode="aspectFill" />
         <view class="font-black-30 ellipsis-l2">{{item.title}}</view>
       </navigator>

@@ -1,4 +1,5 @@
 import { getBookByISBN } from '../../apis/book'
+import Promisify from '../../utils/promisify'
 
 var app = getApp()
 
@@ -45,7 +46,7 @@ Page({
       return wx.showModal({ content: '一次性最多只能借阅两本图书', showCancel: false })
     }
 
-    var scanfn = app.promisify(wx.scanCode)
+    var scanfn = Promisify(wx.scanCode)
     scanfn().then((res) => {
       // 如果已存在此图书，将其移动到第一个
       var index = this.data.selectedBooks.findIndex(i => i.isbn == res.result)

@@ -1,5 +1,6 @@
 <view>
   <toptip id="toptip"></toptip>
+  <toast id="toast"></toast>
   <view class="weui-cells weui-cells_after-title">
     <view class="weui-cell weui-cell_select">
       <view class="weui-cell__hd weui-cell__hd_in-select-after">
@@ -18,7 +19,7 @@
       <view class="weui-cell__bd">
         <input class="weui-input" placeholder="请输入手机号" bindinput="onInput" data-label="phone" type="number" />
       </view>
-      <send-code phone="{{phone}}" bindinvalid="onInvalid"></send-code>
+      <send-code phone="{{phone}}" bindinvalid="onInvalid" bindsend="onSend"></send-code>
     </view>
     <view class="weui-cell weui-cell_input">
       <view class="weui-cell__hd">

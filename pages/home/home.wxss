@@ -1,7 +1,6 @@
 @import "/templates/showcase/index.wxss"
 
-
-/* TODO 抵掉最后一个 panel 的 margin-bottom */
+/* TODO --- 抵掉最后一个 panel 的 margin-bottom */
 
 .search-box {
   -webkit-box-sizing: border-box;
@@ -32,8 +31,7 @@
   position: absolute;
   top: 0;
   right: 15px;
-  width: 20%;
-  /* 加大热区 */
+  width: 20%; /* 扩大响应区域 */
   text-align: right;
 }
 

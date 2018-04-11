@@ -1,9 +1,12 @@
 /**
  * 将小程序的API封装成支持Promise的API
- * @params fn {Function} 小程序原始API，如wx.login
  */
 
 var Promise = require('./es6-promise.js')
+
+/**
+ * @params fn {Function} 小程序原始API，如wx.login
+ */
 module.exports = function wxPromisify (fn) {
   return function (obj = {}) {
     return new Promise((resolve, reject) => {
