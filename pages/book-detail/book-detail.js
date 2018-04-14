@@ -74,8 +74,8 @@ Page({
     })
   },
 
-  // 如果没有登录，显示登录对话框
   onAdd: function () {
+    // 如果没有登录，显示登录对话框
     if (isLogin(true)) {
       wx.navigateTo({
         url: './children/add?id=' + this.data.book.id
@@ -91,12 +91,20 @@ Page({
     this.setData({'libraryList.show': false})
   },
 
-  // 如果没有登录，显示登录对话框
   onClickLibraryItem: function (e) {
+    // 如果没有登录，显示登录对话框
     if (isLogin(true)) {
       wx.navigateTo({
         url: `./children/confirm_order?book_id=${this.data.book.id}&library_id=${e.currentTarget.dataset.id}`
       })
+    }
+  },
+
+  onShareAppMessage: function () {
+    return {
+      title: '向你分享图书',
+      desc: this.data.book.title,
+      path: '/pages/book-detail/book-detail?id=' + this.data.book.id
     }
   }
 })

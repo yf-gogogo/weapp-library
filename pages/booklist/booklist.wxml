@@ -8,7 +8,7 @@
         <view class="font-gray-26">
           {{item.total}}本 by {{item.creator.nickname}}，{{item.favorited_num}}人收藏</view>
       </view>
-      <image src="/images/icon_more.png" mode="widthFix" class="ui-booklist-card__icon-more color-gray" data-type="create" data-index="{{index}}" catchtap="onShowActionSheet"></image>
+      <image src="/images/icon_more.png" mode="widthFix" class="ui-booklist-card__icon-more" data-type="create" data-index="{{index}}" catchtap="onShowActionSheet"></image>
     </navigator>
   </view>
 </collapse>

@@ -5,3 +5,6 @@
 @import 'styles/ui.wxss';
 @import 'styles/helper.wxss';
 
+page {
+  padding-bottom:1rpx;  /* 解决 load-more 底部 margin 不显示的问题 */
+}

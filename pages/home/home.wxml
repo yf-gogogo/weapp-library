@@ -1,7 +1,7 @@
 <import src="/templates/showcase/index" />
 <home-search-bar bindfocus="onFocus" bindcancel="onCancel" bindsearch="onSearch"></home-search-bar>
 <!-- 主页 -->
-<block wx:if="{{!search.isFocus}}">
+<block wx:if="{{!search.focus}}">
   <panel title="阅读统计" url="/pages/profile/children/order-history">
     <view class="color-green statistics-panel__number">
       {{statistics.book_num}}<span class="statistics-panel__unit">本</span>

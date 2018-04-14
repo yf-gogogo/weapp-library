@@ -62,7 +62,7 @@ page {
   flex-direction: row;
   align-items: center;
   padding: 12px 15px;
-  background-color: #fff;
+  background-color: #FFF;
 }
 .ui-booklist-card__img {
   width: 50px;
@@ -78,9 +78,10 @@ page {
 }
 .ui-booklist-card__icon-more {
   width: 20px;
+  color: #888;
 }
 
 /* hover 类 */
 .ui--active {
-  background-color: #ECECEC; 
+  background-color: #ECECEC !important; 
 }

@@ -32,7 +32,7 @@ Page({
         break
     }
 
-    wx.showLoading({ title: '加载中' })
+    wx.showLoading({ title: '加载中', mask: true })
     this._fetchData().then(books => {
       wx.hideLoading()
 
@@ -48,7 +48,7 @@ Page({
     this.setData({ loadMoreStatus: 'loading' })
 
     // 当返回数据长度为 0 或时类型为“推荐图书”时，设置为“没有更多图书”
-    this._fetchData(this.data.books.length || 0).then(books => books.length || options.type === 'recommend' ? this.setData({ loadMoreStatus: 'hidding' }) : this.setData({ loadMoreStatus: 'nomore' }))
+    this._fetchData(this.data.books.length).then(books => books.length || options.type === 'recommend' ? this.setData({ loadMoreStatus: 'hidding' }) : this.setData({ loadMoreStatus: 'nomore' }))
   },
 
   /**

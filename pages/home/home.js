@@ -8,7 +8,7 @@ var app = getApp()
 Page({
   data: {
     search: {
-      isFocus: false,
+      focus: false,
       history: []
     },
     ranking: [],
@@ -43,11 +43,11 @@ Page({
   },
 
   onFocus: function () {
-    this.setData({ 'search.isFocus': true })
+    this.setData({ 'search.focus': true })
   },
 
   onCancel: function () {
-    this.setData({ 'search.isFocus': false })
+    this.setData({ 'search.focus': false })
   },
 
   onClickHistoryItem: function (e) {

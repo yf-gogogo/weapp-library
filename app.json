@@ -16,7 +16,8 @@
     "pages/cart/children/qrcode",
     "pages/test/test",
     "pages/booklist/children/modify",
-    "pages/booklist/children/booklist-detail"
+    "pages/booklist/children/booklist-detail",
+    "pages/booklist/children/children/modify"
   ],
   "window": {
     "backgroundTextStyle": "dark",

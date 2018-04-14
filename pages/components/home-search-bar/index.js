@@ -18,7 +18,7 @@ Component({
       ],
       show: false
     },
-    isFocus: false,
+    focus: false,
     value: ''
   },
 
@@ -26,7 +26,7 @@ Component({
     onFocus: function () {
       this.setData({
         'options.selected': this.data.options.list[0],
-        'isFocus': true
+        'focus': true
       })
       this.triggerEvent('focus')
     },
@@ -40,7 +40,7 @@ Component({
     onCancel: function () {
       this.setData({
         'value': '',
-        'isFocus': false,
+        'focus': false,
         'options.show': false
       })
       this.triggerEvent('cancel')

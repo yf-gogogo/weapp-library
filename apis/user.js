@@ -2,7 +2,7 @@ import { get, post } from './request.js'
 
 module.exports = {
   sendCode: function (phone) {
-    return post('/vrcodes?phone=' + phone)
+    return post(`/vrcodes?phone=${phone}`)
   },
   checkCode: function (phone, vrcode) {
     return get('/vrcodes/check', { phone, vrcode })
@@ -18,6 +18,6 @@ module.exports = {
     })
   },
   getUserInfoByPhone: function (phone) {
-    return get('/users/' + phone)
+    return get(`/users/${phone}`)
   }
 }

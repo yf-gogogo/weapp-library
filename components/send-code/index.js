@@ -14,7 +14,7 @@ Component({
   },
   data: {
     str: '获取验证码',
-    isCounting: false // 是否正在倒计时
+    counting: false // 是否正在倒计时
   },
   methods: {
     onTapSend: function () {
@@ -23,7 +23,7 @@ Component({
         return
       }
       this.setData({
-        isCounting: true,
+        counting: true,
         str: '获取中'
       })
       sendCode(this.data.phone).then(() => {
@@ -31,7 +31,7 @@ Component({
         this.countDown()
       }).catch(() => {
         this.setData({
-          isCounting: false,
+          counting: false,
           str: '获取验证码'
         })
       })
@@ -46,7 +46,7 @@ Component({
         }, 1000)
       } else {
         this.setData({
-          isCounting: false,
+          counting: false,
           str: '获取验证码'
         })
         clearTimeout(timer)
