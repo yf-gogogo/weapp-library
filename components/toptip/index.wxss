@@ -1,4 +1,5 @@
 .toptip {
+  z-index: 5000;
   display: block;
   position: fixed;
   -webkit-transform: translateZ(0) translateY(-100%);
@@ -12,10 +13,19 @@
   text-align: center;
   color: #FFF;
   background-color: #E64340;
-  z-index: 110;
 
   /* 动画部分 */
   transition: all 0.4s ease;
+}
+
+.toptip--warn {
+  background-color: #FFBF00;
+}
+.toptip--success {
+  background-color: #09BB07;
+}
+.toptip--error {
+  background-color: #E64340;
 }
 
 .toptip--show {

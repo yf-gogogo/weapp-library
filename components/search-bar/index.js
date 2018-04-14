@@ -60,7 +60,6 @@ Component({
     onSearch: function (e) {
       if (this.data.value) {
         this.triggerEvent('search', {
-          type: this.data.options.selected,
           value: this.data.value
         })
       }

@@ -1,13 +1,18 @@
 
 var timer
 
+var DEFAULT_CONFIG = {
+  duration: 3000,
+  type: 'error' // warn、success、error
+}
+
 /**
  * 顶部提示
  */
 Component({
   data: {
     content: '',
-    type: 'error',
+    type: '',
     show: false
   },
 
@@ -16,8 +21,8 @@ Component({
      * 显示 TopTip，父组件通过 TopTip 组件的引用调用
      * @param content {String}
      * @param option {Object}
-     *        duration：持续时长，默认 1500 ms
-     *        type：提示类型，默认error，可选 warning、success、error
+     *  -- duration：持续时长
+     *  -- type：提示类型
      */
     show (content = '', options = {}) {
       // 如果已经有一个计时器在了，就先清理掉
@@ -27,10 +32,7 @@ Component({
       }
 
       // 扩展默认参数
-      options = Object.assign({
-        duration: 3000,
-        type: 'error'
-      }, options)
+      options = Object.assign(DEFAULT_CONFIG, options)
 
       // 设置定时器，定时关闭topTips
       timer = setTimeout(() => {

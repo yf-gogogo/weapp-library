@@ -1,5 +1,5 @@
 .toast {
-  z-index: 11;
+  z-index: 5000;
   display: inline-block;
   position: fixed;
   left: 50%;

@@ -20,7 +20,7 @@ Page({
   onDelete: function (e) {
     wx.showModal({
       title: '删除图书',
-      content: '确定删除该图书？这项操作无法撤销',
+      content: '确定删除该图书？这项操作将无法撤销',
       success: res => {
         if (res.confirm) {
           this.data.selectedBooks.splice(e.currentTarget.dataset.index, 1)

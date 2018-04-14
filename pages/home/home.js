@@ -65,7 +65,7 @@ Page({
   onClearHistory: function () {
     wx.showModal({
       title: '清除搜索记录',
-      content: '确定清除所有搜索历史？这项操作无法撤销',
+      content: '确定清除所有搜索历史？这项操作将无法撤销',
       success: res => {
         if (res.confirm) {
           wx.removeStorage({ key: 'history' })

@@ -1,6 +1,7 @@
 
 /**
  * 折叠面板
+ * TODO --- 动画展开
  * slot：折叠区域
  * @event <show> <hide> <tapaction>
  */

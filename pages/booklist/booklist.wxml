@@ -1,4 +1,4 @@
-<search-bar default-text="搜索书单" focus-text="书单标题、创建者"></search-bar>
+<search-bar default-text="搜索书单" focus-text="书单标题、创建者" bindsearch="onSearch"></search-bar>
 <collapse title="我创建的书单" action-text="新建" bindtapaction="onCreate">
   <view class="weui-cells weui-cells_after-title">
     <navigator wx:for="{{booklists.create}}" class="weui-cell ui-booklist-card" hover-class="ui--active" url="./children/booklist-detail?id={{item.id}}">
@@ -8,7 +8,7 @@
         <view class="font-gray-26">
           {{item.total}}本 by {{item.creator.nickname}}，{{item.favorited_num}}人收藏</view>
       </view>
-      <image src="/images/icon_more.png" mode="widthFix" class="ui-booklist-card__icon-more color-gray" data-index="{{index}}" catchtap="onShowActionSheet"></image>
+      <image src="/images/icon_more.png" mode="widthFix" class="ui-booklist-card__icon-more color-gray" data-type="create" data-index="{{index}}" catchtap="onShowActionSheet"></image>
     </navigator>
   </view>
 </collapse>
@@ -21,7 +21,7 @@
         <view class="font-gray-26">
           {{item.total}}本 by {{item.creator.nickname}}，{{item.favorited_num}}人收藏</view>
       </view>
-      <view class="ui-booklist-card__action color-gray" data-index="{{index}}" catchtap="onShowActionSheet">···</view>
+      <image src="/images/icon_more.png" mode="widthFix" class="ui-booklist-card__icon-more color-gray" data-type="favorite" data-index="{{index}}" catchtap="onShowActionSheet"></image>
     </navigator>
   </view>
 </collapse>

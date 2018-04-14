@@ -1,8 +1,13 @@
 
 var timer
 
+var DEFAULT_CONFIG = {
+  duration: 3000
+}
+
 /**
- * Toast
+ * 能够自定义位置的 Toast
+ * 如果只需要居中显示，最好使用 wx.showToast()
  * TODO --- 实现淡入淡出
  */
 Component({
@@ -22,7 +27,7 @@ Component({
      * 显示 Toast，父组件通过 Toast 组件的引用调用
      * @param content {String}
      * @param option {Object}
-     *        duration：持续时长，默认 3000 ms
+     *  -- duration：持续时长
      */
     show (title = '', options = {}) {
       // 如果已经有一个计时器在了，就先清理掉
@@ -32,9 +37,7 @@ Component({
       }
 
       // 扩展默认参数
-      options = Object.assign({
-        duration: 3000
-      }, options)
+      options = Object.assign(DEFAULT_CONFIG, options)
 
       // 设置定时器，定时关闭topTips
       timer = setTimeout(() => {
