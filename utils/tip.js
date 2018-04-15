@@ -25,6 +25,11 @@ var TIP_SETTINGS = {
   CREATE_BOOKLIST: {
     value: true,
     message: '您的书单可以被其他用户收藏，您可以为书单内的每一本图书设置个性化描述'
+  },
+  // 添加评论
+  ADD_REVIEW: {
+    value: true,
+    message: '为喜欢的图书多打几颗星吧，评价的图书越多，系统推荐的内容就越精准'
   }
 }
 

@@ -22,11 +22,11 @@ module.exports = {
   getBooksByAdvancedSearch: function (params) {
     return get('/books/search/advanced', params)
   },
-  getCollectionsByBookId: function (id) {
-    return get(`/books/${id}/collections`)
+  getCollectionsByBookId: function (id, params) {
+    return get(`/books/${id}/collections`, params)
   },
   getCollectionsByBookISBN: function (isbn) {
-    return get(`/books/isbn/${isbn}/collections`)
+    return get(`/books/isbn/${isbn}/collections`, params)
   },
   getBooksByClassificationNumber: function (classNum, start = 0) {
     return get(`/books/classifications/${classNum}?start=${start}`)

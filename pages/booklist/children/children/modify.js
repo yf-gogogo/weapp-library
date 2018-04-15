@@ -1,6 +1,7 @@
 import { updateBooklistById } from '../../../../apis/booklist'
 
 var options = {
+  index: undefined,
   book_id: undefined,
   booklist_id: undefined
 }
@@ -21,6 +22,9 @@ Page({
     this.setData({ description: e.detail.value })
   },
 
+  /**
+   * @event <modifyBookDescription>
+   */
   onSubmit: function () {
     wx.showLoading({ title: '加载中', mask: true })
     updateBooklistById(options.booklist_id, { add_items: {
@@ -30,6 +34,12 @@ Page({
       wx.hideLoading()
       wx.showToast({ title: '操作成功', mask: true })
       setTimeout(_ => wx.navigateBack(), 1000)
+
+      // 触发事件
+      getApp().event.emit('modifyBookDescription', {
+        index: options.index,
+        description: this.data.description
+      })
     }).catch(_ => {
       wx.hideLoading()
     })

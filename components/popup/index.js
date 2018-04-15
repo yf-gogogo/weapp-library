@@ -2,7 +2,7 @@
 /**
  * 底部弹出菜单
  * slot： 菜单内容
- * @event <close>
+ * @event <hide>
  */
 Component({
   properties: {
@@ -14,7 +14,7 @@ Component({
     // 菜单标题
     title: String,
     // 关闭按钮文字
-    closeText: {
+    hideText: {
       type: String,
       value: '关闭'
     },
@@ -28,11 +28,11 @@ Component({
   methods: {
     onTapMask: function () {
       if (this.data.tappableMask) {
-        this.triggerEvent('close')
+        this.triggerEvent('hide')
       }
     },
-    onClose: function () {
-      this.triggerEvent('close')
+    onHide: function () {
+      this.triggerEvent('hide')
     }
   }
 })

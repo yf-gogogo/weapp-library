@@ -1,6 +1,6 @@
-<view class="ui-book-card" hover-class="ui--active" bindtap="onTapCard">
+<view class="ui-flex-card ui-book-card" hover-class="ui--active" bindtap="onTapCard">
   <image class="ui-book-card__img" src="{{book.imgs.small}}" mode="widthFix"></image>
-  <view class="ui-book-card__info font-gray-26">
+  <view class="ui-flex-card__info ui-book-card__info font-gray-26">
     <view class="font-black-34">{{book.title}}</view>
     <view>
       评分:
@@ -18,8 +18,8 @@
         <icon wx:else class="weui-icon-checkbox_circle" type="circle" size="23"></icon>
       </view>
     </view>
-    <view hidden="{{isSelecting}}" hover-stop-propagation>
-      <image src="/images/icon_more.png" class="booklist-item__icon-more" mode="widthFix" catchtap="onShowActionSheet" hover-stop-propagation></image>
+    <view hidden="{{isSelecting}}" catchtap="onShowActionSheet" hover-stop-propagation>
+      <image src="/images/icon_more.png" class="booklist-item__icon-more" mode="widthFix"></image>
     </view>
   </view>
 </view>

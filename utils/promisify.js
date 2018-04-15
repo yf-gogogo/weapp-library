@@ -5,7 +5,7 @@
 var Promise = require('./es6-promise.js')
 
 /**
- * @params fn {Function} 小程序原始API，如wx.login
+ * @param fn {Function} 小程序原始API，如wx.login
  */
 module.exports = function wxPromisify (fn) {
   return function (obj = {}) {

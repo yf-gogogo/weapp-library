@@ -1,7 +1,10 @@
 import promisePolyfill from './utils/promise-polyfill' // 添加 promise.finally
 import { setTipSettings } from './utils/tip' // 使用帮助
+import EventEmitter from './utils/event'
 
 App({
+  event: new EventEmitter(),
+
   globalData: {
     phone: null
   },

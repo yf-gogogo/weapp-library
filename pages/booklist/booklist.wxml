@@ -3,13 +3,13 @@
   <view class="weui-cells weui-cells_after-title">
     <navigator wx:for="{{booklists.create}}" class="weui-cell ui-booklist-card" hover-class="ui--active" url="./children/booklist-detail?id={{item.id}}">
       <image class="ui-booklist-card__img" src="{{item.image}}" mode="aspectFill"></image>
-      <view class="ui-booklist-card__info">
+      <view class="ui-flex-card__info ui-booklist-card__info">
         <view class="font-black-34">{{item.title}}</view>
         <view class="font-gray-26">
           {{item.total}}本 by {{item.creator.nickname}}，{{item.favorited_num}}人收藏</view>
       </view>
-      <view hover-stop-propagation>
-        <image src="/images/icon_more.png" mode="widthFix" class="ui-booklist-card__icon-more" data-type="create" data-index="{{index}}" catchtap="onShowActionSheet"></image>
+      <view class="ui-icon-more-area" data-type="create" data-index="{{index}}" catchtap="onShowActionSheet" hover-stop-propagation>
+        <image src="/images/icon_more.png" mode="widthFix" class="ui-icon-more"></image>
       </view>
     </navigator>
   </view>
@@ -18,13 +18,13 @@
   <view class="weui-cells weui-cells_after-title">
     <navigator wx:for="{{booklists.favorite}}" class="weui-cell ui-booklist-card" hover-class="ui--active" url="./children/booklist-detail?id={{item.id}}">
       <image class="ui-booklist-card__img" src="{{item.image}}" mode="aspectFill"></image>
-      <view class="ui-booklist-card__info">
+      <view class="ui-flex-card__info ui-booklist-card__info">
         <view class="font-black-34">{{item.title}}</view>
         <view class="font-gray-26">
           {{item.total}}本 by {{item.creator.nickname}}，{{item.favorited_num}}人收藏</view>
       </view>
-      <view hover-stop-propagation>
-        <image src="/images/icon_more.png" mode="widthFix" class="ui-booklist-card__icon-more color-gray" data-type="favorite" data-index="{{index}}" catchtap="onShowActionSheet"></image>
+      <view class="ui-icon-more-area" data-type="favorite" data-index="{{index}}" catchtap="onShowActionSheet" hover-stop-propagation>
+        <image src="/images/icon_more.png" mode="widthFix" class="ui-icon-more"></image>
       </view>
     </navigator>
   </view>

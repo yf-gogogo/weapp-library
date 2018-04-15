@@ -18,7 +18,9 @@
     "pages/booklist/children/modify",
     "pages/booklist/children/booklist-detail",
     "pages/booklist/children/children/modify",
-    "pages/book-detail/children/add"
+    "pages/book-detail/children/add",
+    "pages/book-detail/children/library-list",
+    "pages/book-detail/children/review"
   ],
   "window": {
     "backgroundTextStyle": "dark",

@@ -1,7 +1,7 @@
 
 /**
  * 搜索框
- * @event <search>
+ * @event <focus> <input> <clear> <hide> <search>
  */
 Component({
   properties: {
@@ -30,38 +30,36 @@ Component({
   },
   methods: {
     onFocus: function () {
-      this.setData({
-        isFocus: true
-      })
+      this.setData({ isFocus: true })
+      this.triggerEvent('focus')
     },
+
     onHide: function () {
       this.setData({
         value: '',
         isFocus: false
       })
+      this.triggerEvent('hide')
     },
+
     onClear: function () {
-      this.setData({
-        value: ''
-      })
+      this.setData({ value: '' })
+      this.triggerEvent('clear')
     },
+
     onInput: function (e) {
-      this.setData({
-        value: e.detail.value
-      })
+      this.setData({ value: e.detail.value })
+      this.triggerEvent('input', {value: e.detail.value})
     },
+
     onTapMask: function () {
-      if (this.data.tappableMask) {
-        this.onHide()
-      }
+      if (this.data.tappableMask) this.onHide()
     },
 
     // 在输入框不为空时搜索
     onSearch: function (e) {
       if (this.data.value) {
-        this.triggerEvent('search', {
-          value: this.data.value
-        })
+        this.triggerEvent('search', { value: this.data.value })
       }
     }
   }

@@ -47,6 +47,9 @@ Page({
     selectedBooks: []
   },
 
+  /**
+   * @listens <modifyBookDescription>
+   */
   onLoad: function (options) {
     wx.showLoading({ title: '加载中', mask: true })
     getBooklistById(options.id).then(res => {
@@ -57,6 +60,9 @@ Page({
       })
       wx.hideLoading()
     }).catch(() => wx.hideLoading())
+
+    // 监听事件
+    getApp().event.on('modifyBookDescription', this.onModifed)
   },
 
   onToggleDescription: function () {
@@ -81,17 +87,17 @@ Page({
           'loadMoreStatus': 'hidding'
         })
       } else {
-        this.setData({loadMoreStatus: 'nomore'})
+        this.setData({ loadMoreStatus: 'nomore' })
       }
-    }).catch(() => this.setData({loadMoreStatus: 'hidding'}))
+    }).catch(() => this.setData({ loadMoreStatus: 'hidding' }))
   },
 
   // 用户是书单创建者，打开/关闭书目多选，关闭多选时清空已选择书目
   onToggleEditStatus: function () {
     let isSelecting = this.data.isSelecting
-    this.setData({isSelecting: !isSelecting})
+    this.setData({ isSelecting: !isSelecting })
     if (isSelecting) {
-      this.setData({selectedBooks: []})
+      this.setData({ selectedBooks: [] })
     }
   },
 
@@ -101,7 +107,7 @@ Page({
     if (!isLogin(true)) return
 
     let { id, status } = this.data.booklistInfo
-    this.setData({isSwitchLoading: true})
+    this.setData({ isSwitchLoading: true })
     if (status === 0) {
       favoriteBooklistById(id).then(res => {
         this.setData({
@@ -109,7 +115,7 @@ Page({
           'booklistInfo.status': 2
         })
       }).catch(() => {
-        this.setData({'isSwitchLoading': false})
+        this.setData({ 'isSwitchLoading': false })
       })
     } else {
       deleteBooklistById(id).then(res => {
@@ -118,7 +124,7 @@ Page({
           'booklistInfo.status': 0
         })
       }).catch(() => {
-        this.setData({'isSwitchLoading': false})
+        this.setData({ 'isSwitchLoading': false })
       })
     }
   },
@@ -135,7 +141,7 @@ Page({
     } else {
       selectedBooks = selectedBooks.filter(e => e !== id)
     }
-    this.setData({selectedBooks: selectedBooks})
+    this.setData({ selectedBooks: selectedBooks })
   },
 
   // 删除书目
@@ -177,8 +183,16 @@ Page({
     let booklistId = this.data.booklistInfo.id
     let bookId = this.data.booklistInfo.items[index].book.id
     let description = this.data.booklistInfo.items[index].comment
-    let url = `./children/modify?booklist_id=${booklistId}&book_id=${bookId}&description=${description}`
-    wx.navigateTo({url: url})
+    let url = `./children/modify?index=${index}&booklist_id=${booklistId}&book_id=${bookId}&description=${description}`
+    wx.navigateTo({ url: url })
+  },
+
+  // 编辑完成后更新数据
+  onModifed: function (e) {
+    let key = `booklistInfo.items[${e.index}].comment`
+    let params = {}
+    params[key] = e.description
+    this.setData(params)
   },
 
   onShareAppMessage: function () {

@@ -1,8 +1,6 @@
 import { getBookByISBN } from '../../apis/book'
 import Promisify from '../../utils/promisify'
 
-var app = getApp()
-
 Page({
   data: {
     selectedBooks: []

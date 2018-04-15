@@ -1,0 +1,8 @@
+<view class="star">
+  <block wx:for="{{[0, 2, 4, 6, 8]}}">
+    <image class="star__image" src="{{value > item ? (value - item === 1 ? halfSrc : fullSrc) : normalSrc}}">
+      <view class="star__mask" style="left:0px" data-value="{{item + 1}}" catchtap="onTapLeft"></view>
+      <view class="star__mask" style="left:15px" data-value="{{item + 2}}" catchtap="onTapRight"></view>
+    </image>
+  </block>
+</view>

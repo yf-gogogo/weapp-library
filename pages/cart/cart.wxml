@@ -4,9 +4,9 @@
     <view wx:if="{{!selectedBooks.length}}" class="weui-media-box weui-media-box_text">
       <view class="weui-media-box__desc">你还没有选择任何图书</view>
     </view>
-    <navigator wx:if="{{selectedBooks.length}}" wx:for="{{selectedBooks}}" wx:key="{{item.id}}" class="ui-book-card cart-book-card" hover-class="ui--active" url="/pages/book-detail/book-detail?id={{item.id}}">
+    <navigator wx:if="{{selectedBooks.length}}" wx:for="{{selectedBooks}}" wx:key="{{item.id}}" class="ui-flex-card" hover-class="ui--active" url="/pages/book-detail/book-detail?id={{item.id}}">
       <image class="ui-book-card__img" mode="widthFix" src="{{item.imgs.small}}"></image>
-      <view class="ui-book-card__info font-gray-26">
+      <view class="ui-flex-card__info ui-book-card__info font-gray-26">
         <view class="font-black-34">{{item.title}}</view>
         <view>作者： {{item.author}}
         </view>

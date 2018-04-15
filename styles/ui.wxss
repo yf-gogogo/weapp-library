@@ -22,9 +22,7 @@ page {
   padding: 15px; 
   background-color: #fff;
 }
-
-/* 图书卡片 */
-.ui-book-card {
+.ui-flex-card {
   position: relative;
   display: flex;
   display: -webkit-flex;
@@ -33,12 +31,18 @@ page {
   padding: 15px; 
   background-color: #fff;
 }
-.ui-book-card__img {
-  flex: 0 0 90px;
-}
-.ui-book-card__info {
+.ui-flex-card__info {
   flex: 1;
   margin-left: 10px;
+}
+.ui-flex-card__info:first-child {
+  margin-left: 0;
+}
+
+/* 图书卡片 */
+.ui-book-card {}
+.ui-book-card__img {
+  flex: 0 0 90px;
 }
 .ui-book-card__info > view {
   line-height: 1.7em;
@@ -56,29 +60,27 @@ page {
 
 /* 书单卡片 */
 .ui-booklist-card {
-  position: relative;
-  display: flex;
-  display: -webkit-flex;
-  flex-direction: row;
-  align-items: center;
   padding: 12px 15px;
-  background-color: #FFF;
 }
 .ui-booklist-card__img {
   width: 50px;
   height: 50px;
   flex: 0 0 50px;
 }
-.ui-booklist-card__info {
-  flex: 1;
-  margin-left: 12px;
-}
 .ui-booklist-card__info > .font-black-34 {
   margin-bottom: 5px;
 }
-.ui-booklist-card__icon-more {
+
+/* 更多（三个圆点） */
+.ui-icon-more-area {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+}
+.ui-icon-more {
+  position: relative;
+  top: 5px;
   width: 20px;
-  color: #888;
 }
 
 /* hover 类 */

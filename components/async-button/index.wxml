@@ -1,0 +1,4 @@
+<button class="async-button async-button--{{size}}" type="{{type}}" size="{{size}}" disabled="{{disabled}}" plain bindtap="onTap">
+  <view wx:if="{{loading}}" class="loading loading--{{type}}"></view>
+  <view wx:else>{{text}}</view>
+</button>
