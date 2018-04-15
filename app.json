@@ -17,7 +17,8 @@
     "pages/test/test",
     "pages/booklist/children/modify",
     "pages/booklist/children/booklist-detail",
-    "pages/booklist/children/children/modify"
+    "pages/booklist/children/children/modify",
+    "pages/book-detail/children/add"
   ],
   "window": {
     "backgroundTextStyle": "dark",

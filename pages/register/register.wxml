@@ -30,5 +30,7 @@
       </view>
     </view>
   </view>
-  <button type="primary" style="margin: 60rpx 40rpx" catchtap="onSubmit">下一步</button>
+  <view class="weui-btn-area">
+    <button class="weui-btn" type="primary" catchtap="onSubmit">下一步</button>
+  </view>
 </view>

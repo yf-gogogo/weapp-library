@@ -43,7 +43,9 @@
     </navigator>
   </view>
 </view>
-<button class="weui-btn cart-btn" type="primary" catchtap="onScan">扫描图书条形码</button>
-<navigator wx:if="{{selectedBooks.length}}" hover-class="none" url="./children/qrcode">
-  <button class="weui-btn cart-btn" type="default">生成借书二维码</button>
+<view class="weui-btn-area">
+  <button class="weui-btn" type="primary" catchtap="onScan">扫描图书条形码</button>
+  <navigator wx:if="{{selectedBooks.length}}" hover-class="none" class="weui-btn" url="./children/qrcode">
+    <button type="default">生成借书二维码</button>
 </navigator>
+</view>

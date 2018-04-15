@@ -7,10 +7,6 @@
   margin-top: 0;
 }
 
-.cart-btn {
-  margin: 30rpx 40rpx;
-}
-
 .ui-list:before,
 .ui-list:after {
   display: none;
