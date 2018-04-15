@@ -74,7 +74,10 @@ export function request (method, relativeUrl, param, header) {
     wx.request({
       url: baseUrl + relativeUrl,
       method: method,
-      header: Object.assign({ 'Content-Type': 'application/json' }, header),
+      header: Object.assign({
+        'Content-Type': 'application/json',
+        'TOKEN': 'user token issued by server' // TODO --- 添加用户token
+      }, header),
       data: param || {},
       success (res) {
         response = res.data

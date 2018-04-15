@@ -1,2 +1,11 @@
-<!--pages/booklist/children/children/modify.wxml-->
-<text>pages/booklist/children/children/modify.wxml</text>
+<view class="ui-label">图书描述</view>
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell">
+    <view class="weui-cell__bd">
+      <textarea class="weui-textarea" placeholder="请输入图书描述" maxlength="300" value="{{description}}" bindinput="onInput" />
+    </view>
+  </view>
+</view>
+<view class="weui-btn-area">
+  <button class="weui-btn" type="primary" catchtap="onSubmit">确认</button>
+</view>

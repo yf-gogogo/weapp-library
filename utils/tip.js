@@ -19,7 +19,12 @@ var TIP_SETTINGS = {
   // 加入书单
   ADD_TO_BOOKLIST: {
     value: true,
-    message: '您的书单将会分享给所有用户，您可以为书单内的每一本图书设置个性化描述'
+    message: '您的书单可以被其他用户收藏，您可以为书单内的每一本图书设置个性化描述'
+  },
+  // 创建书单
+  CREATE_BOOKLIST: {
+    value: true,
+    message: '您的书单可以被其他用户收藏，您可以为书单内的每一本图书设置个性化描述'
   }
 }
 

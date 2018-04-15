@@ -18,6 +18,8 @@
         <icon wx:else class="weui-icon-checkbox_circle" type="circle" size="23"></icon>
       </view>
     </view>
-    <image hidden="{{isSelecting}}" src="/images/icon_more.png" mode="widthFix" class="booklist-item__icon-more" catchtap="onShowActionSheet"></image>
+    <view hidden="{{isSelecting}}" hover-stop-propagation>
+      <image src="/images/icon_more.png" class="booklist-item__icon-more" mode="widthFix" catchtap="onShowActionSheet" hover-stop-propagation></image>
+    </view>
   </view>
 </view>

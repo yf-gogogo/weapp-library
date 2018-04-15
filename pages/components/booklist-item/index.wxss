@@ -12,5 +12,4 @@
 }
 .booklist-item__icon-more {
   width: 30px;
-  color: #888;
 }

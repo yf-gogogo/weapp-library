@@ -15,7 +15,7 @@
         <view>ISBN：{{item.isbn}}</view>
         <view>索书号：{{item.call_number}}</view>
       </view>
-      <view class="font-28 color-red" data-index="{{index}}" catchtap="onDelete">删除</view>
+      <view class="font-28 color-red" data-index="{{index}}" catchtap="onDelete" hover-stop-propagation>删除</view>
     </navigator>
   </view>
   <view class="weui-panel__ft" wx:if="{{selectedBooks.length}}" catchtap="showHelpModal">

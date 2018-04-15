@@ -41,7 +41,7 @@ Page({
 
   onCreate: function () {
     wx.navigateTo({
-      url: './children/modify?action=create'
+      url: './children/modify?type=create'
     })
   },
 
@@ -61,7 +61,7 @@ Page({
       // 如果点击了“编辑书单”，则跳转至书单信息编辑页
       if (res.tapIndex === 0 && type === 'create') {
         wx.navigateTo({
-          url: './children/modify?action=modify&id=' + id
+          url: './children/modify?type=modify&id=' + id
         })
       } else {
         let title

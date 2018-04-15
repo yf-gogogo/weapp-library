@@ -121,6 +121,18 @@
 					"name": "加入书单",
 					"pathName": "pages/book-detail/children/add",
 					"query": "id=1"
+				},
+				{
+					"id": 15,
+					"name": "编辑书单",
+					"pathName": "pages/booklist/children/modify",
+					"query": "id=1&type=create"
+				},
+				{
+					"id": 16,
+					"name": "编辑个性化描述",
+					"pathName": "pages/booklist/children/children/modify",
+					"query": "booklist_id=62&book_id=88&description=第一章 回答在牛奶箱里 第二章 深夜的口琴声 第三章 在思域车上等到天亮 第四章 听着披头士默祷 第五章 来自天上的祈祷"
 				}
 			]
 		}

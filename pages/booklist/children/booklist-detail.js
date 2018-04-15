@@ -176,8 +176,8 @@ Page({
     let index = e.currentTarget.dataset.index
     let booklistId = this.data.booklistInfo.id
     let bookId = this.data.booklistInfo.items[index].book.id
-    let comment = this.data.booklistInfo.items[index].comment
-    let url = `./modify?booklist_id=${booklistId}&book_id=${bookId}&comment=${comment}`
+    let description = this.data.booklistInfo.items[index].comment
+    let url = `./children/modify?booklist_id=${booklistId}&book_id=${bookId}&description=${description}`
     wx.navigateTo({url: url})
   },
 

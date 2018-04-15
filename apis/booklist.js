@@ -1,6 +1,9 @@
 import { get, post, deleteReq } from './request.js'
 
 module.exports = {
+  createBooklist: function (params) {
+    return post('/booklists', params)
+  },
   getRecommendedBooklistsByPhone: function (phone) {
     return get(`/booklists/recommend/${phone}`)
   },

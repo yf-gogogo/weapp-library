@@ -10,8 +10,10 @@ var DEFAULT_CONFIG = {
  * 顶部提示
  */
 Component({
+  properties: {
+    content: String
+  },
   data: {
-    content: '',
     type: '',
     show: false
   },
@@ -34,7 +36,7 @@ Component({
       // 扩展默认参数
       options = Object.assign(DEFAULT_CONFIG, options)
 
-      // 设置定时器，定时关闭topTips
+      // 设置定时器，定时关闭
       timer = setTimeout(() => {
         this.setData({
           show: false
