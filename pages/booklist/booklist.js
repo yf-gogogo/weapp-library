@@ -80,18 +80,14 @@ Page({
           success: res => {
             if (res.confirm) {
               // 删除书单/取消收藏使用同一个接口
+              wx.showLoading({title: '加载中', mask: true})
               deleteBooklistById(id).then(() => {
-                // 从 data 中删除该书单
+                wx.hideLoading()
                 let tmp = this.data.booklists
-                tmp[type].splice(index, 1)
-                this.setData({
-                  booklists: tmp
-                })
-
-                wx.showToast({
-                  title: '操作成功'
-                })
-              })
+                tmp[type].splice(index, 1) // 从 data 中删除该书单
+                this.setData({booklists: tmp})
+                wx.showToast({title: '操作成功'})
+              }).catch(() => wx.hideLoading())
             }
           }
         })

@@ -1,5 +1,5 @@
 import { showTip } from '../../../utils/tip'
-import { getReviewsByBookId, addReviewByBookId } from '../../../apis/review'
+import { getReviewsByBookId, addReviewByBookId, deleteReviewById } from '../../../apis/review'
 
 var toptip // 保存toptip组件的引用
 var once = false // 只提醒一次
@@ -22,7 +22,9 @@ Page({
       loading: false // 按钮加载状态
     },
     // load-more组件状态：hidding, loading, nomore
-    loadMoreStatus: 'hidding'
+    loadMoreStatus: 'hidding',
+    // 是否初始化完成
+    initialized: false
   },
 
   onLoad: function (options) {
@@ -30,9 +32,11 @@ Page({
     toptip = this.selectComponent('#toptip')
     wx.showLoading({title: '加载中', mask: true})
     getReviewsByBookId(options.id).then(res => {
-      wx.hideLoading()
       this.setData({reviews: res.data.reviews})
-    }).catch(() => wx.hideLoading())
+    }).finally(() => {
+      wx.hideLoading()
+      this.setData({initialized: true})
+    })
   },
 
   onReachBottom: function () {
@@ -71,6 +75,25 @@ Page({
 
   onInput: function (e) {
     this.setData({'popup.review': e.detail.value})
+  },
+
+  onDelete: function (e) {
+    let { id, index } = e.currentTarget.dataset
+    wx.showModal({
+      title: '删除评论',
+      content: '确定删除该条评论？这项操作将无法撤销',
+      success: res => {
+        if (res.confirm) {
+          wx.showLoading({title: '删除中', mask: true})
+          deleteReviewById(id).then(() => {
+            wx.hideLoading()
+            this.data.reviews.splice(index, 1)
+            this.setData({ reviews: this.data.reviews })
+            wx.showToast({title: '删除成功'})
+          }).catch(() => wx.hideLoading())
+        }
+      }
+    })
   },
 
   onSubmit: function () {

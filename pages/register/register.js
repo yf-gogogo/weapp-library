@@ -4,6 +4,7 @@ import reg from '../../utils/regexp'
 var toptip // 保存toptip组件的引用
 var toast // 保存toast组件的引用
 var sendBtn // 保存send-code组件的引用
+var needReturn // 从登录对话框跳转过来时，需要在登录完成后返回上一页
 
 Page({
   data: {
@@ -11,6 +12,10 @@ Page({
     countryIndex: 0,
     phone: '',
     vrcode: ''
+  },
+
+  onLoad: function (options) {
+    needReturn = options.need_return
   },
 
   onReady: function () {
@@ -57,11 +62,13 @@ Page({
     })
     checkCode(this.data.phone, this.data.vrcode).then((res) => {
       wx.setStorageSync('phone', this.data.phone)
-      app.globalData.phone = this.data.phone
+      getApp().globalData.phone = this.data.phone
 
       // 201：创建了新的用户 200：登录成功
       if (res.statusCode === 201) {
         wx.redirectTo({ url: './children/result' })
+      } else if (needReturn) {
+        wx.navigateBack()
       } else {
         wx.switchTab({ url: '/pages/home/home' })
       }

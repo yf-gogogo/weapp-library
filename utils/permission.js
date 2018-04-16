@@ -21,7 +21,7 @@ function isLogin (showModal = false) {
           content: '登录后才可使用完整功能，是否前去登录？',
           success: res => {
             if (res.confirm) {
-              wx.navigateTo({ url: '/pages/register/register' })
+              wx.navigateTo({ url: '/pages/register/register?need_return=true' })
             }
           }
         })
