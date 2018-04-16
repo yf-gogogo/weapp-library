@@ -19,7 +19,7 @@
       <view class="weui-cell__bd">
         <input class="weui-input" placeholder="请输入手机号" bindinput="onInput" data-label="phone" type="number" />
       </view>
-      <send-code phone="{{phone}}" bindinvalid="onInvalid" bindsend="onSend"></send-code>
+      <send-code id="send-btn" bindtap="onSend"></send-code>
     </view>
     <view class="weui-cell weui-cell_input">
       <view class="weui-cell__hd">

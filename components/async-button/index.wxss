@@ -1,10 +1,10 @@
-
 /* default */
 .async-button {
   height: 48px;
   border-radius: 25px;
 }
-.loading {
+.async-button__loading {
+  font-size: 10px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -13,37 +13,36 @@
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: #63c75b;
   position: relative;
-  -webkit-animation: loading 0.8s infinite linear;
-  animation: loading 0.8s infinite linear;
+  -webkit-animation: async-button__loading 0.8s infinite linear;
+  animation: async-button__loading 0.8s infinite linear;
   -webkit-transform: translateZ(0);
   -ms-transform: translateZ(0);
   transform: translateZ(0);
 }
-.loading:before {
+.async-button__loading:before {
+  width: 50%;
+  height: 50%;
+  border-radius: 100% 0 0 0;
   position: absolute;
   top: 0;
   left: 0;
   content: '';
-  width: 50%;
-  height: 50%;
-  border-radius: 100% 0 0 0;
 }
-.loading:after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+.async-button__loading:after {
   background: #fff;
   width: 85%;
   height: 85%;
   border-radius: 50%;
   content: '';
   margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
-@-webkit-keyframes loading {
+@-webkit-keyframes async-button__loading {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
@@ -53,7 +52,7 @@
     transform: rotate(360deg);
   }
 }
-@keyframes loading {
+@keyframes async-button__loading {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
@@ -69,7 +68,7 @@
   min-width: 60px;
   height: 30px;
 }
-.async-button--mini .loading {
+.async-button--mini .async-button__loading {
   margin-left: -10px;
   margin-top: -10px;
   width: 20px;
@@ -77,33 +76,43 @@
 }
 
 /* type */
-.loading--default {
+.async-button__loading--default {
   background: -moz-linear-gradient(left, #4f4b4a 10%, rgba(206,208,208, 0) 42%);
   background: -webkit-linear-gradient(left, #4f4b4a 10%, rgba(206,208,208, 0) 42%);
   background: -o-linear-gradient(left, #4f4b4a 10%, rgba(206,208,208, 0) 42%);
   background: -ms-linear-gradient(left, #4f4b4a 10%, rgba(206,208,208, 0) 42%);
   background: linear-gradient(to right, #4f4b4a 10%, rgba(206,208,208, 0) 42%);
+  -webkit-animation: loading 0.8s infinite linear;
+  animation: loading 0.8s infinite linear;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
 }
-.loading--default:before {
+.async-button__loading--default:before {
   background: #4f4b4a;
 }
-.loading--primary {
+.async-button__loading--primary {
   background: -moz-linear-gradient(left, #63c75b 10%, rgba(206,208,208, 0) 42%);
   background: -webkit-linear-gradient(left, #63c75b 10%, rgba(206,208,208, 0) 42%);
   background: -o-linear-gradient(left, #63c75b 10%, rgba(206,208,208, 0) 42%);
   background: -ms-linear-gradient(left, #63c75b 10%, rgba(206,208,208, 0) 42%);
   background: linear-gradient(to right, #63c75b 10%, rgba(206,208,208, 0) 42%);
 }
-.loading--primary:before {
+.async-button__loading--primary:before {
   background: #63c75b;
 }
-.loading--warn {
+.async-button__loading--warn {
   background: -moz-linear-gradient(left, #ffa299 10%, rgba(206,208,208, 0) 42%);
   background: -webkit-linear-gradient(left, #ffa299 10%, rgba(206,208,208, 0) 42%);
   background: -o-linear-gradient(left, #ffa299 10%, rgba(206,208,208, 0) 42%);
   background: -ms-linear-gradient(left, #ffa299 10%, rgba(206,208,208, 0) 42%);
   background: linear-gradient(to right,   10%, rgba(206,208,208, 0) 42%);
+  -webkit-animation: loading 0.8s infinite linear;
+  animation: loading 0.8s infinite linear;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
 }
-.loading--warn:before {
+.async-button__loading--warn:before {
   background: #ffa299;
 }

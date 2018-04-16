@@ -1,56 +1,85 @@
-import { sendCode } from '../../apis/user'
-
-var reg = require('../../utils/regexp')
 var timer
-var leftTime = 60
+var leftTime
 
 /**
- * 带倒计时的短信发送按钮
- * @event <invalid> <send>
+ * 发送短信的倒计时按钮
+ * @event <tap> <end>
  */
 Component({
   properties: {
-    phone: String
+    // 默认文字
+    defaultText: {
+      type: String,
+      value: '获取验证码'
+    },
+    // 点击后的文字
+    pendingText: {
+      type: String,
+      value: '发送中'
+    },
+    // 倒计时文字
+    countingText: {
+      type: String,
+      value: '已发送'
+    },
+    // 倒计时时长
+    duration: {
+      type: Number,
+      value: 60
+    }
   },
+
   data: {
-    str: '获取验证码',
-    counting: false // 是否正在倒计时
+    str: '获取验证码', // 当前显示的文字
+    disabled: false // 倒计时过程中禁用
   },
+
+  attached: function () {
+    leftTime = this.data.duration
+  },
+
   methods: {
-    onTapSend: function () {
-      if (!reg.phone.test(this.data.phone)) {
-        this.triggerEvent('invalid')
-        return
-      }
+    onTap: function () {
+      this.triggerEvent('tap')
+    },
+
+    // 准备倒计时
+    prepare: function () {
       this.setData({
-        counting: true,
-        str: '获取中'
-      })
-      sendCode(this.data.phone).then(() => {
-        this.triggerEvent('send')
-        this.countDown()
-      }).catch(() => {
-        this.setData({
-          counting: false,
-          str: '获取验证码'
-        })
+        disabled: true,
+        str: this.data.pendingText
       })
     },
 
-    countDown: function () {
+    // 开始倒计时
+    start: function () {
+      this._countDown()
+    },
+
+    // 结束倒计时
+    stop: function () {
+      clearTimeout(timer)
+      leftTime = this.data.duration
+      this.setData({
+        disabled: false,
+        str: this.data.defaultText
+      })
+    },
+
+    _countDown: function () {
+      let countingText = this.data.countingText
       if (leftTime > 0) {
         leftTime--
-        this.setData({ str: '已发送(' + leftTime + ')' })
+        this.setData({
+          disabled: true,
+          str: `${countingText}(${leftTime})`
+        })
         timer = setTimeout(() => {
-          this.countDown()
+          this._countDown()
         }, 1000)
       } else {
-        this.setData({
-          counting: false,
-          str: '获取验证码'
-        })
-        clearTimeout(timer)
-        leftTime = 60
+        this.stop()
+        this.triggerEvent('end')
       }
     }
   }

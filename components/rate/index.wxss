@@ -4,9 +4,6 @@
 
 .star__image{
   position: relative;
-  width: 30px;
-  height: 30px;
-  margin-right: 7px;
 }
 .star__image:last-child {
   margin-right: 0;
@@ -15,6 +12,4 @@
 .star__mask{
   position: absolute;
   top: 0;
-  width: 30px;
-  height: 30px;
 }

@@ -12,11 +12,14 @@
   height: 70rpx;
   border-radius: 35rpx;
 }
-.review-card__info > view {
+.review-card__title,
+.review-card__content {
   margin-bottom: 5px;
 }
-.review-card__info > view:last-child {
-  margin-bottom: 0;
+.review-card__rate {
+  display: inline-block;
+  margin-left: 5px;
+  height: 30rpx;
 }
 .review-card__content {
   line-height: 1.62em;

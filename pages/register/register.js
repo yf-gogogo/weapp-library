@@ -1,9 +1,9 @@
-import { checkCode } from '../../apis/user'
+import { sendCode, checkCode } from '../../apis/user'
+import reg from '../../utils/regexp'
 
-var app = getApp()
-var reg = require('../../utils/regexp')
 var toptip // 保存toptip组件的引用
 var toast // 保存toast组件的引用
+var sendBtn // 保存send-code组件的引用
 
 Page({
   data: {
@@ -16,6 +16,7 @@ Page({
   onReady: function () {
     toptip = this.selectComponent('#toptip')
     toast = this.selectComponent('#toast')
+    sendBtn = this.selectComponent('#send-btn')
   },
 
   onCountryChange: function (e) {
@@ -30,12 +31,15 @@ Page({
     this.setData(params)
   },
 
-  onInvalid: function () {
-    toptip.show('手机号格式不正确')
-  },
-
   onSend: function () {
-    toast.show('验证码将以短信的形式发送至您的手机')
+    if (!reg.phone.test(this.data.phone)) {
+      return toptip.show('手机号格式不正确')
+    }
+    sendBtn.prepare()
+    sendCode(this.data.phone).then(() => {
+      toast.show('验证码将以短信的形式发送至您的手机')
+      sendBtn.start()
+    }).catch(() => sendBtn.stop())
   },
 
   onSubmit: function () {

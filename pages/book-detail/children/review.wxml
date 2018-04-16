@@ -5,14 +5,14 @@
       <view class="weui-cell__bd">评论</view>
       <button size="mini" type="primary" catchtap="onShowPopup" plain>发表评论</button>
     </view>
-    <view wx:for="{{reviews}}" class="weui-cell ui-flex-card review-card font-30">
+    <view wx:for="{{reviews}}" wx:key="{{item.id}}" class="weui-cell ui-flex-card review-card font-30">
       <image class="review-card__img" src="{{item.user.avatar}}"></image>
       <view class="ui-flex-card__info review-card__info">
         <view class="review-card__title">
           <text>{{item.user.nickname}} </text>
-          <text> 评分：
-            <text class="color-yellow">{{item.score}}</text>
-          </text>
+          <view class="review-card__rate">
+            <rate value="{{item.score}}" star-size="30" unit="rpx" disabled></rate>
+          </view>
         </view>
         <view class="review-card__content">{{item.content}}</view>
         <view class="color-gray">{{item.create_time}}</view>
@@ -33,10 +33,10 @@
   <view class="popup-bd">
     <view class="popup-bd__label">{{popup.label[popup.score]}}</view>
     <view class="popup-bd__score">
-      <rate value="{{popup.score}}" bindchange="onChange"></rate>
+      <rate value="{{popup.score}}" gutter-size="7" bindchange="onChange"></rate>
     </view>
     <view class="popup-bd__textarea">
-      <textarea class="weui-textarea" placeholder="写几句评论吧..." maxlength="100" value="{{popup.review}}" bindinput="onInput" />
+      <textarea hidden="{{!popup.show}}" class="weui-textarea" style="height: 3.3em" placeholder="写几句评论吧..." maxlength="100" value="{{popup.review}}" bindinput="onInput" fixed/>
       <view class="weui-textarea-counter">{{popup.review.length}}/100</view>
     </view>
     <view class="popup-bd__btn-area">
