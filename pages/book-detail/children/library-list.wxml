@@ -1,22 +1,24 @@
-<search-bar default-text="搜索图书馆" focus-text="图书馆名称" bindfocus="onFocus" bindinput="onInput" bindsearch="onSearch" bindclear="onClear" bindhide="onUnfocus" show-mask="{{false}}"></search-bar>
-<!-- 图书馆列表 -->
-<view wx:if="{{!isNoData}}" class="weui-cells weui-cells_after-title library-list">
-  <navigator wx:for="{{isFocus && inputValue ? filteredLibraries : libraries}}" url="./confirm-order?book_id={{id}}&library_id={{item.library.id}}" class="weui-cell" hover-class="ui--active" bindtap="onClickLibraryItem">
-    <view class="library-item__info">
-      <view class="library-item__info-name">
-        <text class="font-black-34 ellipsis">{{item.library.name}}</text>
-        <image wx:if="{{item.library.status}}" src="/images/icon_certificate.png" mode="aspectFit"></image>
+<search-bar default-text="搜索图书馆" focus-text="图书馆名称" bindfocus="onFocus" bindinput="onInput" bindclear="onClear" bindhide="onUnfocus" show-mask="{{false}}"></search-bar>
+<block wx:if="{{!isNoData}}">
+  <!-- 图书馆列表 -->
+  <view class="weui-cells weui-cells_after-title library-list">
+    <navigator wx:for="{{isFocus && inputValue ? filteredLibraries : allLibraries}}" url="./confirm-order?book_id={{id}}&library_id={{item.library.id}}" class="weui-cell" hover-class="ui--active" bindtap="onClickLibraryItem">
+      <view class="library-item__info">
+        <view class="library-item__info-name">
+          <text class="font-black-34 ellipsis">{{item.library.name}}</text>
+          <image wx:if="{{item.library.status}}" src="/images/icon_certificate.png" mode="aspectFit"></image>
+        </view>
+        <view class="font-gray-26 ellipsis">
+          {{item.library.address}}
+        </view>
       </view>
-      <view class="font-gray-26 ellipsis">
-        {{item.library.address}}
+      <view class="library-item__collection font-gray-26">
+        馆藏：{{item.total_num}} | 可借：<span class="{{item.available_num == 0 ? 'color-gray' : 'color-orange'}}">{{item.available_num}}</span>
       </view>
-    </view>
-    <view class="library-item__collection font-gray-26">
-      馆藏：{{item.total_num}} | 可借：<span class="{{item.available_num == 0 ? 'color-gray' : 'color-orange'}}">{{item.available_num}}</span>
-    </view>
-    <view class="weui-cell__ft_in-access"></view>
-  </navigator>
-</view>
-<!-- 加载更多、暂无数据 -->
-<load-more status="{{loadMoreStatus}}"></load-more>
+      <view class="weui-cell__ft_in-access"></view>
+    </navigator>
+  </view>
+  <!-- 加载更多、暂无数据 -->
+  <load-more status="{{loadMoreStatus}}"></load-more>
+</block>
 <no-data wx:if="{{isNoData}}"></no-data>

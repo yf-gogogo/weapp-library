@@ -1,11 +1,14 @@
+import Promise from './es6-promise'
+
 /**
  * 函数节流 函数连续调用时，func 执行频率限定为 次 / wait
- *
- * @param  {function}   func      传入函数
- * @param  {number}     wait      表示时间窗口的间隔
- * @param  {object}     options   如果想忽略开始边界上的调用，传入{leading: false}。
- *                                如果想忽略结尾边界上的调用，传入{trailing: false}
- * @return {function}             返回客户调用函数
+ * underscore.js 实现
+ * @param {function} func 传入函数
+ * @param {number} wait 表示时间窗口的间隔
+ * @param {object} options 如果想忽略开始边界上的调用，传入{leading: false}
+ * @param {object} options.leading 是否在开始边界上调用，默认true
+ * @param {object} options.trailing 是否在结尾边界上调用，默认true
+ * @return {function} 返回客户调用函数
  */
 export function throttle (func, wait, options) {
   var context, args, result
@@ -43,4 +46,79 @@ export function throttle (func, wait, options) {
     }
     return result
   }
+}
+
+/**
+ * 函数防抖 返回函数连续调用时，空闲时间必须大于或等于 wait，func 才会执行
+ * https://www.npmjs.com/package/debounce-promise
+ * @param {function} func 传入函数
+ * @param {number} wait 表示时间窗口的间隔
+ * @param {object} options 其他参数
+ * @param {boolean} options.leading 调用触发于开始边界而不是结束边界
+ * @param {boolean} options.accumulate 保留现在接收到的所有参数并以数组的方式传递给传入函数
+ * @return {function} 返回客户调用函数
+ */
+export function debounce (fn, wait = 0, options = {}) {
+  let lastCallAt
+  let deferred
+  let timer
+  let pendingArgs = []
+  return function debounced (...args) {
+    const currentWait = getWait(wait)
+    const currentTime = new Date().getTime()
+
+    const isCold = !lastCallAt || (currentTime - lastCallAt) > currentWait
+
+    lastCallAt = currentTime
+
+    if (isCold && options.leading) {
+      return options.accumulate
+        ? Promise.resolve(fn.call(this, [args])).then(result => result[0])
+        : Promise.resolve(fn.call(this, ...args))
+    }
+
+    if (deferred) {
+      clearTimeout(timer)
+    } else {
+      deferred = defer()
+    }
+
+    pendingArgs.push(args)
+    timer = setTimeout(flush.bind(this), currentWait)
+
+    if (options.accumulate) {
+      const argsIndex = pendingArgs.length - 1
+      return deferred.promise.then(results => results[argsIndex])
+    }
+
+    return deferred.promise
+  }
+
+  function flush () {
+    const thisDeferred = deferred
+    clearTimeout(timer)
+
+    Promise.resolve(
+      options.accumulate
+        ? fn.call(this, pendingArgs)
+        : fn.apply(this, pendingArgs[pendingArgs.length - 1])
+    )
+      .then(thisDeferred.resolve, thisDeferred.reject)
+
+    pendingArgs = []
+    deferred = null
+  }
+}
+
+function getWait (wait) {
+  return (typeof wait === 'function') ? wait() : wait
+}
+
+function defer () {
+  const deferred = {}
+  deferred.promise = new Promise((resolve, reject) => {
+    deferred.resolve = resolve
+    deferred.reject = reject
+  })
+  return deferred
 }
