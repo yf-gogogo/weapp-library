@@ -1,4 +1,5 @@
 import { sendCode, checkCode } from '../../apis/user'
+import { login } from '../../utils/permission'
 import reg from '../../utils/regexp'
 
 var toptip // 保存toptip组件的引用
@@ -48,11 +49,12 @@ Page({
   },
 
   onSubmit: function () {
-    if (!reg.phone.test(this.data.phone)) {
+    let { phone, vrcode } = this.data
+    if (!reg.phone.test(phone)) {
       toptip.show('手机号格式不正确')
       return
     }
-    if (!reg.vrcode.test(this.data.vrcode)) {
+    if (!reg.vrcode.test(vrcode)) {
       toptip.show('请输入6位数字验证码')
       return
     }
@@ -60,9 +62,8 @@ Page({
       title: '加载中',
       icon: 'loading'
     })
-    checkCode(this.data.phone, this.data.vrcode).then((res) => {
-      wx.setStorageSync('phone', this.data.phone)
-      getApp().globalData.phone = this.data.phone
+    checkCode(phone, vrcode).then((res) => {
+      if (!login(phone)) return
 
       // 201：创建了新的用户 200：登录成功
       if (res.statusCode === 201) {

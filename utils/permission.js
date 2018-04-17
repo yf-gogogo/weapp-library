@@ -1,9 +1,37 @@
 /**
- * 鉴权，如检测是否登录、检测账号状态(是否被拉黑)等
+ * 权限控制，如登录、退出、检测是否登录、检测账号状态(是否被拉黑)等
  */
 
 /**
- * 检测是否登录，并给出响应提示
+ * 登录
+ * @return {Boolean}
+ */
+function login (phone) {
+  try {
+    wx.setStorageSync('phone', phone)
+    getApp().globalData.phone = phone
+    return true
+  } catch (e) {
+    return false
+  }
+}
+
+/**
+ * 登出
+ * @return {Boolean}
+ */
+function logout () {
+  try {
+    wx.removeStorageSync('phone')
+    getApp().globalData.phone = undefined
+    return true
+  } catch (e) {
+    return false
+  }
+}
+
+/**
+ * 检测是否登录，并给出相应提示
  * 用于可分享页面（图书详情、书单详情）中的操作按钮被点击时
  * TODO --- 检测当前账号是否被拉黑
  * @param showModal {Boolean}
@@ -34,5 +62,7 @@ function isLogin (showModal = false) {
 }
 
 module.exports = {
+  login: login,
+  logout: logout,
   isLogin: isLogin
 }

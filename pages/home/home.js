@@ -1,6 +1,5 @@
 import { getRankingBooks, getRecommendedBooksByPhone } from '../../apis/book'
 import { getRecommendedBooklistsByPhone } from '../../apis/booklist'
-import { getUserInfoByPhone } from '../../apis/user'
 import { showTip } from '../../utils/tip'
 
 var app = getApp()
@@ -118,13 +117,13 @@ Page({
       getRecommendedBooksByPhone(app.globalData.phone),
       getRankingBooks(),
       getRecommendedBooklistsByPhone(app.globalData.phone),
-      getUserInfoByPhone(app.globalData.phone)
+      app.getUserInfo()
     ]).then(res => {
       this.setData({
         'recommendBooks': res[0].data.map(i => i.book),
         'ranking': res[1].data.books,
         'recommendBooklists': res[2].data,
-        'statistics': res[3].data.reading_statistics
+        'statistics': res[3].reading_statistics
       })
     })
   }
