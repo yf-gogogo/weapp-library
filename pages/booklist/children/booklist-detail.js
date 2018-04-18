@@ -48,7 +48,7 @@ Page({
   },
 
   /**
-   * @listens <modifyBookDescription>
+   * @listens <bookDescriptionModified>
    */
   onLoad: function (options) {
     wx.showLoading({ title: '加载中', mask: true })
@@ -61,8 +61,8 @@ Page({
       wx.hideLoading()
     }).catch(() => wx.hideLoading())
 
-    // 监听事件
-    getApp().event.on('modifyBookDescription', this.onModifed)
+    // 监听事件，这个事件在书单描述修改页(./children/modify)触发
+    getApp().event.on('bookDescriptionModified', this.onModifed)
   },
 
   onToggleDescription: function () {

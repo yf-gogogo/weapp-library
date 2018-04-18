@@ -23,7 +23,7 @@ Page({
   },
 
   /**
-   * @event <modifyBookDescription>
+   * @event <bookDescriptionModified>
    */
   onSubmit: function () {
     wx.showLoading({ title: '加载中', mask: true })
@@ -35,8 +35,8 @@ Page({
       wx.showToast({ title: '操作成功', mask: true })
       setTimeout(_ => wx.navigateBack(), 1000)
 
-      // 触发事件
-      getApp().event.emit('modifyBookDescription', {
+      // 触发事件，书单详情页(../booklist-detail)监听该事件
+      getApp().event.emit('bookDescriptionModified', {
         index: options.index,
         description: this.data.description
       })

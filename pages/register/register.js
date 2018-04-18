@@ -1,6 +1,7 @@
 import { sendCode, checkCode } from '../../apis/user'
 import { login } from '../../utils/permission'
 import reg from '../../utils/regexp'
+import Promise from '../../utils/es6-promise'
 
 var toptip // 保存toptip组件的引用
 var toast // 保存toast组件的引用
@@ -62,8 +63,8 @@ Page({
       title: '加载中',
       icon: 'loading'
     })
-    checkCode(phone, vrcode).then((res) => {
-      if (!login(phone)) return
+    checkCode(phone, vrcode).then(res => {
+      if (!login(phone)) return Promise.reject(new Error('设置登录态失败'))
 
       // 201：创建了新的用户 200：登录成功
       if (res.statusCode === 201) {

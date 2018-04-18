@@ -20,7 +20,8 @@
     "pages/booklist/children/children/modify",
     "pages/book-detail/children/add",
     "pages/book-detail/children/library-list",
-    "pages/book-detail/children/review"
+    "pages/book-detail/children/review",
+    "pages/profile/children/personal-information"
   ],
   "window": {
     "backgroundTextStyle": "dark",

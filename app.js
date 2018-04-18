@@ -71,8 +71,10 @@ App({
 
   /**
    * 设置用户信息
+   * @event <userInfoChanged>
    */
   setUserInfo: function (userInfo) {
     this.globalData._userInfo = userInfo
+    this.event.emit('userInfoChanged', {userInfo: userInfo})
   }
 })

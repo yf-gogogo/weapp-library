@@ -1,7 +1,6 @@
 import { uploadIdCardImg, updateUserInfoByPhone } from '../../../../apis/user'
 import Promisify from '../../../../utils/promisify'
 
-var fromRegisterPage = false // 如果是从注册页进入，则在上传完资料后自动跳转到主页
 var toptip // 保存toptip组件的引用
 var app = getApp()
 
@@ -17,14 +16,17 @@ Page({
         front: '',
         back: ''
       }
-    }
+    },
+    isFromRegisterPage: false // 如果是从注册页进入，则在上传完资料后自动跳转到主页
   },
 
   onLoad: function (options) {
     if (options.from === 'register') {
-      fromRegisterPage = true
+      this.data.isFromRegisterPage = true
       return
     }
+
+    wx.showLoading({title: '加载中', mask: true})
     app.getUserInfo().then(userInfo => this.setData({
       'userInfo.name': userInfo.name,
       'userInfo.birthday': userInfo.birthday,
@@ -32,7 +34,7 @@ Page({
       'userInfo.postcode': userInfo.postcode,
       'userInfo.address': userInfo.address,
       'userInfo.id_card_img': userInfo.id_card_img
-    }))
+    })).finally(() => wx.hideLoading())
   },
 
   onReady: function () {
@@ -84,7 +86,7 @@ Page({
     } = this.data.userInfo
 
     // 检查信息是否全部填写
-    if (!name) return toptip.show('请填写用户名')
+    if (!name) return toptip.show('请填写姓名')
     if (!birthday) return toptip.show('请填写出生日期')
     if (!address) return toptip.show('请填写详细地址')
     if (!id_number) return toptip.show('请填写身份证号')
@@ -108,12 +110,14 @@ Page({
       })
       let phone = app.globalData
       let userInfo = this.data.userInfo
-      return updateUserInfoByPhone(phone, userInfo).then(res => app.setUserInfo(res.data))
+      return updateUserInfoByPhone(phone, userInfo).then(res => {
+        app.setUserInfo(res.data)
+      })
     }).then(res => {
       // 如果是从注册页进入，则在填写完成后跳转到主页
       // 如果是从个人资料页进入，则返回上一页
       wx.showToast({title: '成功', mask: true})
-      if (fromRegisterPage) {
+      if (this.data.isFromRegisterPage) {
         setTimeout(() => wx.switchTab({url: '/pages/home/home'}), 1000)
       } else {
         setTimeout(() => wx.navigateBack(), 1000)

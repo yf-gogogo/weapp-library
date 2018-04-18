@@ -39,8 +39,7 @@ page {
   margin-left: 0;
 }
 
-/* 图书卡片 */
-.ui-book-card {}
+/* 图书卡片 ui-book-card */
 .ui-book-card__img {
   flex: 0 0 90px;
 }
@@ -63,9 +62,9 @@ page {
   padding: 12px 15px;
 }
 .ui-booklist-card__img {
-  width: 50px;
-  height: 50px;
   flex: 0 0 50px;
+  height: 50px;
+  width: 50px;
 }
 .ui-booklist-card__info > .font-black-34 {
   margin-bottom: 5px;
@@ -73,9 +72,9 @@ page {
 
 /* 更多（三个圆点） */
 .ui-icon-more-area {
-  width: 30px;
   height: 30px;
   text-align: center;
+  width: 30px;
 }
 .ui-icon-more {
   position: relative;
