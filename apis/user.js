@@ -1,4 +1,5 @@
-import { get, post } from './request.js'
+import { get, post, BASE_URL } from './request.js'
+import Promisify from '../utils/promisify'
 
 module.exports = {
   sendCode: function (phone) {
@@ -7,15 +8,19 @@ module.exports = {
   checkCode: function (phone, vrcode) {
     return get('/vrcodes/check', { phone, vrcode })
   },
-  uploadIdCardImg: function (url) {
+  // TODO --- 与后台联动
+  uploadIdCardImg: function (filepath) {
+    // return Promisify(wx.uploadFile)({
+    //   url: BASE_URL + '/images',
+    //   filePath: filepath,
+    //   name: 'picture'
+    // })
     return new Promise(function (resolve, reject) {
-      setTimeout(() => resolve(), 1000)
+      setTimeout(() => resolve(filepath), 1000)
     })
   },
   updateUserInfoByPhone: function (phone, params) {
-    return new Promise(function (resolve, reject) {
-      setTimeout(() => resolve(), 1000)
-    })
+    return post(`/users/${phone}`, params)
   },
   getUserInfoByPhone: function (phone) {
     return get(`/users/${phone}`)

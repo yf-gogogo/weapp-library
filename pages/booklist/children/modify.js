@@ -55,9 +55,9 @@ Page({
     let params = { title, description }
     let fn
 
-    if (options.type === 'create') fn = () => createBooklist(params)
-    else fn = () => updateBooklistById(options.id, params)
-    fn().then(() => {
+    if (options.type === 'create') fn = createBooklist(params)
+    else fn = updateBooklistById(options.id, params)
+    fn.then(() => {
       wx.hideLoading()
       wx.showToast({ title: '操作成功', mask: true })
       setTimeout(() => wx.navigateBack(), 1000) // 直接后退时当前页面的toast会消失

@@ -4,7 +4,15 @@
   <view class="ui-flex-card__info ui-book-card__info font-gray-26">
     <view class="font-black-34">{{book.title}}</view>
     <view>评分：<span class="color-yellow">{{book.total_score}} </span>({{book.review_num}}条评论)</view>
-    <view wx:for="{{bookInfo}}" wx:if="{{item.value}}">{{item.key}}: {{item.value}}</view>
+    <view>作者: <text wx:for="{{book.author}}" class="name">{{item}}</text></view>
+    <view>译者: <text wx:for="{{book.translator}}" class="name">{{item}}</text></view>
+    <view>出版社: {{book.publisher}}</view>
+    <view>出版时间: {{book.pubdate}}</view>
+    <view>分类号: {{book.class_num}}</view>
+    <view>索书号: {{book.call_number}}</view>
+    <view>页数: {{book.pages}}页</view>
+    <view>字数: 约{{book.words}}字</view>
+    <view>ISBN: {{book.isbn}}</view>
   </view>
   <image class="ui-book-card__img" src="{{book.imgs.small}}" mode="widthFix"></image>
 </view>
@@ -15,10 +23,16 @@
   <view class="weui-cell__ft_in-access"></view>
 </view>
 <!-- 图书详情 -->
-<block wx:for="{{bookDetail}}">
-  <view class="ui-label">{{item.key}}</view>
-  <view class="ui-card font-black-26 pre-wrap">{{ item.value || "暂无" + item.key }}</view>
-</block>
+<view class="ui-label">内容简介</view>
+<view class="ui-card font-black-26 pre-wrap">{{book.summary || "暂无内容简介"}}</view>
+<view class="ui-label">作者简介</view>
+<view class="ui-card font-black-26 pre-wrap">{{book.author_intro || "暂无作者简介"}}</view>
+<view class="ui-label">译者简介</view>
+<view class="ui-card font-black-26 pre-wrap">{{book.translator_intro || "暂无译者简介"}}</view>
+<view class="ui-label">目录</view>
+<view class="ui-card font-black-26 pre-wrap">{{book.catalog || "暂无目录"}}</view>
+<view class="ui-label">试读</view>
+<view class="ui-card font-black-26 pre-wrap">{{book.preview || "暂无试读"}}</view>
 <!-- 相关图书 -->
 <view class="ui-label">相关图书</view>
 <template wx:if="{{book.relevant_books && book.relevant_books.length}}" is="showcase-book" data="{{books: book.relevant_books}}"></template>

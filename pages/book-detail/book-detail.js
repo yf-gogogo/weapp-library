@@ -3,18 +3,8 @@ import { isLogin } from '../../utils/permission'
 
 Page({
   data: {
-    // 原 Book 对象
+    // 图书信息
     book: {},
-    // 范式化后的图书信息
-    bookInfo: [{
-      key: '',
-      value: ''
-    }],
-    // 范式化后的图书详细介绍
-    bookDetail: [{
-      key: '',
-      value: ''
-    }],
     // 图书馆列表
     libraryList: {
       show: false,
@@ -35,11 +25,7 @@ Page({
     }
 
     bookFn.then(res => {
-      this.setData({
-        book: res.data,
-        bookInfo: normalize(infoScheme, res.data),
-        bookDetail: normalize(detailScheme, res.data)
-      })
+      this.setData({book: res.data})
       wx.hideLoading()
     }).catch(_ => {
       wx.hideLoading()
@@ -59,11 +45,7 @@ Page({
         'libraryList.status': res.data.collections.length ? 'done' : 'nodata',
         'libraryList.data': res.data.collections
       })
-    ).catch(() => {
-      this.setData({
-        'libraryList.status': 'nodata'
-      })
-    })
+    ).catch(() => this.setData({'libraryList.status': 'nodata'}))
   },
 
   onShowTip: function () {
@@ -113,48 +95,3 @@ Page({
     }
   }
 })
-
-/**
- * 将 Book 对象范式化，使能通过 wx:for 遍历
- */
-
-var infoScheme = [
-  ['author', '作者'],
-  ['translator', '译者'],
-  ['publisher', '作者'],
-  ['pubdate', '出版时间'],
-  ['class_num', '分类号'],
-  ['call_number', '索书号'],
-  ['pages', '页数'],
-  ['words', '字数'],
-  ['isbn', 'ISBN']
-]
-
-var detailScheme = [
-  ['summary', '内容简介'],
-  ['author_intro', '作者简介'],
-  ['translator_intro', '译者简介'],
-  ['catalog', '目录'],
-  ['preview', '试读']
-]
-
-function normalize (scheme, book) {
-  var res = []
-  scheme.forEach((el) => {
-    var t = {
-      key: el[1],
-      value: book[el[0]]
-    }
-    if (el[0] === '作者' || el[0] === '译者') {
-      t.value = t.value.join(' / ')
-    }
-    if (el[0] === '页数') {
-      t.value += ' 页'
-    }
-    if (el[0] === '字数') {
-      t.value = '约 ' + t.value + '字'
-    }
-    res.push(t)
-  })
-  return res
-}

@@ -5,6 +5,13 @@ page {
 }
 .ui-book-card__img {
   flex: 0 0 40%;
+  margin-left: 5px;
+}
+.name:before {
+  content: ' / ';
+}
+.name:first-child:before {
+  content: '';
 }
 
 .collection-cell {

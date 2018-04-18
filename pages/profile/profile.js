@@ -1,53 +1,38 @@
+import Promisify from '../../utils/promisify'
+import { updateUserInfoByPhone } from '../../apis/user'
 import { logout } from '../../utils/permission'
+
+var app = getApp()
 
 Page({
   data: {
-    // 用户信息
-    userInfo: {
-      // 昵称
-      nickname: ''
-      //
-    }
+    userInfo: {} // 用户信息
   },
 
   onLoad: function () {
-    var that = this
-    app.wechat.login().then(_ => {
-      // 登录后更新用户昵称与头像
-      app.wechat.getUserInfo().then(res => {
-        that.setData({
-          userInfo: res.userInfo
+    Promisify(wx.login)().then(() => {
+      // 获取用户授权，更新用户昵称与头像
+      Promisify(wx.getUserInfo).then(res => {
+        this.setData({
+          'userInfo.nickname': res.userInfo.nickName,
+          'userInfo.avatar': res.userInfo.avatar
         })
-        app.library.updateUserInfoByPhone(
-          app.globalData.phone, {
-            username: that.data.userInfo.nickName,
-            avatarUrl: that.data.userInfo.avatarUrl
-          }
-        )
-      }).catch(_ => {
-        // 登录失败时获取后台记录的用户信息和头像
-        app.library.getUserInfoByPhone(app.globalData.phone).then(res => {
-          that.setData({
-            'userInfo.nickName': res.data.username,
-            'userInfo.avatarUrl': res.data.avatarUrl
-          })
+        app.setUserInfo(this.data.userInfo)
+        updateUserInfoByPhone(app.globalData.phone, this.data.userInfo)
+      }).catch(() => {
+        // 用户拒绝授权时获取后台记录的用户信息和头像
+        app.getUserInfo().then(userInfo => {
+          this.setData({ userInfo })
         })
       })
     })
   },
 
-  onShow: function () {
-    this.setData({
-      largeFontWeight: app.globalData.largeFontWeight
-    })
-  },
-
-  logout: function () {
+  onLogout: function () {
     wx.showModal({
       title: '确定退出登录？',
       success: res => {
-        if (res.confirm) {
-          wx.removeStorageSync('phone')
+        if (res.confirm && logout()) {
           wx.reLaunch({ url: '/pages/register/register' })
         }
       }

@@ -12,7 +12,7 @@ var Promise = require('../utils/es6-promise')
 /**
  * 服务器根路径
  */
-let baseUrl = 'https://www.easy-mock.com/mock/5aacc9a1d3f6bd35dfb4be65/api/v1'
+export const BASE_URL = 'https://www.easy-mock.com/mock/5aacc9a1d3f6bd35dfb4be65/api/v1'
 
 /**
  * get 方法
@@ -72,7 +72,7 @@ export function request (method, relativeUrl, param, header) {
   let response, error
   return new Promise((resolve, reject) => {
     wx.request({
-      url: baseUrl + relativeUrl,
+      url: BASE_URL + relativeUrl,
       method: method,
       header: Object.assign({
         'Content-Type': 'application/json',
@@ -93,7 +93,7 @@ export function request (method, relativeUrl, param, header) {
       },
       complete () {
         console.info('==============>请求开始<==============')
-        console.warn(method, baseUrl + relativeUrl)
+        console.warn(method, BASE_URL + relativeUrl)
         if (param) console.warn('参数：', param)
         if (response) {
           console.warn('请求成功：', response)

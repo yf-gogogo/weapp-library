@@ -62,27 +62,27 @@ Page({
     switch (options.type) {
       case 'search':
         if (options.search_type === '书名') {
-          fn = () => getBooksByKeyword(options.keyword, start)
+          fn = getBooksByKeyword(options.keyword, start)
         } else {
-          fn = () => getBooksByAuthor(options.keyword, start)
+          fn = getBooksByAuthor(options.keyword, start)
         }
         break
       case 'advanced_search':
         options['start'] = start
-        fn = () => getBooksByAdvancedSearch(options)
+        fn = getBooksByAdvancedSearch(options)
         break
       case 'classify_search':
-        fn = () => getBooksByClassificationNumber(options.class_num, start)
+        fn = getBooksByClassificationNumber(options.class_num, start)
         break
       case 'recommend':
-        fn = () => getRecommendedBooksByPhone(app.globalData.phone)
+        fn = getRecommendedBooksByPhone(app.globalData.phone)
         break
       case 'ranking':
-        fn = () => getRankingBooks(start)
+        fn = getRankingBooks(start)
         break
     }
 
-    return fn().then(res => {
+    return fn.then(res => {
       isLoading = false
 
       let books
