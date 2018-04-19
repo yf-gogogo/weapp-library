@@ -34,13 +34,11 @@ Page({
 
     wx.showLoading({ title: '加载中', mask: true })
     this._fetchData().then(books => {
-      wx.hideLoading()
-
       // 第一次加载数据时判断是否“暂无数据”
       if (!books.length) {
         this.setData({ isNoData: true })
       }
-    })
+    }).finally(() => wx.hideLoading())
   },
 
   onReachBottom: function () {

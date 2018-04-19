@@ -22,8 +22,8 @@ module.exports = {
   favoriteBooklistById: function (id) {
     return post(`/booklists/${id}/favorite`)
   },
-  getBooklistsByKeyword: function (keyword, start) {
-    return get('/booklists', { keyword, start })
+  getBooklistsByKeyword: function (keyword, start = 0) {
+    return get('/booklists/search', { keyword, start })
   },
   getBooklistsByPhone: function (phone, type = 'all') {
     return get(`/booklists/users/${phone}?type=${type}`)

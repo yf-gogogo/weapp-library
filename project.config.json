@@ -157,6 +157,12 @@
 					"name": "个人信息",
 					"pathName": "pages/profile/children/personal-information",
 					"query": ""
+				},
+				{
+					"id": 21,
+					"name": "书单列表",
+					"pathName": "pages/list/booklist",
+					"query": "type=search&keyword=1"
 				}
 			]
 		}
