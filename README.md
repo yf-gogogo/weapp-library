@@ -3,8 +3,11 @@
 ```
 wechat-app
 ├─apis                  // 网络请求
+├─components            // 可复用组件
 ├─images                // 图标
-├─pages                 // 页面代码，子页面在父页面的children文件夹中
+├─pages                 // 页面，子页面在父页面的children文件夹中
+│ └─components          // 与业务相关的特殊组件
+├─templates             // 模板
 ├─style                 // 样式
 ├─utils                 // 辅助模块
 │ ├─es6-promise.js      // Promise语法支持
