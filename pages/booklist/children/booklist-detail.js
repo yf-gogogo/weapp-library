@@ -22,12 +22,14 @@ Page({
       // 书单封面
       image: '',
       // 书单内图书
-      items: [{
-        // 图书信息
-        book: {},
-        // 图书个性化描述
-        comment: ''
-      }],
+      items: [
+      // {
+      //   // 图书信息
+      //   book: {},
+      //   // 图书个性化描述
+      //   comment: ''
+      // }
+      ],
       // 图书总数
       total: undefined,
       // 收藏人数
@@ -35,8 +37,6 @@ Page({
     },
     // 是否展开书单描述
     showDescription: false,
-    // 是否书单为空
-    isNoData: false,
     // load-more 组件状态：hidding, loading, nomore
     loadMoreStatus: 'hidding',
     // 是否正在多选书目
@@ -54,19 +54,12 @@ Page({
     wx.showLoading({ title: '加载中', mask: true })
     getBooklistById(options.id).then(res => {
       // 第一次加载数据时判断是否“书单为空”
-      this.setData({
-        isNoData: res.data.items.length === 0,
-        booklistInfo: res.data
-      })
+      this.setData({booklistInfo: res.data})
       wx.hideLoading()
     }).catch(() => wx.hideLoading())
 
-    // 监听事件，这个事件在书单描述修改页(./children/modify)触发
+    // 监听事件：图书描述被修改，这个事件在书单描述修改页(./children/modify)被触发
     getApp().event.on('bookDescriptionModified', this.onModifed)
-  },
-
-  onToggleDescription: function () {
-    this.setData({ 'showDescription': !this.data.showDescription })
   },
 
   onReachBottom: function () {
@@ -74,22 +67,21 @@ Page({
     if (status !== 'hidding') return
 
     this.setData({ loadMoreStatus: 'loading' })
-
     let id = this.data.booklistInfo.id
     let start = this.data.booklistInfo.items.length
     getBooksByBooklistId(id, start).then(res => {
       // 当返回数据长度为 0 时，设置为“没有更多图书”
-      if (res.data.books.length) {
-        let tmp = this.data.booklistInfo.items
-        tmp = tmp.concat(res.data.books)
-        this.setData({
-          'booklistInfo.items': tmp,
-          'loadMoreStatus': 'hidding'
-        })
-      } else {
-        this.setData({ loadMoreStatus: 'nomore' })
-      }
+      let tmp = this.data.booklistInfo.items.concat(res.data.books)
+      let nomore = res.data.books.length === 0
+      this.setData({
+        'booklistInfo.items': tmp,
+        'loadMoreStatus': nomore ? 'nomore' : 'hidding'
+      })
     }).catch(() => this.setData({ loadMoreStatus: 'hidding' }))
+  },
+
+  onToggleDescription: function () {
+    this.setData({ 'showDescription': !this.data.showDescription })
   },
 
   // 用户是书单创建者，打开/关闭书目多选，关闭多选时清空已选择书目

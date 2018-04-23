@@ -56,8 +56,10 @@ Page({
     })
   },
 
-  // 跳转页面前判断，如果没有登录，显示登录对话框
+  // 跳转页面前判断是否登录，如果没有登录，显示登录对话框
   onNavigate: function (e) {
+    if (!isLogin(true)) return
+
     let target = e.currentTarget.dataset.target
     let url
     switch (target) {
@@ -68,15 +70,13 @@ Page({
         url = './children/review?id=' + this.data.book.id
         break
       case 'libraryItem':
-        url = `./children/confirm_order?book_id=${this.data.book.id}&library_id=${e.currentTarget.dataset.id}`
+        url = `./children/order?book_id=${this.data.book.id}&library_id=${e.currentTarget.dataset.id}`
         break
       case 'libraryList':
         url = './children/library-list?id=' + this.data.book.id
         break
     }
-    if (isLogin(true)) {
-      wx.navigateTo({url: url})
-    }
+    wx.navigateTo({url: url})
   },
 
   onShowPopup: function () {

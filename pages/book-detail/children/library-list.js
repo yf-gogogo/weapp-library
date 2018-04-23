@@ -91,7 +91,7 @@ Page({
 
       return getCollectionsByBookId(id, {
         start: this.data.filteredLibraries.length,
-        library: keyword
+        library_name: keyword
       }).then(res => {
         // 在网络慢的情况下，有可能关键字已经被改变但是上次请求还没有完成。
         // 因此需要判断本次响应内容是否对应当前查询的关键字，如果对应则更新数据，

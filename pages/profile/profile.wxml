@@ -66,11 +66,11 @@
   </navigator>
 </view>
 <view class="weui-cells">
-  <view class="weui-cell weui-cell_access">
+  <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
     <view class="weui-cell__hd">
       <image src="/images/icon_logout.png" class="icon"></image>
     </view>
-    <view class="weui-cell__bd" catchtap="onLogout">退出登录</view>
+    <view class="weui-cell__bd" bindtap="onLogout">退出登录</view>
     <view class="weui-cell__ft weui-cell__ft_in-access"></view>
   </view>
 </view>

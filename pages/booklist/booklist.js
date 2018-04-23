@@ -99,9 +99,7 @@ Page({
 
   _fetchData: function () {
     return getBooklistsByPhone(app.globalData.phone).then(res => {
-      this.setData({
-        booklists: res.data
-      })
+      this.setData({booklists: res.data})
     })
   }
 })

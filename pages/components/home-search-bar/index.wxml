@@ -12,7 +12,7 @@
     <!-- 聚焦后的搜索输入框 -->
     <view class="home-search-bar__input-box weui-search-bar__box">
       <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
-      <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{value}}" focus="{{focus}}" bindinput="onInput" bindconfirm="onSearch" />
+      <input type="text" class="weui-search-bar__input" confirm-type="search" placeholder="搜索" value="{{value}}" focus="{{focus}}" bindinput="onInput" bindconfirm="onSearch" />
       <image wx:if="{{value.length <= 0}}" mode="aspectFit" class="home-search-bar__icon-scan" src="/images/icon_scan.png" catchtap="onScan"></image>
       <view wx:else class="weui-icon-clear" bindtap="onClear">
         <icon type="clear" size="14"></icon>

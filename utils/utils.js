@@ -122,3 +122,66 @@ function defer () {
   })
   return deferred
 }
+
+/**
+ * 将日期对象转为日期字符串: '2018-04-22'
+ * @param glue {String} 连接符号
+ */
+export function formatDate (date, glue = '-') {
+  var year = date.getFullYear()
+  var month = date.getMonth() + 1
+  var day = date.getDate()
+  return [year, month, day].map(n => {
+    n = n.toString()
+    return n[1] ? n : '0' + n
+  }).join(glue)
+}
+
+/**
+ * 日期加减
+ * @param interval {String} 要添加的时间间隔的单位
+ *        { y: year, q: quarter, M: month, w: week,
+            d: day, h: hour, m: minute, s: second}
+ * @param number {Number} 要添加的时间间隔
+ * @param date 时间对象
+ * @return {Date} 新的时间对象
+ * 使用：
+ * var now = new Date();
+ * var newDate = DateAdd( "d", 5, now);
+ */
+export function dateAdd (interval, number, date) {
+  switch (interval) {
+    case 'y': {
+      date.setFullYear(date.getFullYear() + number)
+      return date
+    }
+    case 'q': {
+      date.setMonth(date.getMonth() + number * 3)
+      return date
+    }
+    case 'M': {
+      date.setMonth(date.getMonth() + number)
+      return date
+    }
+    case 'w': {
+      date.setDate(date.getDate() + number * 7)
+      return date
+    }
+    case 'd': {
+      date.setDate(date.getDate() + number)
+      return date
+    }
+    case 'h': {
+      date.setHours(date.getHours() + number)
+      return date
+    }
+    case 'm': {
+      date.setMinutes(date.getMinutes() + number)
+      return date
+    }
+    case 's': {
+      date.setSeconds(date.getSeconds() + number)
+      return date
+    }
+  }
+}

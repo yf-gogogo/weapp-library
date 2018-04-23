@@ -16,27 +16,54 @@ page {
   color: #999999;
 }
 
-/* 通用卡片容器 */
+/* 普通卡片：padding，背景色，无边框 */
 .ui-card {
   position: relative;
   padding: 15px; 
   background-color: #fff;
 }
+/* Flex卡片：padding，背景色，顶部对齐，无边框 */
 .ui-flex-card {
   position: relative;
   display: flex;
   display: -webkit-flex;
-  flex-direction: row;
   align-items: flex-start;
   padding: 15px; 
   background-color: #fff;
 }
+/* Flex卡片主体：自动撑满，离左侧元素(如果有的话)10px */
 .ui-flex-card__info {
   flex: 1;
   margin-left: 10px;
 }
 .ui-flex-card__info:first-child {
   margin-left: 0;
+}
+
+/* 面板：上下边框、背景颜色 */
+.ui-panel {
+  position: relative;
+  background-color: #fff;
+}
+.ui-panel:before {
+  content: " ";
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 1px;
+  border-top: 1rpx solid #E5E5E5;
+  color: #E5E5E5;
+}
+.ui-panel:after {
+  content: " ";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 1px;
+  border-bottom: 1rpx solid #E5E5E5;
+  color: #E5E5E5;
 }
 
 /* 图书卡片 ui-book-card */
@@ -66,6 +93,7 @@ page {
   height: 50px;
   width: 50px;
 }
+/* 书单标题 */
 .ui-booklist-card__info > .font-black-34 {
   margin-bottom: 5px;
 }
@@ -82,7 +110,7 @@ page {
   width: 20px;
 }
 
-/* hover 类 */
+/* hover类 */
 .ui--active {
   background-color: #ECECEC !important; 
 }

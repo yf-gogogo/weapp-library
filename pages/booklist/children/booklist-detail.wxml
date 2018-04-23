@@ -34,4 +34,4 @@
 </view>
 <!-- 加载更多、暂无数据 -->
 <load-more status="{{loadMoreStatus}}" nomore-text="没有更多图书了"></load-more>
-<no-data wx:if="{{isNoData}}" text="书单为空"></no-data>
+<no-data wx:if="{{!booklistInfo.items.length}}" text="书单为空"></no-data>

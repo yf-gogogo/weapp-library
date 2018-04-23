@@ -1,0 +1,65 @@
+<block wx:if="{{!loading && collection.available}}">
+  <view class="ui-label">图书信息</view>
+  <view class="ui-flex-card ui-panel">
+    <image class="ui-book-card__img" src="{{book.imgs.small}}" mode="widthFix"></image>
+    <view class="ui-flex-card__info ui-book-card__info font-gray-26">
+      <view class="font-black-34">{{book.title}}</view>
+      <view>
+        评分:
+        <text class="color-yellow">{{book.total_score}}</text>（{{book.review_num}}条评论）</view>
+      <view>作者: {{book.author}}</view>
+      <view>出版社: {{book.publisher}}</view>
+      <view>出版日期: {{book.pubdate}}</view>
+      <view>ISBN: {{book.isbn}}</view>
+    </view>
+  </view>
+  <view class="ui-label">图书馆信息</view>
+  <navigator url="./children/library-detail?id={{library.id}}" class="ui-panel" hover-class="weui-cell_active">
+    <view class="weui-cell">
+      <view class="weui-cell__bd">
+        <view class="library__name">
+          <text class="font-black-34 ellipsis">{{library.name}}</text>
+          <image wx:if="{{library.status}}" src="/images/icon_certificate.png" mode="aspectFit"></image>
+        </view>
+        <view class="font-gray-26">地址：{{library.address}}</view>
+      </view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </view>
+  </navigator>
+  <view class="ui-label">请选择取书日期（最晚日期: {{lastestDate}}）</view>
+  <picker mode="date" value="{{appointedDate}}" start="{{startDate}}" end="{{lastestDate}}" bindchange="onChange">
+    <view class="ui-panel">
+      <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">
+          取书日期：
+          <span>{{appointedDate}}</span>
+        </view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </view>
+    </view>
+  </picker>
+  <view class="weui-btn-area">
+    <button class="weui-btn" type="primary" bindtap="onSubmit">确认预订</button>
+  </view>
+</block>
+<block wx:if="{{!loading && !collection.available}}">
+  <view class="container">
+    <view class="weui-msg">
+      <view class="weui-msg__icon-area">
+        <icon type="info" size="93"></icon>
+      </view>
+      <view class="weui-msg__text-area">
+        <view class="weui-msg__title">该图书暂无可借</view>
+        <view class="weui-msg__desc">
+          <navigator url="./children/library-detail?id={{library.id}}" class="weui-msg__link">{{library.name}}</navigator>的这本书均已出借，您可以预约此图书。当其他用户归还时，您将收到系统推送
+        </view>
+      </view>
+      <view class="weui-msg__opr-area">
+        <view class="weui-btn-area">
+          <button class="weui-btn" type="primary" bindtap="onSubmit">预约此图书</button>
+          <button class="weui-btn" type="default" bindtap="onBack">返回</button>
+        </view>
+      </view>
+    </view>
+  </view>
+</block>

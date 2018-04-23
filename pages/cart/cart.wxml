@@ -4,19 +4,21 @@
     <view wx:if="{{!selectedBooks.length}}" class="weui-media-box weui-media-box_text">
       <view class="weui-media-box__desc">你还没有选择任何图书</view>
     </view>
-    <navigator wx:if="{{selectedBooks.length}}" wx:for="{{selectedBooks}}" wx:key="{{item.id}}" class="ui-flex-card" hover-class="ui--active" url="/pages/book-detail/book-detail?id={{item.id}}">
-      <image class="ui-book-card__img" mode="widthFix" src="{{item.imgs.small}}"></image>
-      <view class="ui-flex-card__info ui-book-card__info font-gray-26">
-        <view class="font-black-34">{{item.title}}</view>
-        <view>作者： {{item.author}}
+    <view wx:if="{{selectedBooks.length}}" class="weui-cells weui-cells_after-title">
+      <navigator wx:for="{{selectedBooks}}" wx:key="{{item.id}}" class="weui-cell ui-flex-card" hover-class="ui--active" url="/pages/book-detail/book-detail?id={{item.id}}">
+        <image class="ui-book-card__img" mode="widthFix" src="{{item.imgs.small}}"></image>
+        <view class="ui-flex-card__info ui-book-card__info font-gray-26">
+          <view class="font-black-34">{{item.title}}</view>
+          <view>作者： {{item.author}}
+          </view>
+          <view>出版社：{{item.publisher}}</view>
+          <view>出版时间：{{item.pubdate}}</view>
+          <view>ISBN：{{item.isbn}}</view>
+          <view>索书号：{{item.call_number}}</view>
         </view>
-        <view>出版社：{{item.publisher}}</view>
-        <view>出版时间：{{item.pubdate}}</view>
-        <view>ISBN：{{item.isbn}}</view>
-        <view>索书号：{{item.call_number}}</view>
-      </view>
-      <view class="font-28 color-red" data-index="{{index}}" catchtap="onDelete" hover-stop-propagation>删除</view>
-    </navigator>
+        <view class="font-28 color-red" data-index="{{index}}" catchtap="onDelete" hover-stop-propagation>删除</view>
+      </navigator>
+    </view>
   </view>
   <view class="weui-panel__ft" wx:if="{{selectedBooks.length}}" catchtap="showHelpModal">
     <view class="weui-cell weui-cell_access weui-cell_link">
@@ -47,5 +49,5 @@
   <button class="weui-btn" type="primary" catchtap="onScan">扫描图书条形码</button>
   <navigator wx:if="{{selectedBooks.length}}" hover-class="none" class="weui-btn" url="./children/qrcode">
     <button type="default">生成借书二维码</button>
-</navigator>
+  </navigator>
 </view>

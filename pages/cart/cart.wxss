@@ -7,7 +7,6 @@
   margin-top: 0;
 }
 
-.ui-list:before,
-.ui-list:after {
+.weui-cells:after {
   display: none;
 }

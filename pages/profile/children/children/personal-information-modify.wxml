@@ -23,7 +23,7 @@
       <view class="weui-label">身份证号</view>
     </view>
     <view class="weui-cell__bd">
-      <input class="weui-input" placeholder="请输入身份证号" bindinput="onInput" data-label="id_number" value="{{userInfo.id_number}}" />
+      <input class="weui-input" placeholder="请输入身份证号" type="idcard" bindinput="onInput" data-label="id_number" value="{{userInfo.id_number}}" />
     </view>
   </view>
   <view class="weui-cell weui-cell_input">
@@ -39,7 +39,7 @@
       <view class="weui-label">邮政编码</view>
     </view>
     <view class="weui-cell__bd">
-      <input class="weui-input" placeholder="请输入邮政编码" bindinput="onInput" data-label="postcode" value="{{userInfo.postcode}}" />
+      <input class="weui-input" placeholder="请输入邮政编码" type="number" bindinput="onInput" data-label="postcode" value="{{userInfo.postcode}}" />
     </view>
   </view>
   <view class="weui-cell">

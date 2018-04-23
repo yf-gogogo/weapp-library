@@ -21,7 +21,10 @@
     "pages/book-detail/children/add",
     "pages/book-detail/children/library-list",
     "pages/book-detail/children/review",
-    "pages/profile/children/personal-information"
+    "pages/profile/children/personal-information",
+    "pages/book-detail/children/order",
+    "pages/book-detail/children/children/library-detail",
+    "pages/book-detail/children/children/result"
   ],
   "window": {
     "backgroundTextStyle": "dark",
