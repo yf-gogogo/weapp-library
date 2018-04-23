@@ -20,7 +20,7 @@
   </navigator>
 </view>
 <view class="weui-cells">
-  <navigator url="./children/order-progress" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+  <navigator url="./children/order-ongoing" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
     <view class="weui-cell__hd">
       <image src="/images/icon_in_process.png" class="icon"></image>
     </view>

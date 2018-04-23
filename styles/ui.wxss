@@ -39,6 +39,10 @@ page {
 .ui-flex-card__info:first-child {
   margin-left: 0;
 }
+/* 居中对齐 */
+.ui-flex--self-center {
+  align-self: center;
+}
 
 /* 面板：上下边框、背景颜色 */
 .ui-panel {
@@ -85,6 +89,13 @@ page {
   background-color: #F3F3F3;
   border-radius: 4px;
   white-space:pre-line;
+}
+/* 作者、译者名字 */
+.ui-book-card__name:before {
+  content: ' / ';
+}
+.ui-book-card__name:first-child:before {
+  content: '';
 }
 
 /* 书单卡片 ui-booklist-card */

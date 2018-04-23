@@ -7,7 +7,7 @@
       <view>
         评分:
         <text class="color-yellow">{{book.total_score}}</text>（{{book.review_num}}条评论）</view>
-      <view>作者: {{book.author}}</view>
+      <view>作者: <text wx:for="{{item.author}}" class="ui-book-card__name">{{item}}</text></view>
       <view>出版社: {{book.publisher}}</view>
       <view>出版日期: {{book.pubdate}}</view>
       <view>ISBN: {{book.isbn}}</view>

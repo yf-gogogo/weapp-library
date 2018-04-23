@@ -1,6 +1,7 @@
 
 /**
- * 有三个tab的tabbar
+ * 选项卡
+ * @event <click>
  */
 Component({
   options: {
@@ -10,22 +11,26 @@ Component({
     tabs: {
       type: Array,
       value: ['tab1', 'tab2', 'tab3']
+    },
+    // 默认激活的选项
+    activeIndex: {
+      type: Number,
+      value: 0
     }
   },
 
   data: {
-    activeIndex: 0,
     sliderOffset: 0,
-    sliderLeft: 0
+    sliderWidth: 0 // slider的宽度
   },
 
   attached: function () {
     wx.getSystemInfo({
       success: res => {
-        let sliderWidth = 96 // 需要设置slider的宽度，用于计算中间位置
+        let sliderWidth = res.windowWidth / this.data.tabs.length
         this.setData({
-          sliderLeft: (res.windowWidth / this.data.tabs.length - sliderWidth) / 2,
-          sliderOffset: res.windowWidth / this.data.tabs.length * this.data.activeIndex
+          sliderOffset: sliderWidth * this.data.activeIndex,
+          sliderWidth: sliderWidth
         })
       }
     })
@@ -38,10 +43,12 @@ Component({
     },
     // 切换当前激活页
     _onClick: function (e) {
+      let { offsetLeft, id } = e.currentTarget
       this.setData({
-        sliderOffset: e.currentTarget.offsetLeft,
-        activeIndex: e.currentTarget.id
+        sliderOffset: offsetLeft,
+        activeIndex: id
       })
+      this.triggerEvent('click', {index: id})
     }
   }
 })

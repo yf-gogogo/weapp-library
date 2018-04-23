@@ -26,9 +26,10 @@
     "pages/book-detail/children/children/library-detail",
     "pages/book-detail/children/children/result",
     "pages/profile/children/qrcode",
-    "pages/profile/children/order-progress",
+    "pages/profile/children/order-ongoing",
     "pages/profile/children/order-history",
-    "pages/profile/children/review"
+    "pages/profile/children/review",
+    "pages/profile/children/children/order-detail"
   ],
   "window": {
     "backgroundTextStyle": "dark",

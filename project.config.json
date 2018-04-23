@@ -185,7 +185,7 @@
 				{
 					"id": -1,
 					"name": "借阅进度",
-					"pathName": "pages/profile/children/order-progress",
+					"pathName": "pages/profile/children/order-ongoing",
 					"query": "id=1"
 				}
 			]

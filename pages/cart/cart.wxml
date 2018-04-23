@@ -9,12 +9,11 @@
         <image class="ui-book-card__img" mode="widthFix" src="{{item.imgs.small}}"></image>
         <view class="ui-flex-card__info ui-book-card__info font-gray-26">
           <view class="font-black-34">{{item.title}}</view>
-          <view>作者： {{item.author}}
-          </view>
-          <view>出版社：{{item.publisher}}</view>
-          <view>出版时间：{{item.pubdate}}</view>
-          <view>ISBN：{{item.isbn}}</view>
-          <view>索书号：{{item.call_number}}</view>
+          <view>作者: <text wx:for="{{item.author}}" wx:key="{{item}}" class="ui-book-card__name">{{item}}</text></view>
+          <view>出版社: {{item.publisher}}</view>
+          <view>出版时间: {{item.pubdate}}</view>
+          <view>ISBN: {{item.isbn}}</view>
+          <view>索书号: {{item.call_number}}</view>
         </view>
         <view class="font-28 color-red" data-index="{{index}}" catchtap="onDelete" hover-stop-propagation>删除</view>
       </navigator>

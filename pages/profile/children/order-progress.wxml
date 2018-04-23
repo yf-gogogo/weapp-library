@@ -1,5 +1,0 @@
-<tabbar>
-  <view slot="tab1">1</view>
-  <view slot="tab2">2</view>
-  <view slot="tab3">3</view>
-</tabbar>
