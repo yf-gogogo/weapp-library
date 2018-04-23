@@ -2,7 +2,7 @@
 <block wx:if="{{!isNoData}}">
   <!-- 图书馆列表 -->
   <view class="weui-cells weui-cells_after-title library-list">
-    <navigator wx:for="{{isFocus && inputValue ? filteredLibraries : allLibraries}}" wx:key="{{item.library.id}}" url="./confirm-order?book_id={{id}}&library_id={{item.library.id}}" class="weui-cell" hover-class="ui--active" bindtap="onClickLibraryItem">
+    <navigator wx:for="{{isFocus && inputValue ? filteredLibraries : allLibraries}}" wx:key="{{item.library.id}}" url="./order?book_id={{id}}&library_id={{item.library.id}}" class="weui-cell" hover-class="ui--active" bindtap="onClickLibraryItem">
       <view class="library-item__info">
         <view class="library-item__info-name">
           <text class="font-black-34 ellipsis">{{item.library.name}}</text>

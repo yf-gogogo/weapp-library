@@ -1,66 +1,35 @@
-// pages/profile/children/order-history.js
+import { getOrdersByPhone } from '../../../apis/order'
+
+const app = getApp()
+const PHONE = app.globalData.phone
+
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-  
+    orders: [],
+    loadMoreStatus: 'hidding', // loading, nomore
+    isNoData: false
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  
+  onLoad: function () {
+    wx.showLoading({ title: '加载中', mask: true })
+    getOrdersByPhone(PHONE, 'history').then(res => {
+      this.setData({
+        orders: res.data.orders,
+        isNoData: res.data.orders.length === 0
+      })
+    }).finally(() => wx.hideLoading())
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
   onReachBottom: function () {
-  
-  },
+    const { loadMoreStatus, isNoData, orders } = this.data
+    if (isNoData || loadMoreStatus !== 'hidding') return
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
+    this.setData({loadMoreStatus: 'loading'})
+    getOrdersByPhone(PHONE, 'history', orders.length).then(res => {
+      this.setData({
+        orders: orders.concat(res.data.orders),
+        loadMoreStatus: res.data.orders.length ? 'hidding' : 'nomore'
+      })
+    }).catch(() => this.setData({loadMoreStatus: 'hidding'}))
   }
 })

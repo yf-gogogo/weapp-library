@@ -1,10 +1,13 @@
-import { getOrdersByPhone, cancelOrderByOrderId } from '../../../apis/order'
+import { getOrdersByPhone } from '../../../apis/order'
 
 const app = getApp()
 const PHONE = app.globalData.phone
 
 Page({
   data: {
+    tabs: ['全部', '预约中', '借阅中'],
+    types: ['ongoing', 'booking', 'borrowing'],
+    currentType: 'ongoing', // 当前激活的选项卡类型
     orders: {
       // 进行中订单
       ongoing: [],
@@ -22,10 +25,7 @@ Page({
       ongoing: false,
       booking: false,
       borrowing: false
-    },
-    tabs: ['全部', '预约中', '借阅中'],
-    types: ['ongoing', 'booking', 'borrowing'],
-    currentType: 'ongoing'
+    }
   },
 
   // 初始时加载所有类型订单
@@ -52,7 +52,7 @@ Page({
     }).catch(() => wx.hideLoading())
   },
 
-  // 根据订单类型，加载对应数据
+  // 滚动到底部时，根据订单类型，加载对应数据
   onScrollToLower: function () {
     const type = this.data.currentType
     const orders = this.data.orders[type]
@@ -62,9 +62,12 @@ Page({
     const isNoData = this.data.isNoData[type]
     if (isNoData || loadMoreStatus !== 'hidding') return
 
+    // 设置“加载中”
     let params = {}
     params[`loadMoreStatus.${type}`] = 'loading'
     this.setData(params)
+
+    // 加载数据
     getOrdersByPhone(PHONE, type, length).then(res => {
       let params = {}
       params[`orders.${type}`] = orders.concat(res.data.orders)
@@ -80,8 +83,6 @@ Page({
   },
 
   onClickTabBar: function (e) {
-    this.setData({
-      currentType: this.data.types[e.detail.index]
-    })
+    this.setData({currentType: this.data.types[e.detail.index]})
   }
 })

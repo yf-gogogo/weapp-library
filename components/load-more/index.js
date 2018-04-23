@@ -6,7 +6,7 @@ Component({
   properties: {
     status: {
       type: String,
-      value: 'loading' // nomore
+      value: 'loading' // nomore, hidding
     },
     loadingText: {
       type: String,

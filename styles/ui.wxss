@@ -39,7 +39,7 @@ page {
 .ui-flex-card__info:first-child {
   margin-left: 0;
 }
-/* 居中对齐 */
+/* 子元素居中对齐 */
 .ui-flex--self-center {
   align-self: center;
 }
