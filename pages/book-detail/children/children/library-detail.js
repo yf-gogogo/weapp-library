@@ -1,66 +1,31 @@
-// pages/book-detail/children/children/library-detail.js
+import { getLibraryById } from '../../../../apis/library'
+
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-  
+    library: {
+      id: undefined,
+      status: 1, // 0：未认证，1：已认证
+      name: '',
+      phone: '',
+      address: '',
+      introduction: '',
+      book_type_num: 0,
+      book_total_num: 0,
+      photos: []
+    }
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
-  
+    wx.showLoading()
+    getLibraryById(options.id).then(res => {
+      this.setData({ library: res.data })
+    }).finally(() => wx.hideLoading())
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
+  onPreview: function (e) {
+    let library = this.data.library
+    let id = e.currentTarget.dataset.index
+    wx.previewImage({
+      current: library.photos[id],
+      urls: library.photos
+    })
   }
 })

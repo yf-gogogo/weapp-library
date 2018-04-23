@@ -30,7 +30,6 @@ Page({
     let { book_id, library_id } = options
     wx.showLoading({ title: '加载中' })
     getCollectionsByBookId(book_id, { library_id }).then(res => {
-      wx.hideLoading()
       this.setData({
         loading: false,
         book: res.data.book,
@@ -40,7 +39,10 @@ Page({
         'collection.isAvailable': res.data.collections[0].is_available
       })
     }
-    ).catch(() => wx.hideLoading())
+    ).finally(() => {
+      wx.hideLoading()
+      this.setData({loading: false})
+    })
   },
 
   onChange: function (e) {

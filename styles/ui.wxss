@@ -6,7 +6,7 @@ page {
   background-color: #F0EFF5;
 }
 
-/* 表单项标签 */
+/* 内容标题 */
 .ui-label {
   font-size: 28rpx;
   margin-top: .77em;
@@ -19,7 +19,7 @@ page {
 /* 普通卡片：padding，背景色，无边框 */
 .ui-card {
   position: relative;
-  padding: 15px; 
+  padding: 10px 15px; 
   background-color: #fff;
 }
 /* Flex卡片：padding，背景色，顶部对齐，无边框 */
@@ -67,15 +67,18 @@ page {
 }
 
 /* 图书卡片 ui-book-card */
+/* 图书封面：90px宽 */
 .ui-book-card__img {
   flex: 0 0 90px;
 }
+/* 图书的文字信息 */
 .ui-book-card__info > view {
   line-height: 1.7em;
 }
 .ui-book-card__info > .font-black-34 {
   line-height: 1.5em;
 }
+/* 图书描述 */
 .ui-book-card__description {
   margin-top: 10px;
   padding: 10px;
@@ -84,10 +87,8 @@ page {
   white-space:pre-line;
 }
 
-/* 书单卡片 */
-.ui-booklist-card {
-  padding: 12px 15px;
-}
+/* 书单卡片 ui-booklist-card */
+/* 书单封面：50px正方形 */
 .ui-booklist-card__img {
   flex: 0 0 50px;
   height: 50px;

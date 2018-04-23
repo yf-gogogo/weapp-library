@@ -1,0 +1,18 @@
+<view wx:if="{{reviews.length}}" class="weui-cells weui-cells_after-title">
+  <view wx:for="{{reviews}}" wx:key="{{item.id}}" class="weui-cell ui-card review-card font-30">
+    <view class="review-card__info">
+      <view class="review-card__title">
+        <text>发表于《{{item.book.title}}》</text>
+        <view class="review-card__rate">
+          <rate value="{{item.score}}" star-size="30" unit="rpx" disabled></rate>
+        </view>
+      </view>
+      <view class="review-card__content">{{item.content}}</view>
+      <view class="color-gray">{{item.create_time}}</view>
+    </view>
+    <view class="review-delete-btn color-red" data-id="{{id}}" data-index="{{index}}" catchtap="onDelete">删除</view>
+  </view>
+</view>
+<!-- 加载更多、暂无数据 -->
+<load-more status="{{loadMoreStatus}}" nomore-text="没有更多评论了"></load-more>
+<no-data wx:if="{{isNoData}}" text="暂未发表评论"></no-data>

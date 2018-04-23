@@ -24,7 +24,11 @@
     "pages/profile/children/personal-information",
     "pages/book-detail/children/order",
     "pages/book-detail/children/children/library-detail",
-    "pages/book-detail/children/children/result"
+    "pages/book-detail/children/children/result",
+    "pages/profile/children/qrcode",
+    "pages/profile/children/order-progress",
+    "pages/profile/children/order-history",
+    "pages/profile/children/review"
   ],
   "window": {
     "backgroundTextStyle": "dark",

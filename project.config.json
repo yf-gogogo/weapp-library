@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 25,
 			"list": [
 				{
 					"id": -1,
@@ -169,6 +169,24 @@
 					"name": "书单列表",
 					"pathName": "pages/list/booklist",
 					"query": "type=search&keyword=1"
+				},
+				{
+					"id": -1,
+					"name": "确认订单",
+					"pathName": "pages/book-detail/children/children/library-detail",
+					"query": "id=1"
+				},
+				{
+					"id": -1,
+					"name": "我的书评",
+					"pathName": "pages/profile/children/review",
+					"query": "id=1"
+				},
+				{
+					"id": -1,
+					"name": "借阅进度",
+					"pathName": "pages/profile/children/order-progress",
+					"query": "id=1"
 				}
 			]
 		}

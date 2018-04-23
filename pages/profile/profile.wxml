@@ -20,14 +20,14 @@
   </navigator>
 </view>
 <view class="weui-cells">
-  <navigator url="./children/order_progress" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+  <navigator url="./children/order-progress" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
     <view class="weui-cell__hd">
       <image src="/images/icon_in_process.png" class="icon"></image>
     </view>
     <view class="weui-cell__bd">借阅进度</view>
     <view class="weui-cell__ft weui-cell__ft_in-access"></view>
   </navigator>
-  <navigator url="./children/order_history" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+  <navigator url="./children/order-history" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
     <view class="weui-cell__hd">
       <image src="/images/icon_time.png" class="icon"></image>
     </view>

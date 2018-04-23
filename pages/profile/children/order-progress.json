@@ -1,0 +1,7 @@
+{
+    "navigationBarTitleText": "借阅进度",
+  "usingComponents":
+  {
+    "tabbar": "/components/tabbar/index"
+  }
+}
