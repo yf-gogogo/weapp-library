@@ -5,11 +5,11 @@
       <view class="weui-media-box__desc">你还没有选择任何图书</view>
     </view>
     <view wx:if="{{selectedBooks.length}}" class="weui-cells weui-cells_after-title">
-      <navigator wx:for="{{selectedBooks}}" wx:key="{{item.id}}" class="weui-cell ui-flex-card" hover-class="ui--active" url="/pages/book-detail/book-detail?id={{item.id}}">
+      <navigator wx:for="{{selectedBooks}}" wx:key="{{item.id}}" class="weui-cell ui-book-card" hover-class="ui--active" url="/pages/book-detail/book-detail?id={{item.id}}">
         <image class="ui-book-card__img" mode="widthFix" src="{{item.imgs.small}}"></image>
-        <view class="ui-flex-card__info ui-book-card__info font-gray-26">
-          <view class="font-black-34">{{item.title}}</view>
-          <view>作者: <text wx:for="{{item.author}}" wx:key="{{item}}" class="ui-book-card__name">{{item}}</text></view>
+        <view class="ui-book-card__info font-gray-26">
+          <view class="ui-book-card__info-title font-black-34">{{item.title}}</view>
+          <view>作者: <text wx:for="{{item.author}}" wx:key="{{item}}" class="ui-book-card__info-name">{{item}}</text></view>
           <view>出版社: {{item.publisher}}</view>
           <view>出版时间: {{item.pubdate}}</view>
           <view>ISBN: {{item.isbn}}</view>

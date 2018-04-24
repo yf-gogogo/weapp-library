@@ -1,11 +1,11 @@
-<view class="ui-flex-card ui-book-card" hover-class="ui--active" bindtap="onTapCard">
+<view class="ui-book-card" hover-class="ui--active" bindtap="onTapCard">
   <image class="ui-book-card__img" src="{{book.imgs.small}}" mode="widthFix"></image>
-  <view class="ui-flex-card__info ui-book-card__info font-gray-26">
-    <view class="font-black-34">{{book.title}}</view>
+  <view class="ui-book-card__info font-gray-26">
+    <view class="ui-book-card__info-title font-black-34">{{book.title}}</view>
     <view>
       评分:
       <text class="color-yellow">{{book.total_score}}</text>（{{book.review_num}}条评论）</view>
-    <view>作者: <text wx:for="{{book.author}}" wx:key="{{item}}" class="ui-book-card__name">{{item}}</text></view>
+    <view>作者: <text wx:for="{{book.author}}" wx:key="{{item}}" class="ui-book-card__info-name">{{item}}</text></view>
     <view>出版社: {{book.publisher}}</view>
     <view>出版日期: {{book.pubdate}}</view>
     <view>ISBN: {{book.isbn}}</view>

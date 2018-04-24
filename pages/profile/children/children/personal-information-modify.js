@@ -33,7 +33,8 @@ Page({
       'userInfo.id_number': userInfo.id_number,
       'userInfo.postcode': userInfo.postcode,
       'userInfo.address': userInfo.address,
-      'userInfo.id_card_img': userInfo.id_card_img
+      'userInfo.id_card_img.front': userInfo.id_card_img.front,
+      'userInfo.id_card_img.back': userInfo.id_card_img.back
     })).finally(() => wx.hideLoading())
   },
 

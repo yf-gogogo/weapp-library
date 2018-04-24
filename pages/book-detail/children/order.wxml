@@ -1,20 +1,22 @@
 <block wx:if="{{!loading && collection.available}}">
   <view class="ui-label">图书信息</view>
-  <view class="ui-flex-card ui-panel">
+  <view class="ui-panel ui-book-card">
     <image class="ui-book-card__img" src="{{book.imgs.small}}" mode="widthFix"></image>
-    <view class="ui-flex-card__info ui-book-card__info font-gray-26">
-      <view class="font-black-34">{{book.title}}</view>
+    <view class="ui-book-card__info font-gray-26">
+      <view class="ui-book-card__info-title font-black-34">{{book.title}}</view>
       <view>
         评分:
         <text class="color-yellow">{{book.total_score}}</text>（{{book.review_num}}条评论）</view>
-      <view>作者: <text wx:for="{{item.author}}" class="ui-book-card__name">{{item}}</text></view>
+      <view>作者:
+        <text wx:for="{{item.author}}" class="ui-book-card__info-name">{{item}}</text>
+      </view>
       <view>出版社: {{book.publisher}}</view>
       <view>出版日期: {{book.pubdate}}</view>
       <view>ISBN: {{book.isbn}}</view>
     </view>
   </view>
   <view class="ui-label">图书馆信息</view>
-  <navigator url="./children/library-detail?id={{library.id}}" class="ui-panel" hover-class="weui-cell_active">
+  <navigator url="./children/library-detail?id={{library.id}}" class="ui-panel" hover-class="ui--active">
     <view class="weui-cell">
       <view class="weui-cell__bd">
         <view class="library__name">
@@ -28,8 +30,8 @@
   </navigator>
   <view class="ui-label">请选择取书日期（最晚日期: {{lastestDate}}）</view>
   <picker mode="date" value="{{appointedDate}}" start="{{startDate}}" end="{{lastestDate}}" bindchange="onChange">
-    <view class="ui-panel">
-      <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+    <view class="ui-panel" hover-class="ui--active">
+      <view class="weui-cell">
         <view class="weui-cell__bd">
           取书日期：
           <span>{{appointedDate}}</span>

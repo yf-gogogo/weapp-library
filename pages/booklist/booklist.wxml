@@ -1,10 +1,10 @@
 <search-bar default-text="搜索书单" focus-text="书单标题、创建者" bindsearch="onSearch"></search-bar>
 <collapse title="我创建的书单" action-text="新建" bindtapaction="onCreate">
   <view class="ui-panel">
-    <navigator wx:for="{{booklists.create}}" class="weui-cell" hover-class="ui--active" url="./children/booklist-detail?id={{item.id}}">
+    <navigator wx:for="{{booklists.create}}" class="weui-cell ui-booklist-card" hover-class="ui--active" url="./children/booklist-detail?id={{item.id}}">
       <image class="ui-booklist-card__img" src="{{item.image}}" mode="aspectFill"></image>
-      <view class="ui-flex-card__info ui-booklist-card__info">
-        <view class="font-black-34">{{item.title}}</view>
+      <view class="ui-booklist-card__info">
+        <view class="ui-booklist-card__info-title font-black-34">{{item.title}}</view>
         <view class="font-gray-26">
           {{item.total}}本 by {{item.creator.nickname}}，{{item.favorited_num}}人收藏</view>
       </view>
@@ -16,10 +16,10 @@
 </collapse>
 <collapse title="我收藏的书单">
   <view class="ui-panel">
-    <navigator wx:for="{{booklists.favorite}}" class="weui-cell" hover-class="ui--active" url="./children/booklist-detail?id={{item.id}}">
+    <navigator wx:for="{{booklists.favorite}}" class="weui-cell ui-booklist-card" hover-class="ui--active" url="./children/booklist-detail?id={{item.id}}">
       <image class="ui-booklist-card__img" src="{{item.image}}" mode="aspectFill"></image>
-      <view class="ui-flex-card__info ui-booklist-card__info">
-        <view class="font-black-34">{{item.title}}</view>
+      <view class="ui-booklist-card__info">
+        <view class="ui-booklist-card__info-title font-black-34">{{item.title}}</view>
         <view class="font-gray-26">
           {{item.total}}本 by {{item.creator.nickname}}，{{item.favorited_num}}人收藏</view>
       </view>

@@ -4,15 +4,9 @@ page {
   padding-bottom: 100rpx;
 }
 .ui-book-card__img {
-  flex: 0 0 40%;
+  width: 40%;
   margin-left: 5px;
-}
-
-.collection-cell {
-  background-color: #fff;
-}
-.collection-cell:before {
-  display: none;
+  margin-right: 0;
 }
 
 .tip {
@@ -33,8 +27,7 @@ page {
   background-color: #f8f8f8;
 }
 
-.menubar__add,
-.menubar__review {
+.menubar__icon {
   flex: 1;
   border-right: 1px solid #ddd;
   display: flex;
@@ -45,14 +38,12 @@ page {
   padding-top: 10rpx;
 }
 
-.menubar__add image,
-.menubar__review image {
+.menubar__icon-img {
   height: 50rpx;
   width: 50rpx;
 }
 
-.menubar__add span,
-.menubar__review span {
+.menubar__icon-text {
   font-size: 20rpx;
   color: #888;
 }

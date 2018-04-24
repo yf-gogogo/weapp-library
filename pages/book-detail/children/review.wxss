@@ -12,26 +12,6 @@
   background-color: #FFF;
   border-bottom: 1px solid #D9D9D9;
 }
-.review-card {
-  padding-bottom: 8px;
-}
-.review-card__img {
-  width:70rpx; 
-  height: 70rpx;
-  border-radius: 35rpx;
-}
-.review-card__title,
-.review-card__content {
-  margin-bottom: 5px;
-}
-.review-card__rate {
-  display: inline-block;
-  margin-left: 5px;
-  height: 30rpx;
-}
-.review-card__content {
-  line-height: 1.62em;
-}
 
 .empty {
   position: fixed;

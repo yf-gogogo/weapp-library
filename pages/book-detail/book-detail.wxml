@@ -1,11 +1,15 @@
 <import src="/templates/showcase/index" />
 <!-- 图书信息 -->
-<view class="ui-flex-card">
-  <view class="ui-flex-card__info ui-book-card__info font-gray-26">
-    <view class="font-black-34">{{book.title}}</view>
+<view class="ui-book-card">
+  <view class="ui-book-card__info font-gray-26">
+    <view class="ui-book-card__info-title font-black-34">{{book.title}}</view>
     <view>评分：<span class="color-yellow">{{book.total_score}} </span>({{book.review_num}}条评论)</view>
-    <view>作者: <text wx:for="{{book.author}}" class="ui-book-card__name">{{item}}</text></view>
-    <view>译者: <text wx:for="{{book.translator}}" class="ui-book-card__name">{{item}}</text></view>
+    <view>作者:
+      <text wx:for="{{book.author}}" class="ui-book-card__info-name">{{item}}</text>
+    </view>
+    <view>译者:
+      <text wx:for="{{book.translator}}" class="ui-book-card__info-name">{{item}}</text>
+    </view>
     <view>出版社: {{book.publisher}}</view>
     <view>出版时间: {{book.pubdate}}</view>
     <view>分类号: {{book.class_num}}</view>
@@ -18,9 +22,11 @@
 </view>
 <!-- 馆藏信息 -->
 <view class="ui-label">馆藏信息</view>
-<view class="weui-cell collection-cell" bindtap="onShowPopup" hover-class="ui--active">
-  <view class="weui-cell__bd font-black-26">共有<span class="color-green"> {{book.available_num}} </span>本可借</view>
-  <view class="weui-cell__ft_in-access"></view>
+<view class="ui-panel" hover-class="ui--active" bindtap="onShowPopup">
+  <view class="weui-cell">
+    <view class="weui-cell__bd font-black-26">共有<span class="color-green"> {{book.available_num}} </span>本可借</view>
+    <view class="weui-cell__ft_in-access"></view>
+  </view>
 </view>
 <!-- 图书详情 -->
 <view class="ui-label">内容简介</view>
@@ -45,13 +51,13 @@
 <view class="font-28 color-blue tip" catchtap="onShowTip">对本页内容有疑问？</view>
 <!-- 底部菜单 -->
 <view class="menubar">
-  <view class="menubar__add" data-target="add" catchtap="onNavigate">
-    <image src="/images/icon_add_to_booklist.png" mode="aspectFit"></image>
-    <span>加入书单</span>
+  <view class="menubar__icon" data-target="add" catchtap="onNavigate">
+    <image class="menubar__icon-img" src="/images/icon_add_to_booklist.png" mode="aspectFit"></image>
+    <span class="menubar__icon-text">加入书单</span>
   </view>
-  <view class="menubar__review" data-target="review" catchtap="onNavigate">
-    <image src="/images/icon_review.png" mode="widthFix"></image>
-    <span>查看书评</span>
+  <view class="menubar__icon" data-target="review" catchtap="onNavigate">
+    <image class="menubar__icon-img" src="/images/icon_review.png" mode="widthFix"></image>
+    <span class="menubar__icon-text">查看书评</span>
   </view>
   <button class="menubar__btn" type="primary" bindtap="onShowPopup">借阅此书</button>
 </view>

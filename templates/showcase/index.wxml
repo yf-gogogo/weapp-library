@@ -4,7 +4,7 @@
       <navigator wx:for="{{books}}" wx:key="{{item.id}}" url="/pages/book-detail/book-detail?id={{item.id}}" class="showcase__item" hover-class="ui--active">
         <image class="showcase__item-image--book" src="{{item.imgs.small}}" mode="aspectFill" />
         <view class="font-black-30 ellipsis-l2">{{item.title}}</view>
-        <view class="font-gray-28 ellipsis"><text wx:for="{{item.author}}" class="ui-book-card__name">{{item}}</text></view>
+        <view class="font-gray-28 ellipsis"><text wx:for="{{item.author}}" class="ui-book-card__info-name">{{item}}</text></view>
       </navigator>
     </view>
   </scroll-view>

@@ -6,19 +6,19 @@
       <button size="mini" type="primary" catchtap="onShowPopup" plain>发表评论</button>
     </view>
     <view class="weui-cells weui-cells_after-title">
-      <view wx:for="{{reviews}}" wx:key="{{item.id}}" class="weui-cell ui-flex-card review-card font-30">
-        <image class="review-card__img" src="{{item.user.avatar}}"></image>
-        <view class="ui-flex-card__info review-card__info">
-          <view class="review-card__title">
+      <view wx:for="{{reviews}}" wx:key="{{item.id}}" class="weui-cell ui-review-card font-30">
+        <image class="ui-review-card__avatar" src="{{item.user.avatar}}"></image>
+        <view class="ui-review-card__info">
+          <view class="ui-review-card__title">
             <text>{{item.user.nickname}} </text>
-            <view class="review-card__rate">
+            <view class="ui-review-card__rate">
               <rate value="{{item.score}}" star-size="30" unit="rpx" disabled></rate>
             </view>
           </view>
-          <view class="review-card__content">{{item.content}}</view>
+          <view class="ui-review-card__content">{{item.content}}</view>
           <view class="color-gray">{{item.create_time}}</view>
         </view>
-        <view wx:if="{{item.is_creator}}" class="color-red" data-id="{{id}}" data-index="{{index}}" catchtap="onDelete">删除</view>
+        <view wx:if="{{item.is_creator}}" class="ui-review-card__delete-btn color-red" data-id="{{id}}" data-index="{{index}}" catchtap="onDelete">删除</view>
       </view>
     </view>
     <!-- 加载更多、暂无数据 -->
