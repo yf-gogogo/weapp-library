@@ -1,4 +1,4 @@
-import { get, post, deleteReq } from './request.js'
+import { get, post, del } from './request.js'
 
 module.exports = {
   createBooklist: function (params) {
@@ -17,7 +17,7 @@ module.exports = {
     return post(`/booklists/${id}`, params)
   },
   deleteBooklistById: function (id) {
-    return deleteReq(`/booklists/${id}`)
+    return del(`/booklists/${id}`)
   },
   favoriteBooklistById: function (id) {
     return post(`/booklists/${id}/favorite`)

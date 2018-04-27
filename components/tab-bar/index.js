@@ -1,6 +1,7 @@
 
 /**
- * 选项卡
+ * 选项卡 TabBar
+ * slot：不同tab的内容，“name”为对应tab的值
  * @event <click>
  */
 Component({

@@ -1,4 +1,4 @@
-import { get, post, deleteReq } from './request.js'
+import { get, post, del } from './request.js'
 
 module.exports = {
   createOrders: function (params) {

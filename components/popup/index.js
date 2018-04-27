@@ -1,7 +1,7 @@
 
 /**
  * 底部弹出菜单
- * slot： 菜单内容
+ * slot：菜单内容
  * @event <hide>
  */
 Component({

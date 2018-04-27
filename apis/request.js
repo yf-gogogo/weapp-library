@@ -33,9 +33,9 @@ export function post (relativeUrl, param, header) {
 }
 
 /**
- * deleteReq 方法
+ * del 方法
  */
-export function deleteReq (relativeUrl, param, header) {
+export function del (relativeUrl, param, header) {
   return requestWithModal('DELETE', relativeUrl, param, header)
 }
 

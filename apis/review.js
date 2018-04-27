@@ -1,4 +1,4 @@
-import { get, post, deleteReq } from './request.js'
+import { get, post, del } from './request.js'
 
 module.exports = {
   addReviewByBookId: function (id, score, content) {
@@ -11,6 +11,6 @@ module.exports = {
     return get(`/users/${phone}/reviews?start=${start}`)
   },
   deleteReviewById: function (id) {
-    return deleteReq(`/reviews/${id}`)
+    return del(`/reviews/${id}`)
   }
 }

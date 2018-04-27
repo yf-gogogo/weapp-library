@@ -57,10 +57,8 @@ Page({
   },
 
   onSubmit: function () {
-    wx.showLoading({ title: '加载中', mask: true })
-
     let { id, booklists, selectedIndex, description } = this.data
-
+    wx.showLoading({ title: '加载中', mask: true })
     updateBooklistById(booklists[selectedIndex].id, { add_items: {
       id, description
     }}).then(_ => {

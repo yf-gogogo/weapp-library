@@ -56,27 +56,12 @@ Page({
     })
   },
 
-  // 跳转页面前判断是否登录，如果没有登录，显示登录对话框
-  onNavigate: function (e) {
-    if (!isLogin(true)) return
-
-    let target = e.currentTarget.dataset.target
-    let url
-    switch (target) {
-      case 'add':
-        url = './children/add?id=' + this.data.book.id
-        break
-      case 'review':
-        url = './children/review?id=' + this.data.book.id
-        break
-      case 'libraryItem':
-        url = `./children/order?book_id=${this.data.book.id}&library_id=${e.currentTarget.dataset.id}`
-        break
-      case 'libraryList':
-        url = './children/library-list?id=' + this.data.book.id
-        break
-    }
-    wx.navigateTo({url: url})
+  onPreview: function () {
+    let img = this.data.book.imgs.small
+    wx.previewImage({
+      current: img,
+      urls: [img]
+    })
   },
 
   onShowPopup: function () {
@@ -85,6 +70,31 @@ Page({
 
   onHidePopup: function () {
     this.setData({'libraryList.show': false})
+  },
+
+  // 跳转页面前判断是否登录，如果没有登录，显示登录对话框
+  onNavigate: function (e) {
+    if (!isLogin(true)) return
+
+    let target = e.currentTarget.dataset.target
+    let libraryId = e.currentTarget.dataset.id
+    let bookId = this.data.book.id
+    let url
+    switch (target) {
+      case 'add':
+        url = `./children/add?id=${bookId}`
+        break
+      case 'review':
+        url = `./children/review?id=${bookId}`
+        break
+      case 'libraryItem':
+        url = `./children/order?book_id=${bookId}&library_id=${libraryId}`
+        break
+      case 'libraryList':
+        url = `./children/library-list?id=${bookId}`
+        break
+    }
+    wx.navigateTo({url: url})
   },
 
   onShareAppMessage: function () {

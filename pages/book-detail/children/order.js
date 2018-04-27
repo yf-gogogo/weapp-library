@@ -56,7 +56,7 @@ Page({
       phone: app.globalData.phone,
       orders: [{
         status: collection.available ? 1003 : 1001,
-        book_id: book.id,
+        isbn: book.isbn,
         library_id: library.id,
         should_take_time: appointedDate
       }]
