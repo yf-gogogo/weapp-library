@@ -71,8 +71,19 @@ function setTipSettingByType (type, value) {
   wx.setStorageSync('TIP_SETTINGS', TIP_SETTINGS)
 }
 
+/**
+ * 从本地缓存中初始化 TIP_SETTINGS
+ */
+function initTipSettings () {
+  let tmp = wx.getStorageSync('TIP_SETTINGS')
+  if (tmp) {
+    setTipSettings(tmp)
+  }
+}
+
 module.exports = {
   setTipSettings: setTipSettings,
   setTipSettingByType: setTipSettingByType,
-  showTip: showTip
+  showTip: showTip,
+  initTipSettings: initTipSettings
 }

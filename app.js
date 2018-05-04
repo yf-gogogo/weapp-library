@@ -1,20 +1,23 @@
 import Promise from './utils/es6-promise'
 import promisePolyfill from './utils/promise-polyfill' // 添加 promise.finally
-import { setTipSettings } from './utils/tip' // 使用帮助
+import { setTipSettings, initTipSettings } from './utils/tip' // 使用帮助
 import EventEmitter from './utils/event' // 事件总线
-import { getUserInfoByPhone } from './apis/user' // 获取用户信息
+import { getUserInfoById } from './apis/user' // 获取用户信息
+import { UID_KEY } from './utils/permission'
 
 App({
   event: new EventEmitter(),
 
+  /**
+   * 全局保存用户信息，只能通过getter和setter访问和修改
+   */
   globalData: {
-    phone: undefined,
+    // 用户id
+    _uid: null,
 
-    /**
-     * 全局保存用户信息，只能通过getter和setter访问和修改
-     */
+    // 用户完整信息
     _userInfo: {
-      id: '', // 用户id
+      id: null, // 用户id
       phone: '', // 手机号
       openid: '', // openid
       status: undefined, // 账号状态：0~3 未审核、已通过、未通过、已拉黑
@@ -40,13 +43,11 @@ App({
 
   onLaunch: function () {
     // 自动登录
-    this.globalData.phone = wx.getStorageSync('phone')
+    var id = wx.getStorageSync(UID_KEY)
+    this.setUID(id)
 
-    // 从本地缓存中加载 TIP_SETTINGS
-    let tmp = wx.getStorageSync('TIP_SETTINGS')
-    if (tmp) {
-      setTipSettings(tmp)
-    }
+    // 初始化设置
+    initTipSettings()
   },
 
   /**
@@ -54,8 +55,8 @@ App({
    * @return {Promise}
    */
   getUserInfo: function () {
-    let { phone, _userInfo } = this.globalData
-    if (!phone) {
+    let { _uid, _userInfo } = this.globalData
+    if (!_uid) {
       return Promise.reject(new Error('未登录'))
     }
     // 已经有用户信息时直接返回
@@ -63,8 +64,8 @@ App({
       return Promise.resolve(_userInfo)
     }
 
-    return getUserInfoByPhone(phone).then(res => {
-      this.globalData._userInfo = res.data
+    return getUserInfoById(_uid).then(res => {
+      this.setUserInfo(res.data)
       return res.data
     })
   },
@@ -76,5 +77,21 @@ App({
   setUserInfo: function (userInfo) {
     this.globalData._userInfo = userInfo
     this.event.emit('userInfoChanged', {userInfo: userInfo})
+  },
+
+  /**
+   * 获取用户id
+   * @return integer|null
+   */
+  getUID: function () {
+    return this.globalData._uid || null
+  },
+
+  /**
+   * 设置用户id
+   * @return integer|null
+   */
+  setUID: function (uid) {
+    this.globalData._uid = uid
   }
 })

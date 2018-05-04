@@ -4,8 +4,8 @@ module.exports = {
   sendCode: function (phone) {
     return post(`/codes?phone=${phone}&type=wechat`)
   },
-  checkCode: function (phone, vrcode) {
-    return get('/codes/check', { phone, vrcode, type: 'wechat' })
+  checkCode: function (phone, code) {
+    return get('/codes/check', { phone, code, type: 'wechat' })
   },
   // TODO --- 与后台联动
   uploadIdCardImg: function (filepath) {
@@ -18,10 +18,10 @@ module.exports = {
       setTimeout(() => resolve(filepath), 1000)
     })
   },
-  updateUserInfoByPhone: function (phone, params) {
-    return post(`/users/${phone}`, params)
+  updateUserInfoById: function (id, params) {
+    return post(`/users/${id}`, params)
   },
-  getUserInfoByPhone: function (phone) {
-    return get(`/users/${phone}`)
+  getUserInfoById: function (id) {
+    return get(`/users/${id}`)
   }
 }

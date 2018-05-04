@@ -1,4 +1,4 @@
-import { uploadIdCardImg, updateUserInfoByPhone } from '../../../../apis/user'
+import { uploadIdCardImg, updateUserInfoById } from '../../../../apis/user'
 import Promisify from '../../../../utils/promisify'
 
 var toptip // 保存toptip组件的引用
@@ -109,9 +109,9 @@ Page({
           back: res[1]
         }
       })
-      let phone = app.globalData
+      let uid = app.getUID()
       let userInfo = this.data.userInfo
-      return updateUserInfoByPhone(phone, userInfo).then(res => {
+      return updateUserInfoById(uid, userInfo).then(res => {
         app.setUserInfo(res.data)
       })
     }).then(res => {

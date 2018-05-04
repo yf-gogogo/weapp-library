@@ -54,12 +54,17 @@ Page({
     wx.showLoading({ title: '加载中', mask: true })
 
     let { title, description } = this.data
-    let phone = app.globalData.phone
     let params = { title, description }
     let fn
 
-    if (options.type === 'create') fn = createBooklist(params)
-    else fn = updateBooklistById(options.id, params)
+    if (options.type === 'create') {
+      fn = createBooklist({
+        ...params,
+        wechat_user_id: app.getUID()
+      })
+    } else {
+      fn = updateBooklistById(options.id, params)
+    }
     fn.then(() => {
       wx.hideLoading()
       wx.showToast({ title: '操作成功', mask: true })

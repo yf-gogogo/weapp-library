@@ -99,13 +99,14 @@ Page({
   onSubmit: function () {
     let { id, reviews } = this.data
     let { score, review, loading } = this.data.popup
+    let wechat_user_id = app.getUID()
 
     if (loading) return
     if (!score) return toptip.show('请点击星星评分')
     if (!review) return toptip.show('请输入评论')
 
     this.setData({'popup.loading': true})
-    addReviewByBookId(id, score, review).then(res => {
+    addReviewByBookId(id, { score, review, wechat_user_id }).then(res => {
       wx.showToast({title: '操作成功'})
       this.setData({
         'popup.loading': false,

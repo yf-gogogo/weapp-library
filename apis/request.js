@@ -12,7 +12,8 @@ var Promise = require('../utils/es6-promise')
 /**
  * 服务器根路径
  */
-export const BASE_URL = 'https://www.easy-mock.com/mock/5aacc9a1d3f6bd35dfb4be65/api/v1'
+// export const BASE_URL = 'https://www.easy-mock.com/mock/5aacc9a1d3f6bd35dfb4be65/api/v1'
+export const BASE_URL = 'http://localhost:8080/library/public/index.php/api'
 
 /**
  * get 方法
@@ -51,7 +52,6 @@ export function requestWithModal (method, relativeUrl, param, header) {
       errMsg = res.errMsg || '发生未知错误，请检查您的网络状态'
     }
     wx.showModal({
-      title: '请求失败',
       content: errMsg,
       showCancel: false
     })

@@ -2,14 +2,17 @@
  * 权限控制，如登录、退出、检测是否登录、检测账号状态(是否被拉黑)等
  */
 
+const UID_KEY = 'UID'
+
 /**
  * 登录
  * @return {Boolean}
  */
-function login (phone) {
+function login (userInfo) {
   try {
-    wx.setStorageSync('phone', phone)
-    getApp().globalData.phone = phone
+    wx.setStorageSync(UID_KEY, userInfo.id)
+    getApp().setUserInfo(userInfo)
+    getApp().setUID(userInfo.id)
     return true
   } catch (e) {
     console.error('设置storage失败: ' + e)
@@ -24,7 +27,7 @@ function login (phone) {
 function logout () {
   try {
     wx.clearStorageSync()
-    getApp().globalData.phone = undefined
+    getApp().setUID(null)
     return true
   } catch (e) {
     console.error('清空storage失败: ' + e)
@@ -40,8 +43,8 @@ function logout () {
  * @return {Boolean}
  */
 function isLogin (showModal = false) {
-  var phone = getApp().globalData.phone
-  if (phone) {
+  var id = getApp().getUID()
+  if (id) {
     return true
   } else {
     if (showModal) {
@@ -60,6 +63,7 @@ function isLogin (showModal = false) {
 }
 
 module.exports = {
+  UID_KEY: UID_KEY,
   login: login,
   logout: logout,
   isLogin: isLogin

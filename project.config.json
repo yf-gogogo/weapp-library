@@ -9,7 +9,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "1.9.93",
-	"appid": "wx0eff868e8d0bef7f",
+	"appid": "touristappid",
 	"projectname": "weapp-library",
 	"isGameTourist": false,
 	"condition": {
