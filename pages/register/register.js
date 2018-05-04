@@ -1,6 +1,6 @@
 import { sendCode, checkCode } from '../../apis/user'
 import { login } from '../../utils/permission'
-import reg from '../../utils/regexp'
+import { isPhone, isVrcode } from '../../utils/validator'
 import Promise from '../../utils/es6-promise'
 
 var toptip // 保存toptip组件的引用
@@ -39,7 +39,7 @@ Page({
   },
 
   onSend: function () {
-    if (!reg.phone.test(this.data.phone)) {
+    if (!isPhone(this.data.phone)) {
       return toptip.show('手机号格式不正确')
     }
     sendBtn.prepare()
@@ -51,11 +51,11 @@ Page({
 
   onSubmit: function () {
     let { phone, vrcode } = this.data
-    if (!reg.phone.test(phone)) {
+    if (!isPhone(phone)) {
       toptip.show('手机号格式不正确')
       return
     }
-    if (!reg.vrcode.test(vrcode)) {
+    if (!isVrcode(vrcode)) {
       toptip.show('请输入6位数字验证码')
       return
     }

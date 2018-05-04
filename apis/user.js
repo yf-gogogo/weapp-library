@@ -1,12 +1,11 @@
-import { get, post, BASE_URL } from './request.js'
-import Promisify from '../utils/promisify'
+import { get, post } from './request.js'
 
 module.exports = {
   sendCode: function (phone) {
-    return post(`/vrcodes?phone=${phone}`)
+    return post(`/codes?phone=${phone}&type=wechat`)
   },
   checkCode: function (phone, vrcode) {
-    return get('/vrcodes/check', { phone, vrcode })
+    return get('/codes/check', { phone, vrcode, type: 'wechat' })
   },
   // TODO --- 与后台联动
   uploadIdCardImg: function (filepath) {

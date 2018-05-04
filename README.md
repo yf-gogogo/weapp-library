@@ -15,7 +15,7 @@ wechat-app
 │ ├─permission.js       // 登录鉴权
 │ ├─qrcode.js           // 二维码生成
 │ ├─tip.js              // 使用帮助
-│ ├─regexp.js           // 正则表达式
+│ ├─validator.js        // 正则校验
 │ └─promisify.js        // 微信小程序API Promise化
 ├─app.js            
 ├─app.json

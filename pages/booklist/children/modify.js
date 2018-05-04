@@ -1,6 +1,8 @@
 import { getBooklistById, createBooklist, updateBooklistById } from '../../../apis/booklist'
 import { showTip } from '../../../utils/tip'
 
+var app = getApp()
+
 var options = {
   type: undefined, // 操作类型：create，modify
   id: undefined // 书单id
@@ -52,6 +54,7 @@ Page({
     wx.showLoading({ title: '加载中', mask: true })
 
     let { title, description } = this.data
+    let phone = app.globalData.phone
     let params = { title, description }
     let fn
 

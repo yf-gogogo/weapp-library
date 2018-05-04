@@ -38,8 +38,8 @@
       <rate value="{{popup.score}}" gutter-size="7" bindchange="onChange"></rate>
     </view>
     <view class="popup-bd__textarea">
-      <textarea hidden="{{!popup.show}}" class="weui-textarea" style="height: 3.3em" placeholder="写几句评论吧..." maxlength="100" value="{{popup.review}}" bindinput="onInput" fixed/>
-      <view class="weui-textarea-counter">{{popup.review.length}}/100</view>
+      <textarea hidden="{{!popup.show}}" class="weui-textarea" style="height: 3.3em" placeholder="写几句评论吧..." maxlength="200" value="{{popup.review}}" bindinput="onInput" fixed/>
+      <view class="weui-textarea-counter">{{popup.review.length}}/200</view>
     </view>
     <view class="popup-bd__btn-area">
       <async-button text="发表评论" loading="{{popup.loading}}" bindtap="onSubmit"></async-button>
