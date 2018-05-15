@@ -1,7 +1,6 @@
 import { getOrdersByPhone } from '../../../apis/order'
 
 const app = getApp()
-const PHONE = app.globalData.phone
 
 Page({
   data: {

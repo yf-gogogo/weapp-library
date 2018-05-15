@@ -43,7 +43,7 @@ Component({
       this.setData({activeIndex: index})
     },
     // 切换当前激活页
-    _onClick: function (e) {
+    onClick: function (e) {
       let { offsetLeft, id } = e.currentTarget
       this.setData({
         sliderOffset: offsetLeft,

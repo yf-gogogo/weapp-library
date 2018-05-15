@@ -64,7 +64,7 @@ Page({
       icon: 'loading'
     })
     checkCode(phone, vrcode).then(res => {
-      if (!login(res.data)) return Promise.reject(new Error('设置登录态失败'))
+      if (!login(res.data.token, res.data.user)) return Promise.reject(new Error('设置登录态失败'))
 
       // 201：创建了新的用户 200：登录成功
       if (res.statusCode === 201) {

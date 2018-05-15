@@ -2,7 +2,7 @@
  * get, post, delete 方法的封装
  *
  * 本项目 API 文档：
- * -- https://app.swaggerhub.com/apis/imageslr/weapp/1.0.0
+ * -- https://app.swaggerhub.com/apis/imageslr/weapp/1.0.1
  * Mock 数据：
  * -- https://www.easy-mock.com/project/5aacc9a1d3f6bd35dfb4be65
  */

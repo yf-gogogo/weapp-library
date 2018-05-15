@@ -1,6 +1,6 @@
 import Promisify from '../../utils/promisify'
 import { updateUserInfoById } from '../../apis/user'
-import { logout } from '../../utils/permission'
+import { logout, getUID } from '../../utils/permission'
 
 var app = getApp()
 
@@ -21,7 +21,7 @@ Page({
           'userInfo.avatar': res.userInfo.avatarUrl
         })
         app.setUserInfo(this.data.userInfo)
-        updateUserInfoById(app.getUID(), this.data.userInfo)
+        updateUserInfoById(getUID(), this.data.userInfo)
       }).catch(() => {
         // 用户拒绝授权时获取后台记录的用户信息和头像
         app.getUserInfo().then(userInfo => {

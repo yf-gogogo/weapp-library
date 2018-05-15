@@ -1,5 +1,6 @@
 import { uploadIdCardImg, updateUserInfoById } from '../../../../apis/user'
 import Promisify from '../../../../utils/promisify'
+import { getUID } from '../../../../utils/permission'
 
 var toptip // 保存toptip组件的引用
 var app = getApp()
@@ -91,6 +92,7 @@ Page({
     if (!birthday) return toptip.show('请填写出生日期')
     if (!address) return toptip.show('请填写详细地址')
     if (!id_number) return toptip.show('请填写身份证号')
+    if (id_number.length !== 18) return toptip.show('身份证号必须为18位')
     if (!postcode) return toptip.show('请填写邮政编码')
     if (!front) return toptip.show('请上传身份证正面照片')
     if (!back) return toptip.show('请上传身份证反面照片')
@@ -109,7 +111,7 @@ Page({
           back: res[1]
         }
       })
-      let uid = app.getUID()
+      let uid = getUID()
       let userInfo = this.data.userInfo
       return updateUserInfoById(uid, userInfo).then(res => {
         app.setUserInfo(res.data)
