@@ -1,4 +1,4 @@
-<view class="switch switch--{{ checked ? 'on' : 'off' }} {{ disabled ? 'swtich--disabled' : '' }}" bindtap="onTap">
+<view class="switch switch--{{ checked ? 'on' : 'off' }} {{ disabled ? 'swtich--disabled' : '' }}" bindtap="_onTap">
   <view class="switch__circle">
     <view hidden="{{ !loading }}" class="switch__loading"></view>
   </view>

@@ -4,8 +4,8 @@ module.exports = {
   createBooklist: function (params) {
     return post('/booklists', params)
   },
-  getRecommendedBooklistsByPhone: function (phone) {
-    return get(`/booklists/recommend/${phone}`)
+  getRecommendedBooklistsByUserId: function (id) {
+    return get(`/booklists/recommend/${id}`)
   },
   getBooklistById: function (id, start = 0) {
     return get(`/booklists/${id}?start=${start}`)
@@ -25,7 +25,7 @@ module.exports = {
   getBooklistsByKeyword: function (keyword, start = 0) {
     return get('/booklists/search', { keyword, start })
   },
-  getBooklistsByPhone: function (phone, type = 'all') {
-    return get(`/booklists/users/${phone}?type=${type}`)
+  getBooklistsById: function (id, type = 'all') {
+    return get(`/booklists/users/${id}?type=${type}`)
   }
 }

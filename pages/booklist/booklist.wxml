@@ -2,7 +2,7 @@
 <collapse title="我创建的书单" action-text="新建" bindtapaction="onCreate">
   <view class="ui-panel">
     <navigator wx:for="{{booklists.create}}" class="weui-cell ui-booklist-card" hover-class="ui--active" url="./children/booklist-detail?id={{item.id}}">
-      <image class="ui-booklist-card__img" src="{{item.image}}" mode="aspectFill"></image>
+      <image class="ui-booklist-card__img" src="{{item.image || '/images/icon_empty_booklist.png'}}" mode="aspectFill"></image>
       <view class="ui-booklist-card__info">
         <view class="ui-booklist-card__info-title font-black-34">{{item.title}}</view>
         <view class="font-gray-26">
@@ -17,7 +17,7 @@
 <collapse title="我收藏的书单">
   <view class="ui-panel">
     <navigator wx:for="{{booklists.favorite}}" class="weui-cell ui-booklist-card" hover-class="ui--active" url="./children/booklist-detail?id={{item.id}}">
-      <image class="ui-booklist-card__img" src="{{item.image}}" mode="aspectFill"></image>
+      <image class="ui-booklist-card__img" src="{{item.image || '/images/icon_empty_booklist.png'}}" mode="aspectFill"></image>
       <view class="ui-booklist-card__info">
         <view class="ui-booklist-card__info-title font-black-34">{{item.title}}</view>
         <view class="font-gray-26">

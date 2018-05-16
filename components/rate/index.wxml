@@ -9,13 +9,13 @@
         class="star__mask" 
         style="left: 0px;width: {{starSize + unit}};height: {{starSize + unit}};" 
         data-value="{{item + 1}}" 
-        catchtap="onTapLeft">
+        catchtap="_onTapLeft">
       </view>
       <view 
         class="star__mask" 
         style="left: {{starSize / 2 + unit}};width: {{starSize + unit}};height: {{starSize + unit}};" 
         data-value="{{item + 2}}" 
-        catchtap="onTapRight">
+        catchtap="_onTapRight">
       </view>
     </image>
   </block>

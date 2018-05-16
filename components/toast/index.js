@@ -25,7 +25,7 @@ Component({
   methods: {
     /**
      * 显示 Toast，父组件通过 Toast 组件的引用调用
-     * @param content {String}
+     * @param title {String}
      * @param option {Object}
      *  -- duration：持续时长
      */

@@ -1,6 +1,7 @@
-import { getRankingBooks, getRecommendedBooksByPhone } from '../../apis/book'
-import { getRecommendedBooklistsByPhone } from '../../apis/booklist'
+import { getRankingBooks, getRecommendedBooksByUserId } from '../../apis/book'
+import { getRecommendedBooklistsByUserId } from '../../apis/booklist'
 import { showTip } from '../../utils/tip'
+import { getUID } from '../../utils/permission'
 
 var app = getApp()
 
@@ -114,9 +115,9 @@ Page({
    */
   _fetchData: function () {
     return Promise.all([
-      getRecommendedBooksByPhone(app.globalData.phone),
+      getRecommendedBooksByUserId(getUID()),
       getRankingBooks(),
-      getRecommendedBooklistsByPhone(app.globalData.phone),
+      getRecommendedBooklistsByUserId(getUID()),
       app.getUserInfo()
     ]).then(res => {
       this.setData({

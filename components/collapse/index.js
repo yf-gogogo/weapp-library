@@ -24,7 +24,7 @@ Component({
   },
   externalClasses: ['header-class'], // 自定义标题类
   methods: {
-    toggle: function () {
+    _toggle: function () {
       this.setData({show: !this.data.show})
       if (this.data.show) {
         this.triggerEvent('show')
@@ -32,7 +32,7 @@ Component({
         this.triggerEvent('hide')
       }
     },
-    onTapAction: function () {
+    _onTapAction: function () {
       this.triggerEvent('tapaction')
     }
   }

@@ -26,12 +26,12 @@ Component({
   },
 
   methods: {
-    onTapMask: function () {
+    _onTapMask: function () {
       if (this.data.tappableMask) {
         this.triggerEvent('hide')
       }
     },
-    onHide: function () {
+    _onHide: function () {
       this.triggerEvent('hide')
     }
   }

@@ -14,6 +14,7 @@ var Promise = require('../utils/es6-promise')
  */
 // export const BASE_URL = 'https://www.easy-mock.com/mock/5aacc9a1d3f6bd35dfb4be65/api/v1'
 export const BASE_URL = 'http://localhost:8080/library/public/index.php/api'
+export const DOMAIN_NAME = 'http://localhost:8080'
 
 /**
  * get 方法

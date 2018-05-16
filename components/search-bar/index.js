@@ -29,12 +29,12 @@ Component({
     value: ''
   },
   methods: {
-    onFocus: function () {
+    _onFocus: function () {
       this.setData({ isFocus: true })
       this.triggerEvent('focus')
     },
 
-    onHide: function () {
+    _onHide: function () {
       this.setData({
         value: '',
         isFocus: false
@@ -42,22 +42,22 @@ Component({
       this.triggerEvent('hide')
     },
 
-    onClear: function () {
+    _onClear: function () {
       this.setData({ value: '' })
       this.triggerEvent('clear')
     },
 
-    onInput: function (e) {
+    _onInput: function (e) {
       this.setData({ value: e.detail.value })
       this.triggerEvent('input', {value: e.detail.value})
     },
 
-    onTapMask: function () {
+    _onTapMask: function () {
       if (this.data.tappableMask) this.onHide()
     },
 
     // 在输入框不为空时搜索
-    onSearch: function (e) {
+    _onSearch: function (e) {
       if (this.data.value) {
         this.triggerEvent('search', { value: this.data.value })
       }

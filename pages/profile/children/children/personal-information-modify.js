@@ -1,9 +1,11 @@
 import { uploadIdCardImg, updateUserInfoById } from '../../../../apis/user'
 import Promisify from '../../../../utils/promisify'
 import { getUID } from '../../../../utils/permission'
+import { DOMAIN_NAME } from '../../../../apis/request'
 
 var toptip // 保存toptip组件的引用
 var app = getApp()
+var isFromRegisterPage = false // 如果是从注册页进入，则在上传完资料后自动跳转到主页
 
 Page({
   data: {
@@ -17,13 +19,12 @@ Page({
         front: '',
         back: ''
       }
-    },
-    isFromRegisterPage: false // 如果是从注册页进入，则在上传完资料后自动跳转到主页
+    }
   },
 
   onLoad: function (options) {
     if (options.from === 'register') {
-      this.data.isFromRegisterPage = true
+      isFromRegisterPage = true
       return
     }
 
@@ -81,7 +82,54 @@ Page({
     this.setData(params)
   },
 
+  /**
+   * 修改用户信息
+   * 如果是从注册页进入，则在修改完成后跳转到主页
+   * 如果是从个人资料页进入，则返回上一页
+   */
   onSubmit: function () {
+    if (this.validate() !== true) return
+    wx.showLoading({title: '加载中', mask: true})
+    this.uploadIdCardImg().then(this.updateUserInfo).then(res => {
+      wx.showToast({title: '成功', mask: true})
+      if (isFromRegisterPage) {
+        setTimeout(() => wx.switchTab({url: '/pages/home/home'}), 1000)
+      } else {
+        setTimeout(() => wx.navigateBack(), 1000)
+      }
+    }).catch(() => wx.hideLoading())
+  },
+
+  /**
+   * 上传身份证图片。如果是刚刚选择的本地照片，需要重新上传
+   * 如果是是服务器现在保存的照片，那么url中将含有域名，不需要再上传
+   */
+  uploadIdCardImg: function () {
+    let { id_card_img: { front, back } } = this.data.userInfo
+    return Promise.all([
+      front.indexOf(DOMAIN_NAME) === -1 ? uploadIdCardImg(front) : front,
+      back.indexOf(DOMAIN_NAME) === -1 ? uploadIdCardImg(back) : back
+    ])
+  },
+
+  /**
+   * 将服务器返回的图片路径加入到参数中，上传个人信息
+   */
+  updateUserInfo: function (imgPaths) {
+    let uid = getUID()
+    let userInfo = this.data.userInfo
+    this.setData({
+      'userInfo.id_card_img': {
+        front: imgPaths[0],
+        back: imgPaths[1]
+      }
+    })
+    return updateUserInfoById(uid, userInfo).then(res => {
+      app.setUserInfo(res.data)
+    })
+  },
+
+  validate: function () {
     let {
       name, birthday, address, id_number, postcode,
       id_card_img: { front, back }
@@ -97,34 +145,6 @@ Page({
     if (!front) return toptip.show('请上传身份证正面照片')
     if (!back) return toptip.show('请上传身份证反面照片')
 
-    // 先上传身份证图片。如果是刚刚选择的本地照片，需要重新上传
-    // 如果是是服务器现在保存的照片，那么url中将含有域名，不需要再上传
-    wx.showLoading({title: '加载中', mask: true})
-    Promise.all([
-      front.indexOf('my.example.cn') === -1 ? uploadIdCardImg(front) : front,
-      back.indexOf('my.example.cn') === -1 ? uploadIdCardImg(back) : back
-    ]).then((res) => {
-      // 将服务器返回的图片路径加入到参数中，上传个人信息
-      this.setData({
-        'userInfo.id_card_img': {
-          front: res[0],
-          back: res[1]
-        }
-      })
-      let uid = getUID()
-      let userInfo = this.data.userInfo
-      return updateUserInfoById(uid, userInfo).then(res => {
-        app.setUserInfo(res.data)
-      })
-    }).then(res => {
-      // 如果是从注册页进入，则在填写完成后跳转到主页
-      // 如果是从个人资料页进入，则返回上一页
-      wx.showToast({title: '成功', mask: true})
-      if (this.data.isFromRegisterPage) {
-        setTimeout(() => wx.switchTab({url: '/pages/home/home'}), 1000)
-      } else {
-        setTimeout(() => wx.navigateBack(), 1000)
-      }
-    }).catch(() => wx.hideLoading())
+    return true
   }
 })

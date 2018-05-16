@@ -22,7 +22,7 @@ Component({
   },
 
   methods: {
-    onTap: function () {
+    _onTap: function () {
       {
         let loading = this.data.loading
         let disabled = this.data.disabled

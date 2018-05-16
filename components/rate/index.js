@@ -37,7 +37,7 @@ Component({
 
   methods: {
     // 点击左边选择半颗星
-    onTapLeft: function (e) {
+    _onTapLeft: function (e) {
       if (this.data.disabled) return
       let value = e.currentTarget.dataset.value
       if (this.data.value === value) {
@@ -48,7 +48,7 @@ Component({
     },
 
     // 点击右边选择整颗星
-    onTapRight: function (e) {
+    _onTapRight: function (e) {
       if (this.data.disabled) return
       let value = e.currentTarget.dataset.value
       if (this.data.value === value) {

@@ -7,11 +7,11 @@ module.exports = {
   getBookByISBN: function (isbn) {
     return get(`/books/isbn/${isbn}`)
   },
-  getRankingBooks: function (start) {
+  getRankingBooks: function (start = 0) {
     return get(`/books/ranking?start=${start}`)
   },
-  getRecommendedBooksByPhone: function (phone) {
-    return get(`/books/recommend/${phone}`)
+  getRecommendedBooksByUserId: function (id) {
+    return get(`/books/recommend/${id}`)
   },
   getBooksByKeyword: function (keyword, start = 0) {
     return get('/books/search', { keyword, start })

@@ -1,4 +1,5 @@
-import { get, post } from './request.js'
+import { BASE_URL, get, post } from './request'
+import Promisify from '../utils/promisify'
 
 module.exports = {
   sendCode: function (phone) {
@@ -7,10 +8,9 @@ module.exports = {
   checkCode: function (phone, code) {
     return get('/codes/check', { phone, code, type: 'wechat' })
   },
-  // TODO --- 与后台联动
   uploadIdCardImg: function (filepath) {
     // return Promisify(wx.uploadFile)({
-    //   url: BASE_URL + '/images',
+    //   url: `${BASE_URL}/upload`,
     //   filePath: filepath,
     //   name: 'picture'
     // })

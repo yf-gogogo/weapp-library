@@ -39,7 +39,7 @@ Component({
   },
 
   methods: {
-    onTap: function () {
+    _onTap: function () {
       this.triggerEvent('tap')
     },
 
