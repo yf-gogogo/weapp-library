@@ -1,22 +1,23 @@
-import { getRecommendedBooklistsByPhone, getBooklistsByKeyword, favoriteBooklistById, deleteBooklistById } from '../../apis/booklist'
+import { getRecommendedBooklistsByUserId, getBooklistsByKeyword, favoriteBooklistById, deleteBooklistById } from '../../apis/booklist'
 import Promisify from '../../utils/promisify'
-
-var app = getApp()
+import { getUID } from '../../utils/permission'
 
 Page({
   data: {
     booklists: [
-    // {
-    //   id: '',
-    //   status: 0, // 0：没有任何关系 1：创建者 2：已收藏
-    //   title: '',
-    //   creator: {
-    //     nickname: '', // 创建者
-    //     avatar: '' // 头像url
-    //   },
-    //   favorited_num: 0, // 收藏人数
-    //   total: 0 // 书单内图书总数
-    // }
+    /*
+    {
+      id: '',
+      status: 0, // 0：没有任何关系 1：创建者 2：已收藏
+      title: '',
+      creator: {
+        nickname: '', // 创建者
+        avatar: '' // 头像url
+      },
+      favorited_num: 0, // 收藏人数
+      total: 0 // 书单内图书总数
+    }
+    */
     ],
     type: '', // 页面类型：recommend，search
     keyword: '', // 搜索关键字
@@ -62,12 +63,12 @@ Page({
     let index = e.currentTarget.dataset.index
     let { id, status } = booklists[index]
     let actions
-    if (status == 0) {
-      actions = ['收藏书单']
-    } else if (status == 1) {
+    if (status == 1) {
       actions = ['编辑书单']
     } else if (status == 2) {
       actions = ['取消收藏']
+    } else {
+      actions = ['收藏书单']
     }
 
     Promisify(wx.showActionSheet)({
@@ -109,7 +110,7 @@ Page({
   _fetchData: function (start = 0) {
     let { type, keyword } = this.data
     if (type === 'recommend') {
-      return getRecommendedBooklistsByPhone(app.globalData.phone).then(res => res.data)
+      return getRecommendedBooklistsByUserId(getUID()).then(res => res.data)
     } else {
       return getBooklistsByKeyword(keyword, start).then(res => res.data.booklists)
     }

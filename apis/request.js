@@ -7,6 +7,7 @@
  * -- https://www.easy-mock.com/project/5aacc9a1d3f6bd35dfb4be65
  */
 
+import { getToken } from '../utils/permission'
 var Promise = require('../utils/es6-promise')
 
 /**
@@ -77,7 +78,7 @@ export function request (method, relativeUrl, param, header) {
       method: method,
       header: Object.assign({
         'Content-Type': 'application/json',
-        'TOKEN': 'user token issued by server' // TODO --- 添加用户token
+        'TOKEN': getToken()
       }, header),
       data: param || {},
       success (res) {

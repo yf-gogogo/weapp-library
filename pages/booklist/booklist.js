@@ -1,7 +1,6 @@
-import { getBooklistsByPhone, deleteBooklistById } from '../../apis/booklist'
+import { getBooklistsByUserId, deleteBooklistById } from '../../apis/booklist'
 import Promisify from '../../utils/promisify'
-
-var app = getApp()
+import { getUID } from '../../utils/permission'
 
 Page({
   data: {
@@ -98,7 +97,7 @@ Page({
   },
 
   _fetchData: function () {
-    return getBooklistsByPhone(app.globalData.phone).then(res => {
+    return getBooklistsByUserId(getUID()).then(res => {
       this.setData({booklists: res.data})
     })
   }

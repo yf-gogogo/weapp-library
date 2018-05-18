@@ -1,6 +1,6 @@
-import { getRankingBooks, getRecommendedBooksByPhone, getBooksByKeyword, getBooksByAuthor, getBooksByAdvancedSearch, getBooksByClassificationNumber } from '../../apis/book'
+import { getRankingBooks, getRecommendedBooksByUserId, getBooksByKeyword, getBooksByAuthor, getBooksByAdvancedSearch, getBooksByClassificationNumber } from '../../apis/book'
+import { getUID } from '../../utils/permission'
 
-var app = getApp()
 var isLoading = false // 是否正在加载数据
 var options // options 参数
 
@@ -73,7 +73,7 @@ Page({
         fn = getBooksByClassificationNumber(options.class_num, start)
         break
       case 'recommend':
-        fn = getRecommendedBooksByPhone(app.globalData.phone)
+        fn = getRecommendedBooksByUserId(getUID())
         break
       case 'ranking':
         fn = getRankingBooks(start)

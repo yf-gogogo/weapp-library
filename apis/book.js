@@ -10,8 +10,8 @@ module.exports = {
   getRankingBooks: function (start = 0) {
     return get(`/books/ranking?start=${start}`)
   },
-  getRecommendedBooksByUserId: function (id) {
-    return get(`/books/recommend/${id}`)
+  getRecommendedBooksByUserId: function (uid) {
+    return get(`/books/recommend/${uid}`)
   },
   getBooksByKeyword: function (keyword, start = 0) {
     return get('/books/search', { keyword, start })

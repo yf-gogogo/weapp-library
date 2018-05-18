@@ -23,17 +23,21 @@ Page({
       image: '',
       // 书单内图书
       items: [
-      // {
-      //   // 图书信息
-      //   book: {},
-      //   // 图书个性化描述
-      //   comment: ''
-      // }
+      /*
+      {
+        // 图书信息
+        book: {},
+        // 图书个性化描述
+        comment: ''
+      }
+      */
       ],
       // 图书总数
       total: undefined,
       // 收藏人数
-      favorited_num: undefined
+      favorited_num: undefined,
+      // 创建时间
+      created_at: undefined
     },
     // 是否展开书单描述
     showDescription: false,

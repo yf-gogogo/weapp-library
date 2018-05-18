@@ -5,7 +5,7 @@
     <view class="{{showDescription ? 'icon-up' : 'icon-down'}}"></view>
   </view>
   <view hidden="{{!showDescription}}" class="booklist-header__description">
-    <view>{{booklistInfo.create_time}} | {{booklistInfo.total}}本书 | {{booklistInfo.favorited_num}}人收藏</view>
+    <view>{{booklistInfo.created_at}} | {{booklistInfo.total}}本书 | {{booklistInfo.favorited_num}}人收藏</view>
     <view>{{booklistInfo.description || '暂无描述'}}</view>
   </view>
 </view>

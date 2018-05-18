@@ -1,7 +1,6 @@
 import { getBooklistById, createBooklist, updateBooklistById } from '../../../apis/booklist'
 import { showTip } from '../../../utils/tip'
-
-var app = getApp()
+import { getUID } from '../../../utils/permission'
 
 var options = {
   type: undefined, // 操作类型：create，modify
@@ -10,7 +9,6 @@ var options = {
 var toptip // 保存toptip组件的引用
 
 Page({
-
   data: {
     title: '',
     description: '',
@@ -60,7 +58,7 @@ Page({
     if (options.type === 'create') {
       fn = createBooklist({
         ...params,
-        wechat_user_id: app.getUID()
+        wechat_user_id: getUID()
       })
     } else {
       fn = updateBooklistById(options.id, params)
