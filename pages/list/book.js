@@ -1,4 +1,4 @@
-import { getRankingBooks, getRecommendedBooksByUserId, getBooksByKeyword, getBooksByAuthor, getBooksByAdvancedSearch, getBooksByClassificationNumber } from '../../apis/book'
+import { getRankingBooks, getRecommendedBooksByUserId, getBooksByKeyword, getBooksByAuthor, getBooksByTag, getBooksByAdvancedSearch, getBooksByClassificationNumber } from '../../apis/book'
 import { getUID } from '../../utils/permission'
 
 var isLoading = false // 是否正在加载数据
@@ -61,8 +61,10 @@ Page({
       case 'search':
         if (options.search_type === '书名') {
           fn = getBooksByKeyword(options.keyword, start)
-        } else {
+        } else if (options.search_type === '作者') {
           fn = getBooksByAuthor(options.keyword, start)
+        } else if (options.search_type === '标签') {
+          fn = getBooksByTag(options.keyword, start)
         }
         break
       case 'advanced_search':

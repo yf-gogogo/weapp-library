@@ -19,6 +19,9 @@ module.exports = {
   getBooksByAuthor: function (author, start = 0) {
     return get(`/books/authors/${author}?start=${start}`)
   },
+  getBooksByTag: function (tag, start = 0) {
+    return get(`/books/tags/${tag}?start=${start}`)
+  },
   getBooksByAdvancedSearch: function (params) {
     return get('/books/search/advanced', params)
   },

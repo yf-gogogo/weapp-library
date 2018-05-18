@@ -60,7 +60,7 @@ Component({
 
     onSelectOption: function (e) {
       if (e.currentTarget.dataset.option === '高级搜索') {
-        wx.navigateTo({ url: './children/advance_search' })
+        wx.navigateTo({ url: './children/advanced-search' })
         return
       }
       if (e.currentTarget.dataset.option === 'ISBN') {
@@ -74,12 +74,16 @@ Component({
 
     onScan: function () {
       var scanfn = Promisify(wx.scanCode)
-      scanfn().then((res) => {
+      scanfn().then(res => {
         if (res.scanType !== 'CODE_128') { return wx.showModal({ title: '扫描内容不合法', content: '请扫描图书ISBN条形码', showCancel: false }) }
         wx.navigateTo({
           url: '../book-detail/book-detail?isbn=' + res.result
         })
-      })
+      }).catch(e => wx.showModal({
+        title: '扫码失败',
+        content: e.errMsg,
+        showCancel: false
+      }))
     },
 
     // 在输入框不为空时搜索

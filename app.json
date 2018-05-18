@@ -29,7 +29,8 @@
     "pages/profile/children/order-ongoing",
     "pages/profile/children/order-history",
     "pages/profile/children/review",
-    "pages/profile/children/children/order-detail"
+    "pages/profile/children/children/order-detail",
+    "pages/home/children/advanced-search"
   ],
   "window": {
     "backgroundTextStyle": "dark",

@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 26,
 			"list": [
 				{
 					"id": -1,
@@ -187,6 +187,11 @@
 					"name": "借阅进度",
 					"pathName": "pages/profile/children/order-ongoing",
 					"query": "id=1"
+				},
+				{
+					"id": -1,
+					"name": "高级搜索",
+					"pathName": "pages/home/children/advanced-search"
 				}
 			]
 		}
