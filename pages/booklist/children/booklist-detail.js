@@ -63,7 +63,7 @@ Page({
     }).catch(() => wx.hideLoading())
 
     // 监听事件：图书描述被修改，这个事件在书单描述修改页(./children/modify)被触发
-    getApp().event.on('bookDescriptionModified', this.onModifed)
+    getApp().event.on('bookCommentModified', this.onModifed)
   },
 
   onReachBottom: function () {
@@ -178,8 +178,8 @@ Page({
     let index = e.currentTarget.dataset.index
     let booklistId = this.data.booklistInfo.id
     let bookId = this.data.booklistInfo.items[index].book.id
-    let description = this.data.booklistInfo.items[index].comment
-    let url = `./children/modify?index=${index}&booklist_id=${booklistId}&book_id=${bookId}&description=${description}`
+    let comment = this.data.booklistInfo.items[index].comment
+    let url = `./children/modify?index=${index}&booklist_id=${booklistId}&book_id=${bookId}&comment=${comment}`
     wx.navigateTo({ url: url })
   },
 
@@ -187,7 +187,7 @@ Page({
   onModifed: function (e) {
     let key = `booklistInfo.items[${e.index}].comment`
     let params = {}
-    params[key] = e.description
+    params[key] = e.comment
     this.setData(params)
   },
 

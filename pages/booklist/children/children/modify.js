@@ -8,18 +8,18 @@ var options = {
 
 Page({
   data: {
-    description: ''
+    comment: ''
   },
 
   onLoad: function (opts) {
     options = opts
     this.setData({
-      description: opts.description
+      comment: opts.comment
     })
   },
 
   onInput: function (e) {
-    this.setData({ description: e.detail.value })
+    this.setData({ comment: e.detail.value })
   },
 
   /**
@@ -27,18 +27,22 @@ Page({
    */
   onSubmit: function () {
     wx.showLoading({ title: '加载中', mask: true })
-    updateBooklistById(options.booklist_id, { add_items: {
-      id: options.book_id,
-      description: this.data.description
-    } }).then(() => {
+    updateBooklistById(options.booklist_id, {
+      add_items: [
+        {
+          book_id: options.book_id,
+          comment: this.data.comment
+        }
+      ]
+    }).then(() => {
       wx.hideLoading()
       wx.showToast({ title: '操作成功', mask: true })
       setTimeout(_ => wx.navigateBack(), 1000)
 
       // 触发事件，书单详情页(../booklist-detail)监听该事件
-      getApp().event.emit('bookDescriptionModified', {
+      getApp().event.emit('bookCommentModified', {
         index: options.index,
-        description: this.data.description
+        comment: this.data.comment
       })
     }).catch(_ => {
       wx.hideLoading()

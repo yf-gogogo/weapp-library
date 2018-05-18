@@ -53,7 +53,7 @@ Component({
     },
 
     _onTapMask: function () {
-      if (this.data.tappableMask) this.onHide()
+      if (this.data.tappableMask) this._onHide()
     },
 
     // 在输入框不为空时搜索

@@ -1,14 +1,13 @@
-import { getBooklistsByPhone, updateBooklistById } from '../../../apis/booklist'
+import { getBooklistsByUserId, updateBooklistById } from '../../../apis/booklist'
 import { showTip } from '../../../utils/tip'
-
-var app = getApp()
+import { getUID } from '../../../utils/permission'
 
 Page({
   data: {
     // 图书 id
     id: undefined,
     // 图书描述
-    description: '',
+    comment: '',
     // 用户创建的书单列表
     booklists: [],
     // 书单标题列表，用于选择器
@@ -25,7 +24,7 @@ Page({
   // 从创建书单页返回时刷新书单列表
   onShow: function () {
     wx.showLoading({ title: '加载中', mask: true })
-    getBooklistsByPhone(app.globalData.phone, 'create').then(res => {
+    getBooklistsByUserId(getUID(), 'create').then(res => {
       if (res.data.create && res.data.create.length) {
         let tmp = res.data.create
         this.setData({
@@ -53,15 +52,19 @@ Page({
   },
 
   onInput: function (e) {
-    this.setData({ description: e.detail.value })
+    this.setData({ comment: e.detail.value })
   },
 
   onSubmit: function () {
-    let { id, booklists, selectedIndex, description } = this.data
+    let { id, booklists, selectedIndex, comment } = this.data
     wx.showLoading({ title: '加载中', mask: true })
-    updateBooklistById(booklists[selectedIndex].id, { add_items: {
-      id, description
-    }}).then(_ => {
+    updateBooklistById(booklists[selectedIndex].id, {
+      add_items: [
+        {
+          book_id: id, comment
+        }
+      ]
+    }).then(_ => {
       wx.showToast({ title: '操作成功', mask: true })
       setTimeout(() => wx.navigateBack(), 1000) // 直接后退时当前页面的 toast 会消失
     })

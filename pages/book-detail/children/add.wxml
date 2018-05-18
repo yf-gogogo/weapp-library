@@ -15,7 +15,7 @@
   <view class="weui-cell">
     <view class="weui-cell__bd">
       <textarea class="weui-textarea" placeholder="请输入图书描述（可选）" maxlength="200" bindinput="onInput" />
-      <view class="weui-textarea-counter">{{description.length}}/200</view>
+      <view class="weui-textarea-counter">{{comment.length}}/200</view>
     </view>
   </view>
 </view>

@@ -2,7 +2,8 @@
 <view class="weui-cells weui-cells_after-title">
   <view class="weui-cell">
     <view class="weui-cell__bd">
-      <textarea class="weui-textarea" placeholder="请输入图书描述" maxlength="300" value="{{description}}" bindinput="onInput" />
+      <textarea class="weui-textarea" placeholder="请输入图书描述" maxlength="200" value="{{comment}}" bindinput="onInput" />
+      <view class="weui-textarea-counter">{{comment.length}}/200</view>
     </view>
   </view>
 </view>

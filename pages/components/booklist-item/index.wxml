@@ -9,7 +9,7 @@
     <view>出版社: {{book.publisher}}</view>
     <view>出版日期: {{book.pubdate}}</view>
     <view>ISBN: {{book.isbn}}</view>
-    <view class="ui-book-card__description">{{comment}}</view>
+    <view wx:if="{{comment}}" class="ui-book-card__description">{{comment}}</view>
   </view>
   <view class="booklist-item__action">
     <view hidden="{{!isSelecting}}" class="booklist-item__icon-check">
