@@ -1,5 +1,5 @@
 <import src="/templates/showcase/index" />
-<home-search-bar bindfocus="onFocus" bindcancel="onCancel" bindsearch="onSearch"></home-search-bar>
+<home-search-bar id="searchBar" bindfocus="onFocus" bindcancel="onCancel" bindsearch="onSearch"></home-search-bar>
 <!-- 主页 -->
 <block wx:if="{{!search.focus}}">
   <panel title="阅读统计" url="/pages/profile/children/order-history">
@@ -29,7 +29,7 @@
         <view class="search-box-history__clear color-green" bindtap="onClearHistory">清除</view>
       </view>
       <view class="search-box-history">
-        <view class="search-box-history__item" wx:for="{{search.history}}" wx:key="{{*this}}" data-type="{{item.type}}" data-value="{{item.value}}" bindtap="onClickHistoryItem">{{item.value}}</view>
+        <view class="search-box-history__item" wx:for="{{search.history}}" wx:key="{{item}}" data-value="{{item}}" bindtap="onClickHistoryItem">{{item}}</view>
       </view>
     </block>
     <!-- 热门图书 -->

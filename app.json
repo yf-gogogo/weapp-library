@@ -30,7 +30,8 @@
     "pages/profile/children/order-history",
     "pages/profile/children/review",
     "pages/profile/children/children/order-detail",
-    "pages/home/children/advanced-search"
+    "pages/home/children/advanced-search",
+    "pages/home/children/classification"
   ],
   "window": {
     "backgroundTextStyle": "dark",

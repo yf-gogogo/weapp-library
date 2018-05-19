@@ -4,6 +4,7 @@
     "async-switch": "/components/async-switch/index",
     "load-more": "/components/load-more/index",
     "no-data": "/components/no-data/index",
-    "booklist-item": "/pages/components/booklist-item/index"
+    "booklist-item": "/pages/components/booklist-item/index",
+    "spinner": "/components/spinner/index"
   }
 }

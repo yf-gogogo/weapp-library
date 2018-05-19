@@ -47,10 +47,10 @@ Page({
   },
 
   onReachBottom: function () {
-    let { type, loadMoreStatus, isNoData } = this.data
+    let { type, loadMoreStatus, isNoData, booklists } = this.data
     if (loadMoreStatus !== 'hidding' || isNoData || type === 'recommend') return
     this.setData({ loadMoreStatus: 'loading' })
-    this._fetchData().then(booklists => {
+    this._fetchData(booklists.length).then(booklists => {
       this.setData({
         booklists: this.data.booklists.concat(booklists),
         loadMoreStatus: booklists.length === 0 ? 'nomore' : 'hidding'
@@ -63,6 +63,7 @@ Page({
     let index = e.currentTarget.dataset.index
     let { id, status } = booklists[index]
     let actions
+
     if (status == 1) {
       actions = ['编辑书单']
     } else if (status == 2) {
@@ -107,6 +108,10 @@ Page({
     })
   },
 
+  /**
+   * 获取书单列表
+   * @param start {Integer} 搜索偏移量
+   */
   _fetchData: function (start = 0) {
     let { type, keyword } = this.data
     if (type === 'recommend') {

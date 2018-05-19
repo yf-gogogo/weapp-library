@@ -1,5 +1,5 @@
 import { formatDate, dateAdd } from '../../../utils/utils'
-import { getCollectionsByBookId } from '../../../apis/book'
+import { getCollectionsByBookId } from '../../../apis/collection'
 import { createOrders } from '../../../apis/order'
 
 var app = getApp()

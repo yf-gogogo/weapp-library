@@ -1,0 +1,7 @@
+<view class="{{type}} class">
+  <view class="rect1" style="background-color: {{bgColor}}"></view>
+  <view class="rect2" style="background-color: {{bgColor}}"></view>
+  <view class="rect3" style="background-color: {{bgColor}}"></view>
+  <view class="rect4" style="background-color: {{bgColor}}"></view>
+  <view class="rect5" style="background-color: {{bgColor}}"></view>
+</view>

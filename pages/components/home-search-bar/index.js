@@ -23,7 +23,15 @@ Component({
   },
 
   methods: {
-    onFocus: function () {
+    getSelectedOption: function () {
+      return this.data.options.selected
+    },
+
+    setInputValue: function (value) {
+      this.setData({value: value})
+    },
+
+    _onFocus: function () {
       this.setData({
         'options.selected': this.data.options.list[0],
         'focus': true
@@ -31,13 +39,13 @@ Component({
       this.triggerEvent('focus')
     },
 
-    onClear: function () {
+    _onClear: function () {
       this.setData({
         'value': ''
       })
     },
 
-    onCancel: function () {
+    _onCancel: function () {
       this.setData({
         'value': '',
         'focus': false,
@@ -46,19 +54,19 @@ Component({
       this.triggerEvent('cancel')
     },
 
-    onInput: function (e) {
+    _onInput: function (e) {
       this.setData({
         'value': e.detail.value
       })
     },
 
-    onTapOptionBtn: function () {
+    _onTapOptionBtn: function () {
       this.setData({
         'options.show': !this.data.options.show // 切换列表显示
       })
     },
 
-    onSelectOption: function (e) {
+    _onSelectOption: function (e) {
       if (e.currentTarget.dataset.option === '高级搜索') {
         wx.navigateTo({ url: './children/advanced-search' })
         return
@@ -72,7 +80,7 @@ Component({
       })
     },
 
-    onScan: function () {
+    _onScan: function () {
       var scanfn = Promisify(wx.scanCode)
       scanfn().then(res => {
         if (res.scanType !== 'CODE_128') { return wx.showModal({ title: '扫描内容不合法', content: '请扫描图书ISBN条形码', showCancel: false }) }
@@ -87,7 +95,7 @@ Component({
     },
 
     // 在输入框不为空时搜索
-    onSearch: function (e) {
+    _onSearch: function (e) {
       if (this.data.value) {
         this.triggerEvent('search', {
           type: this.data.options.selected,

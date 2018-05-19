@@ -24,10 +24,10 @@
     <!-- 加载更多、暂无数据 -->
     <load-more status="{{loadMoreStatus}}" nomore-text="没有更多评论了"></load-more>
   </view>
-  <view wx:else class="empty">
-    <image class="empty__img" mode="widthFix" src="/images/no_data.png"></image>
-    <view class="empty__text">暂无评论，快来做第一个评论的人吧</view>
-    <button class="empty__btn" type="primary" bindtap="onShowPopup">发表评论</button>
+  <view wx:else class="no-data">
+    <image class="no-data__img" mode="widthFix" src="/images/no_data.png"></image>
+    <view class="no-data__text">暂无评论，快来做第一个评论的人吧</view>
+    <button class="no-data__btn" type="primary" bindtap="onShowPopup">发表评论</button>
   </view>
 </block>
 <!-- 添加评论 -->

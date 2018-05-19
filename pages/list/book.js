@@ -1,8 +1,7 @@
 import { getRankingBooks, getRecommendedBooksByUserId, getBooksByKeyword, getBooksByAuthor, getBooksByTag, getBooksByAdvancedSearch, getBooksByClassificationNumber } from '../../apis/book'
 import { getUID } from '../../utils/permission'
 
-var isLoading = false // 是否正在加载数据
-var options // options 参数
+var options // 保存 options 参数
 
 Page({
   data: {
@@ -42,11 +41,13 @@ Page({
   },
 
   onReachBottom: function () {
-    if (isLoading || this.data.loadMoreStatus === 'nomore' || options.type === 'recommend') return
-    this.setData({ loadMoreStatus: 'loading' })
+    let { loadMoreStatus, isNoData } = this.data
 
-    // 当返回数据长度为 0 或时类型为“推荐图书”时，设置为“没有更多图书”
-    this._fetchData(this.data.books.length).then(books => books.length || options.type === 'recommend' ? this.setData({ loadMoreStatus: 'hidding' }) : this.setData({ loadMoreStatus: 'nomore' }))
+    // 推荐图书一次性即可加载完毕，不再加载
+    if (loadMoreStatus !== 'hidding' || isNoData || options.type === 'recommend') return
+
+    this.setData({ loadMoreStatus: 'loading' })
+    this._fetchData(this.data.books.length).then(books => !books.length || options.type === 'recommend' ? this.setData({ loadMoreStatus: 'nomore' }) : this.setData({ loadMoreStatus: 'hidding' }))
   },
 
   /**
@@ -54,8 +55,6 @@ Page({
    * @param start {Integer} 搜索偏移量
    */
   _fetchData: function (start = 0) {
-    isLoading = true // 设置为“正在加载”
-
     let fn
     switch (options.type) {
       case 'search':
@@ -83,28 +82,36 @@ Page({
     }
 
     return fn.then(res => {
-      isLoading = false
-
       let books
-
-      // 推荐图书接口的返回值为 [{books: Book, comment: String}]
-      // 其他接口的返回值为 {books: [Book], total: Integer}
       if (options.type === 'recommend') {
+        /* 推荐图书接口的返回值为
+         * {
+         *   books: [{
+         *     book: Book,
+         *     comment: String
+         *   }],
+         *   total: Integer
+         * }
+         */
         books = res.data.map(e => e.book)
         this.setData({
           books: books,
           comments: res.data.map(e => e.comment)
         })
       } else {
+        /* 其他接口的返回值为
+         * {
+         *   books: [Book],
+         *   total: Integer
+         * }
+         */
         books = res.data.books
         this.setData({
           books: this.data.books.concat(res.data.books)
         })
       }
-
       return books
     }).catch(() => {
-      isLoading = false
       return []
     })
   }

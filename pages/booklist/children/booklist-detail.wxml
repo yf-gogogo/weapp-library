@@ -26,12 +26,15 @@
     </view>
   </block>
 </view>
+<spinner wx:if="{{isPageLoading}}" class="spinner"></spinner>
 <!-- 书目列表 -->
-<view class="booklist-item-container">
-  <view wx:for="{{booklistInfo.items}}" wx:key="{{item.book.title}}" class="booklist-item">
-    <booklist-item book="{{item.book}}" comment="{{item.comment}}" is-selecting="{{isSelecting}}" data-index="{{index}}" bindchange="onChange" bindmodify="onModify"></booklist-item>
+<block wx:else>
+  <view class="booklist-item-container">
+    <view wx:for="{{booklistInfo.items}}" wx:key="{{item.book.title}}" class="booklist-item">
+      <booklist-item book="{{item.book}}" comment="{{item.comment}}" is-selecting="{{isSelecting}}" data-index="{{index}}" bindchange="onChange" bindmodify="onModify"></booklist-item>
+    </view>
   </view>
-</view>
-<!-- 加载更多、暂无数据 -->
-<load-more status="{{loadMoreStatus}}" nomore-text="没有更多图书了"></load-more>
-<no-data wx:if="{{!booklistInfo.items.length}}" text="书单为空"></no-data>
+  <!-- 加载更多、暂无数据 -->
+  <load-more status="{{loadMoreStatus}}" nomore-text="没有更多图书了"></load-more>
+  <no-data wx:if="{{!booklistInfo.items.length}}" text="书单为空"></no-data>
+</block>

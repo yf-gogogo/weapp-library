@@ -1,5 +1,3 @@
-import { isEmpty } from '../../../utils/validator'
-
 // 高级搜索参数
 var params = ['title', 'author', 'translator', 'publisher', 'pubdate_start', 'pubdate_end'] // 还有language
 
@@ -56,9 +54,11 @@ Page({
     // 默认至少有一个language参数
     url += `&language=${languages[selectedLanguageIndex]}`
 
+    // 其余参数不能只包含空格
     params.forEach(e => {
-      if (this.data[e] && !isEmpty(this.data[e])) {
-        url += `&${e}=${this.data[e]}`
+      let str = this.data[e].trim()
+      if (str) {
+        url += `&${e}=${str}`
       }
     })
 

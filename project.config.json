@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 26,
+			"current": 19,
 			"list": [
 				{
 					"id": -1,
@@ -123,7 +123,7 @@
 					"query": ""
 				},
 				{
-					"id": 13,
+					"id": 15,
 					"name": "书单详情",
 					"pathName": "pages/booklist/children/booklist-detail",
 					"query": "id=1"
@@ -147,10 +147,10 @@
 					"query": "booklist_id=62&book_id=88&description=第一章 回答在牛奶箱里 第二章 深夜的口琴声 第三章 在思域车上等到天亮 第四章 听着披头士默祷 第五章 来自天上的祈祷"
 				},
 				{
-					"id": -1,
+					"id": 19,
 					"name": "查找图书馆",
 					"pathName": "pages/book-detail/children/library-list",
-					"query": "id=1"
+					"query": "id=8"
 				},
 				{
 					"id": -1,
@@ -191,7 +191,14 @@
 				{
 					"id": -1,
 					"name": "高级搜索",
-					"pathName": "pages/home/children/advanced-search"
+					"pathName": "pages/home/children/advanced-search",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "分类搜索",
+					"pathName": "pages/home/children/classification",
+					"query": ""
 				}
 			]
 		}

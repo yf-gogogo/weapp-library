@@ -3,6 +3,8 @@ import { isLogin } from '../../../utils/permission'
 
 Page({
   data: {
+    // 页面状态
+    isPageLoading: true,
     // 书单信息
     booklistInfo: {
       // 用户是否创建或收藏了此书单(0: 未收藏, 1: 创建, 2: 收藏)
@@ -55,12 +57,11 @@ Page({
    * @listens <bookDescriptionModified>
    */
   onLoad: function (options) {
-    wx.showLoading({ title: '加载中', mask: true })
     getBooklistById(options.id).then(res => {
-      // 第一次加载数据时判断是否“书单为空”
       this.setData({booklistInfo: res.data})
-      wx.hideLoading()
-    }).catch(() => wx.hideLoading())
+    }).finally(() => {
+      this.setData({isPageLoading: false})
+    })
 
     // 监听事件：图书描述被修改，这个事件在书单描述修改页(./children/modify)被触发
     getApp().event.on('bookCommentModified', this.onModifed)

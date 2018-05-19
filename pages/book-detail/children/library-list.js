@@ -1,5 +1,12 @@
-import { getCollectionsByBookId } from '../../../apis/book'
+import { getCollectionsByBookId } from '../../../apis/collection'
 import { debounce } from '../../../utils/utils'
+
+var DEFAULT_CONFIG = {
+  filteredLibraries: [],
+  loadMoreStatus: 'hidding',
+  inputValue: '',
+  isNoData: false
+}
 
 Page({
   data: {
@@ -28,21 +35,17 @@ Page({
   // 失去焦点时显示所有图书馆列表
   onUnfocus: function () {
     this.setData({
-      filteredLibraries: [],
-      loadMoreStatus: 'hidding',
+      ...DEFAULT_CONFIG,
       isNoData: !this.data.allLibraries.length,
-      isFocus: false,
-      inputValue: ''
+      isFocus: false
     })
   },
 
   // 清空输入框时显示所有图书馆列表
   onClear: function () {
     this.setData({
-      filteredLibraries: [],
-      loadMoreStatus: 'hidding',
-      isNoData: !this.data.allLibraries.length,
-      inputValue: ''
+      ...DEFAULT_CONFIG,
+      isNoData: !this.data.allLibraries.length
     })
   },
 
@@ -50,9 +53,7 @@ Page({
   onInput: function (e) {
     let value = e.detail.value
     this.setData({
-      filteredLibraries: [],
-      loadMoreStatus: 'hidding',
-      isNoData: false,
+      ...DEFAULT_CONFIG,
       inputValue: value
     })
 
@@ -84,19 +85,32 @@ Page({
   // 获取数据，并设置是否“暂无数据”
   _fetchData: function () {
     let id = this.data.id
-    if (this.data.isFocus) {
-      // 存储本次搜索的关键字
-      let keyword = this.data.inputValue
-      this.data.currentKeyword = keyword
+    let keyword = this.data.inputValue
 
+    if (this.data.isFocus) {
+      // 关键字为空时不搜索
+      if (!keyword.trim()) {
+        return Promise.reject(new Error('关键字不能为空'))
+      }
+
+      // 关键字不为空时，搜索并存储本次搜索的关键字
+      this.data.currentKeyword = keyword
       return getCollectionsByBookId(id, {
         start: this.data.filteredLibraries.length,
         library_name: keyword
       }).then(res => {
-        // 在网络慢的情况下，有可能关键字已经被改变但是上次请求还没有完成。
-        // 因此需要判断本次响应内容是否对应当前查询的关键字，如果对应则更新数据，
-        // 否则不更新数据。非输入状态(查询状态)下也不更新数据。
-        if (keyword === this.data.currentKeyword && this.data.isFocus) {
+        /**
+         * 在网络慢的情况下，有可能关键字已经被改变但是上次请求还没有完成。
+         * 因此需要判断本次响应内容是否对应当前查询的关键字，如果对应则更新数据，
+         * 否则不更新数据。非输入状态(查询状态)下也不更新数据。
+
+         * FIX BUG --- inputValue.trim()
+         * 操作：输入关键字，开始搜索，立刻删除所有关键字
+         * 期望：输入框为空时不进行搜索，也不显示搜索结果
+         * 实际：仍然会从上次请求中获取数据并更新filteredLibraries
+         */
+        let { inputValue, currentKeyword, isFocus, filteredLibraries } = this.data
+        if (inputValue.trim() && keyword === currentKeyword && isFocus) {
           let libraries = this.data.filteredLibraries
           this.setData({
             filteredLibraries: libraries.concat(res.data.collections),
@@ -104,7 +118,6 @@ Page({
           })
           return res.data.collections
         } else {
-          // console.error('timeout 结果返回超时')
           return Promise.reject(new Error('timeout 结果返回超时'))
         }
       })

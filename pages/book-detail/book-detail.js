@@ -1,8 +1,21 @@
-import { getBookById, getBookByISBN, getCollectionsByBookId, getCollectionsByBookISBN } from '../../apis/book'
+import { getBookById, getBookByISBN, getCollectionsByBookISBN } from '../../apis/book'
+import { getCollectionsByBookId } from '../../apis/collection'
 import { isLogin } from '../../utils/permission'
 
 Page({
   data: {
+    // 页面状态
+    pageStatus: {
+      // 是否正在获取图书信息
+      loading: true,
+      /**
+       * 图书信息接口返回的状态码：
+       * 200: 成功，显示图书信息
+       * 404: 数据库无该图书信息，显示创建条目提示
+       * 其他: 获取数据失败
+       */
+      code: 404
+    },
     // 图书信息
     book: {},
     // 图书馆列表
@@ -14,8 +27,6 @@ Page({
   },
 
   onLoad: function (options) {
-    wx.showLoading({ title: '加载中', mask: true })
-
     // 根据 id 或根据 isbn 获取图书信息
     let bookFn
     if (options.id) {
@@ -26,11 +37,15 @@ Page({
 
     bookFn.then(res => {
       this.setData({book: res.data})
-      wx.hideLoading()
-    }).catch(_ => {
-      wx.hideLoading()
-      // 未找到该图书
-      // wx.navigateBack()
+      this.setData({
+        'pageStatus.loading': false,
+        'pageStatus.code': res.statusCode
+      })
+    }).catch(res => {
+      this.setData({
+        'pageStatus.loading': false,
+        'pageStatus.code': res.statusCode
+      })
     })
 
     // 根据 id 或根据 isbn 获取图书馆藏信息

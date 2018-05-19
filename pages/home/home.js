@@ -4,6 +4,7 @@ import { showTip } from '../../utils/tip'
 import { getUID } from '../../utils/permission'
 
 var app = getApp()
+var searchBar // 保存home-search-bar组件的引用
 
 Page({
   data: {
@@ -34,6 +35,10 @@ Page({
     })
   },
 
+  onReady: function () {
+    searchBar = this.selectComponent('#searchBar')
+  },
+
   onPullDownRefresh: function () {
     this._fetchData().then(() => {
       wx.stopPullDownRefresh()
@@ -51,7 +56,11 @@ Page({
   },
 
   onClickHistoryItem: function (e) {
-    showTip('HISTORY').then(() => this._search(e.currentTarget.dataset.type, e.currentTarget.dataset.value))
+    showTip('HISTORY').then(() => {
+      let value = e.currentTarget.dataset.value
+      searchBar.setInputValue(value)
+      this._search(searchBar.getSelectedOption(), value)
+    })
   },
 
   onClickTrendingItem: function (e) {
@@ -80,20 +89,11 @@ Page({
    * @param {String} value  关键字值
    */
   _search: function (type, value) {
-    // 保存搜索记录，最多保存6个
-    // 最新搜索的放在最前面
-    let history = this.data.search.history.filter(v => v.value !== value)
-    history.unshift({type, value})
-    if (history.length > 6) {
-      history = history.slice(0, 6)
-    }
-    this.setData({ 'search.history': history })
-    wx.setStorage({
-      key: 'history',
-      data: history
-    })
+    value = value.trim() // 去除前后空白符
 
-    // 切换页面
+    this._saveHistory(type, value)
+
+    // 页面跳转
     switch (type) {
       case '书名':
       case '作者':
@@ -126,6 +126,23 @@ Page({
         'recommendBooklists': res[2].data,
         'statistics': res[3].reading_statistics
       })
+    })
+  },
+
+  /**
+   * 保存搜索记录，最多保存6个
+   * 最新搜索的放在最前面
+   */
+  _saveHistory: function (type, value) {
+    let history = this.data.search.history.filter(v => v !== value)
+    history.unshift(value)
+    if (history.length > 6) {
+      history = history.slice(0, 6)
+    }
+    this.setData({ 'search.history': history })
+    wx.setStorage({
+      key: 'history',
+      data: history
     })
   }
 })
