@@ -9,7 +9,7 @@
   <view>地址：{{library.address}}</view>
 </view>
 <view class="ui-label">简介</view>
-<view class="ui-card pre-wrap font-black-28">{{library.description || '暂无'}}</view>
+<view class="ui-card pre-wrap font-black-28">{{library.introduction || '暂无'}}</view>
 <view class="ui-label">馆藏信息</view>
 <view class="ui-card font-black-28">
   <view>图书种类：{{library.book_type_num}}种</view>

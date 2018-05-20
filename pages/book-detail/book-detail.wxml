@@ -11,7 +11,7 @@
       <view>作者:
         <text wx:for="{{book.author}}" class="ui-book-card__info-name">{{item}}</text>
       </view>
-      <view>译者:
+      <view wx:if="{{book.translator.length}}">译者:
         <text wx:for="{{book.translator}}" class="ui-book-card__info-name">{{item}}</text>
       </view>
       <view>出版社: {{book.publisher}}</view>
@@ -76,7 +76,8 @@
         <view class="library-item__info">
           <view class="library-item__info-name">
             <text class="font-black-34 ellipsis">{{item.library.name}}</text>
-            <image wx:if="{{item.library.status}}" src="/images/icon_certificate.png" mode="aspectFit"></image>
+            <image wx:if="{{item.library.status}}" src="/images/icon_certificated.png" mode="aspectFit"></image>
+            <image wx:else="{{item.library.status}}" src="/images/icon_uncertificated.png" mode="aspectFit"></image>
           </view>
           <view class="font-gray-26 ellipsis">
             {{item.library.address}}

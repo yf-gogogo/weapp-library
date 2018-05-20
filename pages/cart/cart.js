@@ -46,7 +46,7 @@ Page({
     }
 
     var scanfn = Promisify(wx.scanCode)
-    scanfn().then((res) => {
+    scanfn().then(res => {
       // 如果已存在此图书，将其移动到第一个
       var index = this.data.selectedBooks.findIndex(i => i.isbn == res.result)
       if (index != -1) {
@@ -59,14 +59,18 @@ Page({
 
       // 如果不存在此图书，获取图书信息，保存在本地
       wx.showLoading({ title: '加载中', mask: true })
-      return getBookByISBN(res.result).then((res) => {
+      return getBookByISBN(res.result).then(res => {
         this.data.selectedBooks.unshift(res.data) // 不需要再检测长度是否大于 2
         this.setData({ selectedBooks: this.data.selectedBooks })
         wx.setStorage({
           key: 'selectedBooks',
           data: this.data.selectedBooks
         })
-      }).finally(_ => wx.hideLoading())
-    })
+      }).finally(() => wx.hideLoading())
+    }).catch(e => wx.showModal({
+      title: '扫码失败',
+      content: e.errMsg,
+      showCancel: false
+    }))
   }
 })

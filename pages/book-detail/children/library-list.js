@@ -2,7 +2,7 @@ import { getCollectionsByBookId } from '../../../apis/collection'
 import { debounce } from '../../../utils/utils'
 
 var DEFAULT_CONFIG = {
-  filteredLibraries: [],
+  searchedLibraries: [],
   loadMoreStatus: 'hidding',
   inputValue: '',
   isNoData: false
@@ -12,7 +12,7 @@ Page({
   data: {
     id: undefined, // 图书id
     allLibraries: [], // 默认状态下的的图书馆列表，未输入关键字时展示
-    filteredLibraries: [], // 搜索结果，输入关键字时展示
+    searchedLibraries: [], // 搜索结果，输入关键字时展示
     currentKeyword: '', // 当前展示的搜索结果所对应的关键字
     inputValue: '', // 输入框内容
     loadMoreStatus: 'hidding', // 加载更多组件：loading, nomore，hidding
@@ -96,7 +96,7 @@ Page({
       // 关键字不为空时，搜索并存储本次搜索的关键字
       this.data.currentKeyword = keyword
       return getCollectionsByBookId(id, {
-        start: this.data.filteredLibraries.length,
+        start: this.data.searchedLibraries.length,
         library_name: keyword
       }).then(res => {
         /**
@@ -107,13 +107,13 @@ Page({
          * FIX BUG --- inputValue.trim()
          * 操作：输入关键字，开始搜索，立刻删除所有关键字
          * 期望：输入框为空时不进行搜索，也不显示搜索结果
-         * 实际：仍然会从上次请求中获取数据并更新filteredLibraries
+         * 实际：仍然会从上次请求中获取数据并更新searchedLibraries
          */
-        let { inputValue, currentKeyword, isFocus, filteredLibraries } = this.data
+        let { inputValue, currentKeyword, isFocus, searchedLibraries } = this.data
         if (inputValue.trim() && keyword === currentKeyword && isFocus) {
-          let libraries = this.data.filteredLibraries
+          let libraries = this.data.searchedLibraries
           this.setData({
-            filteredLibraries: libraries.concat(res.data.collections),
+            searchedLibraries: libraries.concat(res.data.collections),
             isNoData: !libraries.length && !res.data.collections.length
           })
           return res.data.collections

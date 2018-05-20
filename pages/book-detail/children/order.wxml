@@ -1,4 +1,7 @@
-<block wx:if="{{!loading && collection.available}}">
+<!-- 加载动画 -->
+<spinner wx:if="{{loading}}" class="center"></spinner>
+<!-- 图书可借 -->
+<block wx:elif="{{collection.available}}">
   <view class="ui-label">图书信息</view>
   <view class="ui-panel ui-book-card">
     <image class="ui-book-card__img" src="{{book.imgs.small}}" mode="widthFix"></image>
@@ -8,7 +11,7 @@
         评分:
         <text class="color-yellow">{{book.total_score}}</text>（{{book.review_num}}条评论）</view>
       <view>作者:
-        <text wx:for="{{item.author}}" class="ui-book-card__info-name">{{item}}</text>
+        <text wx:for="{{book.author}}" class="ui-book-card__info-name">{{item}}</text>
       </view>
       <view>出版社: {{book.publisher}}</view>
       <view>出版日期: {{book.pubdate}}</view>
@@ -21,7 +24,8 @@
       <view class="weui-cell__bd">
         <view class="library__name">
           <text class="font-black-34 ellipsis">{{library.name}}</text>
-          <image wx:if="{{library.status}}" src="/images/icon_certificate.png" mode="aspectFit"></image>
+          <image wx:if="{{library.status}}" src="/images/icon_certificated.png" mode="aspectFit"></image>
+          <image wx:else="{{library.status}}" src="/images/icon_uncertificated.png" mode="aspectFit"></image>
         </view>
         <view class="font-gray-26">地址：{{library.address}}</view>
       </view>
@@ -44,7 +48,8 @@
     <button class="weui-btn" type="primary" bindtap="onSubmit">确认预订</button>
   </view>
 </block>
-<block wx:if="{{!loading && !collection.available}}">
+<!-- 图书不可借 -->
+<block wx:else>
   <view class="container">
     <view class="weui-msg">
       <view class="weui-msg__icon-area">
