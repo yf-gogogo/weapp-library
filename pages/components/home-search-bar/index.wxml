@@ -7,7 +7,7 @@
       <view class="icon-down"></view>
     </view>
     <view class="home-search-bar__option-list" hidden="{{!options.show}}">
-      <view wx:for="{{options.list}}" class="home-search-bar__option-item" data-option="{{item}}" catchtap="_onSelectOption">{{item}}</view>
+      <view wx:for="{{options.list}}" wx:key="{{*this}}" class="home-search-bar__option-item" data-option="{{item}}" catchtap="_onSelectOption">{{item}}</view>
     </view>
     <!-- 聚焦后的搜索输入框 -->
     <view class="home-search-bar__input-box weui-search-bar__box">

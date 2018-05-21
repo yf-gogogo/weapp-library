@@ -77,9 +77,3 @@
 .booklist-item:first-child:before {
   display: none;
 }
-
-.spinner {
-  position: relative;
-  top: 60px;
-  text-align: center;
-}

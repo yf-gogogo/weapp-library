@@ -2,6 +2,7 @@ import { getRankingBooks, getRecommendedBooksByUserId } from '../../apis/book'
 import { getRecommendedBooklistsByUserId } from '../../apis/booklist'
 import { showTip } from '../../utils/tip'
 import { getUID } from '../../utils/permission'
+import { isISBN } from '../../utils/validator'
 
 var app = getApp()
 var searchBar // 保存home-search-bar组件的引用
@@ -103,9 +104,11 @@ Page({
         })
         break
       case 'ISBN':
-        wx.navigateTo({
-          url: '../book-detail/book-detail?isbn=' + value
-        })
+        if (isISBN(value)) {
+          wx.navigateTo({url: '../book-detail/book-detail?isbn=' + value})
+        } else {
+          wx.showModal({content: '请输入正确的13位ISBN', showCancel: false})
+        }
         break
     }
   },

@@ -160,8 +160,29 @@ Page({
           }).then(() => {
             wx.showToast({ title: '操作成功', duration: 2000 })
 
-            // 更新数据
-            // TODO --- BUG FIX：更新 items 后不会重新创建组件而是复用之前创建的组件
+            /**
+             * 更新数据
+             *
+             * TODO --- HOW TO FIX THE BUG?
+             * 操作：
+             *    选择第1、第3本书，删除书目
+             * 期望结果：
+             *    第1、第3本书被从页面上删除，页面上剩下的图书都是未选择状态
+             * 实际结果：
+             *    第1、第3本书被从页面上删除，但是页面上剩下的图书的第1、第3
+             *  本仍然是选择状态
+             * 原因推测：
+             *    当数组的数据变动时，框架并没有把那些被删除的数据对应的组件也
+             *   删除，而是从前往后保留所需数量的组件，然后把后面多出来的组件删除。
+             *   这造成的问题是，前面未被删除的组件的内部状态会被保留。
+             *    在这个例子里，一开始选择了第1、第3本书，所以第1、第3个booklist-item
+             *   组件内部的checked属性被设为true。删除了items数组中的第1、第3
+             *   项后，第1、第3个booklist-item组件并未删除，而仅仅是其中的book
+             *   属性被替换为新的值。
+             * 临时解决方法：
+             *    在删除完书目后，设置isSelecting为false，强制让每个
+             *   booklist-item组件重置checked属性为false
+             */
             books = books.filter(e => !selectedBooks.includes(e.book.id))
             this.setData({
               'booklistInfo.items': books,

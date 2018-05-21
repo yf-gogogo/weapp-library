@@ -8,3 +8,7 @@
 page {
   padding-bottom:1rpx;  /* 解决 load-more 底部 margin 不显示的问题 */
 }
+
+page {
+  background-color: #F0EFF5;
+}

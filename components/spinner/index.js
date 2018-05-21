@@ -21,6 +21,13 @@ Component({
     bgColor: {
       type: String,
       value: '#999'
+    },
+    /**
+     * 加载组件显示时，页面是否可点击
+     */
+    mask: {
+      type: Boolean,
+      value: false
     }
   }
 })

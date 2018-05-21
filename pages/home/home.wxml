@@ -35,12 +35,12 @@
     <!-- 热门图书 -->
     <view class="ui-label">热门图书</view>
     <view class="search-box-trending">
-      <view class="search-box-trending__item" hover-class="ui--active" wx:for="{{ranking}}" data-title="{{item.title}}" catchtap="onClickTrendingItem">
+      <view class="search-box-trending__item" hover-class="ui--active" wx:for="{{ranking}}" wx:key="{{item.id}}" data-title="{{item.title}}" catchtap="onClickTrendingItem">
         <image class="search-box-trending__icon" mode="widthFix" src="{{index < 3 ? '/images/icon_trending_' + (index + 1) : '../../images/icon_trending_up'}}.png">
         </image>
         <view class="search-box-trending__item-info">
           <view class="font-black-34">{{item.title}}</view>
-          <view class="font-gray-26"><text wx:for="{{item.author}}" class="ui-book-card__info-name">{{item}}</text></view>
+          <view class="font-gray-26"><text wx:for="{{item.author}}" wx:key="{{*this}}" class="ui-book-card__info-name">{{item}}</text></view>
         </view>
       </view>
     </view>

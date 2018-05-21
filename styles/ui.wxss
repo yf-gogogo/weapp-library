@@ -2,10 +2,6 @@
  * 容器、排版等样式
  */
 
-page {
-  background-color: #F0EFF5;
-}
-
 /**
  * 内容标题
  */

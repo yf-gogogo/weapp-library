@@ -10,7 +10,8 @@ Component({
     book: Object,
     // 个性化描述
     comment: String,
-    // 是否处于选择模式
+    // 是否正在多选书目
+    // 关闭多选模式时，重置所有图书条目为未选择状态
     isSelecting: {
       type: Boolean,
       value: false,
@@ -27,7 +28,7 @@ Component({
 
   methods: {
     onTapCard: function () {
-      const { isSelecting, checked, id } = this.data
+      const { isSelecting, checked, book: { id } } = this.data
       if (isSelecting) {
         this.setData({checked: !checked})
         this.triggerEvent('change', {

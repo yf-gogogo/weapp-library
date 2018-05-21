@@ -1,139 +1,162 @@
 import { getCollectionsByBookId } from '../../../apis/collection'
 import { debounce } from '../../../utils/utils'
 
-var DEFAULT_CONFIG = {
-  searchedLibraries: [],
-  loadMoreStatus: 'hidding',
-  inputValue: '',
-  isNoData: false
+/**
+ * searching属性初始值
+ * 每次focu、clear、input(输入关键字)时重置为初始状态
+ */
+var SEARCHING_INITIAL_CONFIG = {
+  libraries: [], // 图书馆列表
+  loadMoreStatus: 'hidding', // 加载更多组件：loading, nomore，hidding
+  isNoData: false // 是否暂无数据
 }
 
 Page({
   data: {
-    id: undefined, // 图书id
-    allLibraries: [], // 默认状态下的的图书馆列表，未输入关键字时展示
-    searchedLibraries: [], // 搜索结果，输入关键字时展示
-    currentKeyword: '', // 当前展示的搜索结果所对应的关键字
-    inputValue: '', // 输入框内容
-    loadMoreStatus: 'hidding', // 加载更多组件：loading, nomore，hidding
-    isNoData: false, // 是否暂无数据
-    isFocus: false // 是否正在输入
+    id: null, // 图书id
+    isFocus: false, // 是否正在输入
+    keyword: '', // 输入框内容
+    default: {
+      libraries: [], // 默认状态下的的图书馆列表，未输入关键字时展示
+      loadMoreStatus: 'hidding', // 加载更多组件：loading, nomore，hidding
+      isNoData: false // 是否暂无数据
+    },
+    searching: {
+      libraries: [], // 搜索结果，输入关键字时展示
+      loadMoreStatus: 'hidding', // 加载更多组件：loading, nomore，hidding
+      isNoData: false // 是否暂无数据
+    }
   },
 
-  // 加载默认图书馆列表
   onLoad: function (options) {
-    this.setData({id: options.id})
+    this.setData({ id: options.id })
     this._debouncedFetchData = debounce(this._fetchData, 500)
-    wx.showLoading({title: '加载中', mask: true})
-    this._fetchData().finally(() => wx.hideLoading())
+    wx.showLoading({ title: '加载中', mask: true })
+    this._fetchData('default').then(res => {
+      this.setData({
+        'default.libraries': res,
+        'default.isNoData': res.length === 0
+      })
+    }).catch(() => {
+      this.setData({ 'default.isNoData': true })
+    }).finally(() => wx.hideLoading())
   },
 
   onFocus: function () {
-    this.setData({isFocus: true})
+    this.setData({
+      'searching': {...SEARCHING_INITIAL_CONFIG},
+      isFocus: true
+    })
   },
 
-  // 失去焦点时显示所有图书馆列表
   onUnfocus: function () {
     this.setData({
-      ...DEFAULT_CONFIG,
-      isNoData: !this.data.allLibraries.length,
-      isFocus: false
+      isFocus: false,
+      keyword: ''
     })
+    wx.hideNavigationBarLoading()
+    // TODO：通过关闭requestTask来取消请求，而不只是隐藏loading
   },
 
-  // 清空输入框时显示所有图书馆列表
   onClear: function () {
     this.setData({
-      ...DEFAULT_CONFIG,
-      isNoData: !this.data.allLibraries.length
+      searching: {...SEARCHING_INITIAL_CONFIG},
+      keyword: ''
     })
+    wx.hideNavigationBarLoading()
   },
 
-  // 在输入文字或点击确认时动态搜索数据
+  /**
+   * 在输入文字时动态搜索数据
+   */
   onInput: function (e) {
     let value = e.detail.value
     this.setData({
-      ...DEFAULT_CONFIG,
-      inputValue: value
+      searching: {...SEARCHING_INITIAL_CONFIG},
+      keyword: value
     })
 
-    // 如果数据为空，停止因为未完成的网络请求而显示的Loading
-    if (!value) return wx.hideNavigationBarLoading()
-
-    wx.showNavigationBarLoading()
-    this._debouncedFetchData().finally(() => wx.hideNavigationBarLoading())
-  },
-
-  // 触底时加载数据，并设置“加载更多”组件的状态
-  onReachBottom: function () {
-    // 如果正在加载或者暂无数据，返回
-    let status = this.data.loadMoreStatus
-    let isNoData = this.data.isNoData
-    if (status !== 'hidding' || isNoData) return
-
-    // 当返回数据长度为 0 时，设置为“没有更多图书”
-    this.setData({loadMoreStatus: 'loading'})
-    this._fetchData().then(res => {
-      if (res.length) {
-        this.setData({loadMoreStatus: 'hidding'})
-      } else {
-        this.setData({loadMoreStatus: 'nomore'})
-      }
-    }).catch(() => this.setData({loadMoreStatus: 'hidding'}))
-  },
-
-  // 获取数据，并设置是否“暂无数据”
-  _fetchData: function () {
-    let id = this.data.id
-    let keyword = this.data.inputValue
-
-    if (this.data.isFocus) {
-      // 关键字为空时不搜索
-      if (!keyword.trim()) {
-        return Promise.reject(new Error('关键字不能为空'))
-      }
-
-      // 关键字不为空时，搜索并存储本次搜索的关键字
-      this.data.currentKeyword = keyword
-      return getCollectionsByBookId(id, {
-        start: this.data.searchedLibraries.length,
-        library_name: keyword
-      }).then(res => {
-        /**
-         * 在网络慢的情况下，有可能关键字已经被改变但是上次请求还没有完成。
-         * 因此需要判断本次响应内容是否对应当前查询的关键字，如果对应则更新数据，
-         * 否则不更新数据。非输入状态(查询状态)下也不更新数据。
-
-         * FIX BUG --- inputValue.trim()
-         * 操作：输入关键字，开始搜索，立刻删除所有关键字
-         * 期望：输入框为空时不进行搜索，也不显示搜索结果
-         * 实际：仍然会从上次请求中获取数据并更新searchedLibraries
-         */
-        let { inputValue, currentKeyword, isFocus, searchedLibraries } = this.data
-        if (inputValue.trim() && keyword === currentKeyword && isFocus) {
-          let libraries = this.data.searchedLibraries
-          this.setData({
-            searchedLibraries: libraries.concat(res.data.collections),
-            isNoData: !libraries.length && !res.data.collections.length
-          })
-          return res.data.collections
-        } else {
-          return Promise.reject(new Error('timeout 结果返回超时'))
-        }
-      })
+    // 如果当前关键字为空，停止搜索，隐藏标题loading
+    if (!value.trim()) {
+      return wx.hideNavigationBarLoading()
     } else {
-      let libraries = this.data.allLibraries
-      let start = libraries.length
-      return getCollectionsByBookId(id, { start }).then(res => {
+      // 否则动态搜索数据
+      wx.showNavigationBarLoading()
+      this._debouncedFetchData('searching').then(res => {
         this.setData({
-          allLibraries: libraries.concat(res.data.collections),
-          isNoData: !libraries.length && !res.data.collections.length
+          'searching.libraries': res,
+          'searching.isNoData': res.length === 0
         })
-        return res.data.collections
+      }).catch(() => {
+        this.setData({ 'searching.isNoData': true })
+      }).finally(() => {
+        wx.hideNavigationBarLoading()
       })
     }
   },
 
-  // 防止文字输入过快时频繁请求，在 onLoad 中初始化
-  _debouncedFetchData: function () {}
+  onReachBottom: function () {
+    let { isFocus } = this.data
+    const TYPE = isFocus ? 'searching' : 'default'
+
+    // 加载中或没有数据时返回
+    let { loadMoreStatus, isNoData } = this.data[TYPE]
+    if (loadMoreStatus !== 'hidding' || isNoData) return
+
+    // 加载数据并设置loading组件状态
+    let params = {} // eg: {'default.loadMoreStatus': xxx}
+    params[`${TYPE}.loadMoreStatus`] = 'loading'
+    this.setData(params)
+    this._fetchData(TYPE).then(res => {
+      let { libraries } = this.data[TYPE]
+      params[`${TYPE}.libraries`] = libraries.concat(res)
+      params[`${TYPE}.loadMoreStatus`] = res.length ? 'hidding' : 'nomore'
+      this.setData(params)
+    }).catch(() => {
+      params[`${TYPE}.loadMoreStatus`] = 'hidding'
+      this.setData(params)
+    })
+  },
+
+  /**
+   * 获取数据，带有函数防抖
+   * 防止文字输入过快时频繁请求，在 onLoad 中初始化
+   */
+  _debouncedFetchData: function () {},
+
+  /**
+   * 获取数据，返回馆藏列表
+   * @param type {string} enum:[default, searching]
+   * @return array
+   */
+  _fetchData: function (type) {
+    const { id, keyword } = this.data
+
+    // 关键字为空时不搜索
+    if (type === 'searching' && !keyword.trim()) {
+      return Promise.reject(new Error('关键字不能为空'))
+    }
+
+    /**
+     * 在网络慢的情况下，有可能关键字已经被改变但是上次请求还没有完成，
+     * 因此在查询状态下，需要判断本次响应内容是否对应当前查询的关键字，
+     * 如果对应再更新数据
+     */
+    return getCollectionsByBookId(id, {
+      start: this.data[type].libraries.length,
+      library_name: type === 'searching' ? keyword : null
+    }).then(res => {
+      if (type === 'searching') {
+        const { isFocus, keyword: currentKeyword } = this.data
+        if (!isFocus) {
+          return Promise.reject(new Error('unfocus 丢弃响应结果'))
+        }
+        if (currentKeyword !== keyword) {
+          return Promise.reject(new Error('timeout 结果返回超时'))
+        }
+      }
+
+      return res.data.collections
+    })
+  }
 })

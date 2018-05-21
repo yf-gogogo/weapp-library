@@ -71,6 +71,13 @@ export function requestWithModal (method, relativeUrl, param, header) {
  * @returns {Promise} 返回响应完整内容
  */
 export function request (method, relativeUrl, param, header) {
+  // 删除所有为 null 的参数
+  for (var key in param) {
+    if (param[key] === null) {
+      delete param[key]
+    }
+  }
+
   let response, error
   return new Promise((resolve, reject) => {
     wx.request({

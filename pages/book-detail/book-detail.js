@@ -27,40 +27,7 @@ Page({
   },
 
   onLoad: function (options) {
-    // 根据 id 或根据 isbn 获取图书信息
-    let bookFn
-    if (options.id) {
-      bookFn = getBookById(options.id)
-    } else if (options.isbn) {
-      bookFn = getBookByISBN(options.isbn)
-    }
-
-    bookFn.then(res => {
-      this.setData({book: res.data})
-      this.setData({
-        'pageStatus.loading': false,
-        'pageStatus.code': res.statusCode
-      })
-    }).catch(res => {
-      this.setData({
-        'pageStatus.loading': false,
-        'pageStatus.code': res.statusCode
-      })
-    })
-
-    // 根据 id 或根据 isbn 获取图书馆藏信息
-    let collFn
-    if (options.id) {
-      collFn = getCollectionsByBookId(options.id)
-    } else if (options.isbn) {
-      collFn = getCollectionsByBookISBN(options.isbn)
-    }
-    collFn.then(res =>
-      this.setData({
-        'libraryList.status': res.data.collections.length ? 'done' : 'nodata',
-        'libraryList.data': res.data.collections
-      })
-    ).catch(() => this.setData({'libraryList.status': 'nodata'}))
+    this._getBook(options).then(() => this._getCollections(options))
   },
 
   onShowTip: function () {
@@ -118,5 +85,42 @@ Page({
       desc: this.data.book.title,
       path: '/pages/book-detail/book-detail?id=' + this.data.book.id
     }
+  },
+
+  /**
+   * 根据 id 或根据 isbn 获取图书信息
+   */
+  _getBook: function (options) {
+    let fn = options.id
+      ? getBookById(options.id)
+      : getBookByISBN(options.isbn)
+    return fn.then(res => {
+      this.setData({book: res.data})
+      this.setData({
+        'pageStatus.loading': false,
+        'pageStatus.code': res.statusCode
+      })
+    }).catch(res => {
+      this.setData({
+        'pageStatus.loading': false,
+        'pageStatus.code': res.statusCode || 500 // 没网的时候不会有statusCode
+      })
+      return Promise.reject(new Error('图书不存在'))
+    })
+  },
+
+  /**
+   * 根据 id 或根据 isbn 获取图书馆藏信息
+   */
+  _getCollections: function (options) {
+    let fn = options.id
+      ? getCollectionsByBookId(options.id)
+      : getCollectionsByBookISBN(options.isbn)
+    return fn.then(res =>
+      this.setData({
+        'libraryList.status': res.data.collections.length ? 'done' : 'nodata',
+        'libraryList.data': res.data.collections
+      })
+    ).catch(() => this.setData({'libraryList.status': 'nodata'}))
   }
 })
