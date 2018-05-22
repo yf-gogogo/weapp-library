@@ -138,9 +138,9 @@ Page({
     // 检查信息是否全部填写
     if (!name) return toptip.show('请填写姓名')
     if (!birthday) return toptip.show('请填写出生日期')
-    if (!address) return toptip.show('请填写详细地址')
     if (!id_number) return toptip.show('请填写身份证号')
     if (id_number.length !== 18) return toptip.show('身份证号必须为18位')
+    if (!address) return toptip.show('请填写详细地址')
     if (!postcode) return toptip.show('请填写邮政编码')
     if (!front) return toptip.show('请上传身份证正面照片')
     if (!back) return toptip.show('请上传身份证反面照片')

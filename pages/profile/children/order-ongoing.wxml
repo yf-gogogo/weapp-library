@@ -1,3 +1,4 @@
+<wxs src="../../../utils/biz-helper.wxs" module="helper" />
 <tab-bar tabs="{{tabs}}" bindclick="onClickTabBar">
   <scroll-view wx:for="{{types}}" wx:for-item="type" wx:key="{{type}}" slot="{{tabs[index]}}" scroll-y class="order-list" data-type="{{type}}" bindscrolltolower="onScrollToLower">
     <view wx:if="{{orders[type].length}}" class="weui-cells weui-cells_after-title">
@@ -8,8 +9,8 @@
           <view>作者:
             <text wx:for="{{item.book.author}}" wx:key="{{item}}" class="ui-book-card__info-name">{{item}}</text>
           </view>
-          <view>出版社: {{item.book.publisher}}</view>
-          <view>图书馆: {{item.library.name}}</view>
+          <view wx:for="{{helper.getFields(item)}}" wx:key="{{item.key}}">{{item.key}}：{{item.value}}</view>
+          <view>借阅状态：<text class="color-{{helper.getStatusColor(item)}}">{{helper.getStatusText(item)}}</text></view>
         </view>
         <view class="weui-cell__ft_in-access"></view>
       </navigator>

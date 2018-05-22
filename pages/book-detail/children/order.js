@@ -2,7 +2,7 @@ import { formatDate, dateAdd } from '../../../utils/utils'
 import { getCollectionsByBookId } from '../../../apis/collection'
 import { createOrders } from '../../../apis/order'
 import { getUID } from '../../../utils/permission'
-import { STATUS_WAITING_FOR_OTHERS_TO_RETURN, STATUS_WAITING_TO_TAKE_AT_PLANED_TIME } from '../../../utils/constant'
+import { ORDER_STATUS_WAITING_FOR_OTHERS_TO_RETURN, ORDER_STATUS_WAITING_TO_TAKE_AT_PLANED_TIME } from '../../../utils/constant'
 
 Page({
   data: {
@@ -53,7 +53,7 @@ Page({
     let { book, library, collection, appointedDate } = this.data
     let params = [{
       wechat_user_id: getUID(),
-      status: collection.available ? STATUS_WAITING_TO_TAKE_AT_PLANED_TIME : STATUS_WAITING_FOR_OTHERS_TO_RETURN,
+      status: collection.available ? ORDER_STATUS_WAITING_TO_TAKE_AT_PLANED_TIME : ORDER_STATUS_WAITING_FOR_OTHERS_TO_RETURN,
       isbn: book.isbn,
       library_id: library.id,
       should_take_time: appointedDate

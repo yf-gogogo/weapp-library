@@ -42,7 +42,7 @@ Page({
       created_at: undefined
     },
     // 是否展开书单描述
-    showDescription: false,
+    showDescription: true,
     // load-more 组件状态：hidding, loading, nomore
     loadMoreStatus: 'hidding',
     // 是否正在多选书目

@@ -5,4 +5,4 @@
   <view class="rect4" style="background-color: {{bgColor}}"></view>
   <view class="rect5" style="background-color: {{bgColor}}"></view>
 </view>
-<view class="mask"></view>
+<view wx:if="{{mask}}" class="mask"></view>

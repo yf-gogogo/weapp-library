@@ -8,6 +8,8 @@
       </view>
       <view>出版社: {{item.book.publisher}}</view>
       <view>图书馆: {{item.library.name}}</view>
+      <view>借阅日期：{{item.actual_take_time}}</view>
+      <view>还书日期：{{item.actual_return_time}}</view>
     </view>
     <view class="weui-cell__ft_in-access"></view>
   </navigator>

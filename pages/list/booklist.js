@@ -1,6 +1,7 @@
 import { getRecommendedBooklistsByUserId, getBooklistsByKeyword, favoriteBooklistById, deleteBooklistById } from '../../apis/booklist'
 import Promisify from '../../utils/promisify'
 import { getUID } from '../../utils/permission'
+import { BL_NO_RELATION, BL_IS_CREATOR, BL_IS_FAVORITE } from '../../utils/constant'
 
 Page({
   data: {
@@ -64,9 +65,9 @@ Page({
     let { id, status } = booklists[index]
     let actions
 
-    if (status == 1) {
+    if (status == BL_IS_CREATOR) {
       actions = ['编辑书单']
-    } else if (status == 2) {
+    } else if (status == BL_IS_FAVORITE) {
       actions = ['取消收藏']
     } else {
       actions = ['收藏书单']
@@ -76,18 +77,19 @@ Page({
       itemList: actions,
       itemColor: '#000'
     }).then(res => {
-      if (status == 1) {
+      if (status == BL_IS_CREATOR) {
         // 编辑书单
         wx.navigateTo({url: `/pages/booklist/children/modify?type=modify&id=${id}`})
-      } else if (status == 0) {
+      } else if (status == BL_NO_RELATION) {
         // 收藏书单
         wx.showLoading({title: '加载中', mask: true})
-        favoriteBooklistById(id).then(() => {
-          wx.showToast({title: '操作成功'})
-          booklists[index].status = 2
+        favoriteBooklistById(id).then(res => {
+          // 这个书单可能是该用户之前创建的书单，因此不直接设为BL_IS_FAVORITE
+          booklists[index].status = res.data.status
           this.setData({booklists: booklists})
+          wx.showToast({title: '操作成功'})
         }).catch(() => wx.hideLoading())
-      } else if (status == 2) {
+      } else if (status == BL_IS_FAVORITE) {
         // 取消收藏
         Promisify(wx.showModal)({
           title: '取消收藏',
@@ -97,7 +99,7 @@ Page({
             wx.showLoading({title: '加载中', mask: true})
             deleteBooklistById(id).then(() => {
               wx.showToast({title: '操作成功'})
-              booklists[index].status = 0
+              booklists[index].status = BL_NO_RELATION
               this.setData({booklists: booklists})
             }).catch(() => wx.hideLoading())
           }

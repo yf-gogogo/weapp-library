@@ -42,6 +42,10 @@
       </view>
     </view>
   </view>
+  <view class="weui-cell">
+    <view class="weui-cell__bd">绑定手机号</view>
+    <view class="weui-cell__ft">{{userInfo.phone}}</view>
+  </view>
 </view>
 <view class="weui-cells__tips">{{tips}}</view>
 <view wx:if="{{userInfo.status === 0 || userInfo.status === 2}}" class="weui-btn-area">

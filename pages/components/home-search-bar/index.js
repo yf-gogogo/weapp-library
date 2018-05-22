@@ -4,6 +4,7 @@
 
 import Promisify from '../../../utils/promisify'
 import { showTip } from '../../../utils/tip'
+import { isISBN } from '../../../utils/validator'
 
 Component({
   properties: {
@@ -82,11 +83,18 @@ Component({
 
     _onScan: function () {
       var scanfn = Promisify(wx.scanCode)
-      scanfn().then(res => {
-        if (res.scanType !== 'CODE_128') { return wx.showModal({ title: '扫描内容不合法', content: '请扫描图书ISBN条形码', showCancel: false }) }
-        wx.navigateTo({
-          url: '../book-detail/book-detail?isbn=' + res.result
-        })
+      scanfn({scanType: ['barCode']}).then(res => {
+        if (!isISBN(res.result)) {
+          return wx.showModal({
+            title: '扫描内容不合法',
+            content: '请扫描图书ISBN条形码',
+            showCancel: false
+          })
+        } else {
+          wx.navigateTo({
+            url: '../book-detail/book-detail?isbn=' + res.result
+          })
+        }
       }).catch(e => wx.showModal({
         title: '扫码失败',
         content: e.errMsg,

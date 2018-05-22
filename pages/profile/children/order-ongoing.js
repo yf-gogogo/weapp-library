@@ -1,6 +1,5 @@
-import { getOrdersByPhone } from '../../../apis/order'
-
-const app = getApp()
+import { getOrdersByUserId } from '../../../apis/order'
+import { getUID } from '../../../utils/permission'
 
 Page({
   data: {
@@ -16,7 +15,7 @@ Page({
       borrowing: []
     },
     loadMoreStatus: {
-      ongoing: 'hidding', // loading, nomore
+      ongoing: 'hidding', // loading, nomore, hidding
       booking: 'hidding',
       borrowing: 'hidding'
     },
@@ -27,13 +26,15 @@ Page({
     }
   },
 
-  // 初始时加载所有类型订单
+  /**
+   * 初始时加载所有类型订单
+   */
   onLoad: function () {
     wx.showLoading({ title: '加载中', mask: true })
     Promise.all([
-      getOrdersByPhone(PHONE, 'ongoing'),
-      getOrdersByPhone(PHONE, 'booking'),
-      getOrdersByPhone(PHONE, 'borrowing')
+      getOrdersByUserId(getUID(), 'ongoing'),
+      getOrdersByUserId(getUID(), 'booking'),
+      getOrdersByUserId(getUID(), 'borrowing')
     ]).then(res => {
       wx.hideLoading()
       this.setData({
@@ -51,7 +52,9 @@ Page({
     }).catch(() => wx.hideLoading())
   },
 
-  // 滚动到底部时，根据订单类型，加载对应数据
+  /**
+   * 滚动到底部时，根据订单类型，加载对应数据
+   */
   onScrollToLower: function () {
     const type = this.data.currentType
     const orders = this.data.orders[type]
@@ -67,7 +70,7 @@ Page({
     this.setData(params)
 
     // 加载数据
-    getOrdersByPhone(PHONE, type, length).then(res => {
+    getOrdersByUserId(getUID(), type, length).then(res => {
       let params = {}
       params[`orders.${type}`] = orders.concat(res.data.orders)
       params[`loadMoreStatus.${type}`] = res.data.orders.length ? 'hidding' : 'nomore'

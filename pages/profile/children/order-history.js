@@ -1,6 +1,5 @@
-import { getOrdersByPhone } from '../../../apis/order'
-
-const app = getApp()
+import { getOrdersByUserId } from '../../../apis/order'
+import { getUID } from '../../../utils/permission'
 
 Page({
   data: {
@@ -11,7 +10,7 @@ Page({
 
   onLoad: function () {
     wx.showLoading({ title: '加载中', mask: true })
-    getOrdersByPhone(PHONE, 'history').then(res => {
+    getOrdersByUserId(getUID(), 'history').then(res => {
       this.setData({
         orders: res.data.orders,
         isNoData: res.data.orders.length === 0
@@ -24,7 +23,7 @@ Page({
     if (isNoData || loadMoreStatus !== 'hidding') return
 
     this.setData({loadMoreStatus: 'loading'})
-    getOrdersByPhone(PHONE, 'history', orders.length).then(res => {
+    getOrdersByUserId(getUID(), 'history', orders.length).then(res => {
       this.setData({
         orders: orders.concat(res.data.orders),
         loadMoreStatus: res.data.orders.length ? 'hidding' : 'nomore'
