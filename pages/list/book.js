@@ -47,7 +47,11 @@ Page({
     if (loadMoreStatus !== 'hidding' || isNoData || options.type === 'recommend') return
 
     this.setData({ loadMoreStatus: 'loading' })
-    this._fetchData(this.data.books.length).then(books => !books.length || options.type === 'recommend' ? this.setData({ loadMoreStatus: 'nomore' }) : this.setData({ loadMoreStatus: 'hidding' }))
+    this._fetchData(this.data.books.length).then(books => {
+      !books.length || options.type === 'recommend'
+        ? this.setData({ loadMoreStatus: 'nomore' })
+        : this.setData({ loadMoreStatus: 'hidding' })
+    }).catch(() => this.setData({'loadMoreStatus': 'hidding'}))
   },
 
   /**
@@ -79,6 +83,8 @@ Page({
       case 'ranking':
         fn = getRankingBooks(start)
         break
+      default:
+        throw new Error('不支持的搜索类型！')
     }
 
     return fn.then(res => {

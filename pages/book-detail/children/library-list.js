@@ -3,7 +3,7 @@ import { debounce } from '../../../utils/utils'
 
 /**
  * searching属性初始值
- * 每次focu、clear、input(输入关键字)时重置为初始状态
+ * 每次输入框focu、clear、input时都要重置searching为初始状态
  */
 var SEARCHING_INITIAL_CONFIG = {
   libraries: [], // 图书馆列表
@@ -122,7 +122,9 @@ Page({
    * 获取数据，带有函数防抖
    * 防止文字输入过快时频繁请求，在 onLoad 中初始化
    */
-  _debouncedFetchData: function () {},
+  _debouncedFetchData: function () {
+    throw new Error('_debouncedFetchData 未初始化！')
+  },
 
   /**
    * 获取数据，返回馆藏列表
@@ -155,7 +157,6 @@ Page({
           return Promise.reject(new Error('timeout 结果返回超时'))
         }
       }
-
       return res.data.collections
     })
   }

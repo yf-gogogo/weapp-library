@@ -3,7 +3,7 @@ import { getReviewsByBookId, addReviewByBookId, deleteReviewById } from '../../.
 import { getUID } from '../../../utils/permission'
 
 var toptip // 保存toptip组件的引用
-var once = false // 只提醒一次
+var once = false // 帮助消息只提醒一次
 
 Page({
   data: {
@@ -84,7 +84,7 @@ Page({
     var { id, index } = e.currentTarget.dataset
     wx.showModal({
       title: '删除评论',
-      content: '确定删除该条评论？这项操作将无法撤销',
+      content: '确定删除这条评论？这项操作将无法撤销',
       success: res => {
         if (res.confirm) {
           wx.showLoading({title: '删除中', mask: true})
@@ -112,6 +112,7 @@ Page({
     addReviewByBookId(id, { score, content, wechat_user_id }).then(res => {
       wx.showToast({title: '操作成功'})
       this.setData({
+        // 清空输入框
         'popup.loading': false,
         'popup.show': false,
         'popup.score': 0,

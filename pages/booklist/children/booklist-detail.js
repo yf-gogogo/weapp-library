@@ -1,9 +1,10 @@
 import { getBooklistById, getBooksByBooklistId, updateBooklistById, favoriteBooklistById, deleteBooklistById } from '../../../apis/booklist'
 import { isLogin } from '../../../utils/permission'
+import { BL_NO_RELATION, BL_IS_CREATOR, BL_IS_FAVORITE } from '../../../utils/constant'
 
 Page({
   data: {
-    // 页面状态
+    // 页面是否正在加载
     isPageLoading: true,
     // 书单信息
     booklistInfo: {
@@ -55,6 +56,7 @@ Page({
 
   /**
    * @listens <bookDescriptionModified>
+   * 事件在书单描述修改页(./children/modify)被触发
    */
   onLoad: function (options) {
     getBooklistById(options.id).then(res => {
@@ -63,7 +65,7 @@ Page({
       this.setData({isPageLoading: false})
     })
 
-    // 监听事件：图书描述被修改，这个事件在书单描述修改页(./children/modify)被触发
+    // 监听事件
     getApp().event.on('bookCommentModified', this.onModifed)
   },
 
@@ -72,6 +74,7 @@ Page({
     if (status !== 'hidding') return
 
     this.setData({ loadMoreStatus: 'loading' })
+
     let id = this.data.booklistInfo.id
     let start = this.data.booklistInfo.items.length
     getBooksByBooklistId(id, start).then(res => {
@@ -89,7 +92,9 @@ Page({
     this.setData({ 'showDescription': !this.data.showDescription })
   },
 
-  // 用户是书单创建者，打开/关闭书目多选，关闭多选时清空已选择书目
+  /**
+   * 用户是书单创建者，打开/关闭书目多选，关闭多选时清空已选择书目
+   */
   onToggleEditStatus: function () {
     let isSelecting = this.data.isSelecting
     this.setData({ isSelecting: !isSelecting })
@@ -98,7 +103,9 @@ Page({
     }
   },
 
-  // 用户不是书单创建者，收藏/取消收藏书单
+  /**
+   * 用户不是书单创建者，收藏/取消收藏书单
+   */
   onToggleFavoriteStatus: function () {
     // 如果没有登录，显示登录对话框
     if (!isLogin(true)) return
@@ -108,31 +115,32 @@ Page({
     if (status === 0) {
       favoriteBooklistById(id).then(res => {
         this.setData({
-          'isSwitchLoading': false,
-          'booklistInfo.status': 2
+          // 这个书单可能是该用户之前创建的书单，因此不直接设为BL_IS_FAVORITE
+          // 而是根据服务器返回值设置
+          'booklistInfo.status': res.data.status,
+          'isSwitchLoading': false
         })
-      }).catch(() => {
-        this.setData({ 'isSwitchLoading': false })
-      })
+      }).catch(() => this.setData({ 'isSwitchLoading': false }))
     } else {
       deleteBooklistById(id).then(res => {
         this.setData({
           'isSwitchLoading': false,
-          'booklistInfo.status': 0
+          'booklistInfo.status': BL_NO_RELATION
         })
-      }).catch(() => {
-        this.setData({ 'isSwitchLoading': false })
-      })
+      }).catch(() => this.setData({ 'isSwitchLoading': false }))
     }
   },
 
-  // 选中某图书时将其加入已选择书目中，否则从中删除
+  /**
+   * 图书状态变化
+   */
   onChange: function (e) {
     let checked = e.detail.checked
     let index = e.currentTarget.dataset.index
     let id = this.data.booklistInfo.items[index].book.id
     let selectedBooks = this.data.selectedBooks
 
+    // 若图书被选中，则将其加入已选书目中，否则从已选书目中删除
     if (checked && !selectedBooks.includes(id)) {
       selectedBooks.push(id)
     } else {
@@ -141,7 +149,9 @@ Page({
     this.setData({ selectedBooks: selectedBooks })
   },
 
-  // 删除书目
+  /**
+   * 删除书目
+   */
   onDelete: function () {
     let id = this.data.booklistInfo.id
     let selectedBooks = this.data.selectedBooks
@@ -187,7 +197,7 @@ Page({
             this.setData({
               'booklistInfo.items': books,
               'selectedBooks': [],
-              'isSelecting': false
+              'isSelecting': false // 必需
             })
           }).catch(() => wx.hideLoading())
         }
@@ -195,7 +205,9 @@ Page({
     })
   },
 
-  // 编辑图书个性化描述
+  /**
+   * 编辑图书个性化描述
+   */
   onModify: function (e) {
     let index = e.currentTarget.dataset.index
     let booklistId = this.data.booklistInfo.id
@@ -205,7 +217,9 @@ Page({
     wx.navigateTo({ url: url })
   },
 
-  // 编辑完成后更新数据
+  /**
+   * 编辑完成后更新数据
+   */
   onModifed: function (e) {
     let key = `booklistInfo.items[${e.index}].comment`
     let params = {}

@@ -12,24 +12,15 @@ Page({
 
   onLoad: function (options) {
     wx.showNavigationBarLoading()
-    this._fetchData().then(() => {
-      wx.hideNavigationBarLoading()
-    }).catch(() => {
-      wx.hideNavigationBarLoading()
-    })
+    this._fetchData().finally(() => wx.hideNavigationBarLoading())
   },
 
-  // 从书单详情页返回后更新数据，因为有可能在书单详情页操作过
   onShow: function () {
     this._fetchData()
   },
 
   onPullDownRefresh: function () {
-    this._fetchData().then(() => {
-      wx.stopPullDownRefresh()
-    }).catch(() => {
-      wx.stopPullDownRefresh()
-    })
+    this._fetchData().finally(() => wx.stopPullDownRefresh())
   },
 
   onSearch: function (e) {
@@ -39,9 +30,7 @@ Page({
   },
 
   onCreate: function () {
-    wx.navigateTo({
-      url: './children/modify?type=create'
-    })
+    wx.navigateTo({url: './children/modify?type=create'})
   },
 
   onShowActionSheet: function (e) {
@@ -49,9 +38,9 @@ Page({
       create: ['编辑书单', '删除书单'],
       favorite: ['取消收藏']
     }
-    let type = e.currentTarget.dataset.type
-    let index = e.currentTarget.dataset.index
-    let id = this.data.booklists[type][index].id
+    const { type, index } = e.currentTarget.dataset
+    let { booklists } = this.data
+    let id = booklists[type][index].id
 
     Promisify(wx.showActionSheet)({
       itemList: actions[type],
@@ -81,10 +70,8 @@ Page({
               // 删除书单/取消收藏使用同一个接口
               wx.showLoading({title: '加载中', mask: true})
               deleteBooklistById(id).then(() => {
-                wx.hideLoading()
-                let tmp = this.data.booklists
-                tmp[type].splice(index, 1) // 从 data 中删除该书单
-                this.setData({booklists: tmp})
+                booklists[type].splice(index, 1) // 从data中删除该书单
+                this.setData({booklists: booklists})
                 wx.showToast({title: '操作成功'})
               }).catch(() => wx.hideLoading())
             }

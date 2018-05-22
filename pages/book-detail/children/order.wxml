@@ -1,5 +1,5 @@
 <!-- 加载动画 -->
-<spinner wx:if="{{loading}}" class="center"></spinner>
+<spinner wx:if="{{isPageLoading}}" class="center"></spinner>
 <!-- 图书可借 -->
 <block wx:elif="{{collection.available}}">
   <view class="ui-label">图书信息</view>

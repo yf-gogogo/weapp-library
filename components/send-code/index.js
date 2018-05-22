@@ -39,10 +39,6 @@ Component({
   },
 
   methods: {
-    _onTap: function () {
-      this.triggerEvent('tap')
-    },
-
     // 准备倒计时
     prepare: function () {
       this.setData({
@@ -64,6 +60,13 @@ Component({
         disabled: false,
         str: this.data.defaultText
       })
+    },
+
+    /**
+     * 点击的时候不直接开始倒计时，父组件可以做一些参数判断
+     */
+    _onTap: function () {
+      this.triggerEvent('tap')
     },
 
     _countDown: function () {

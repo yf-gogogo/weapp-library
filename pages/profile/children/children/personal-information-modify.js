@@ -88,10 +88,10 @@ Page({
    * 如果是从个人资料页进入，则返回上一页
    */
   onSubmit: function () {
-    if (this.validate() !== true) return
+    if (this._validate() !== true) return
     wx.showLoading({title: '加载中', mask: true})
-    this.uploadIdCardImg().then(this.updateUserInfo).then(res => {
-      wx.showToast({title: '成功', mask: true})
+    this._uploadIdCardImg().then(this._updateUserInfo).then(res => {
+      wx.showToast({title: '修改成功', mask: true})
       if (isFromRegisterPage) {
         setTimeout(() => wx.switchTab({url: '/pages/home/home'}), 1000)
       } else {
@@ -104,7 +104,7 @@ Page({
    * 上传身份证图片。如果是刚刚选择的本地照片，需要重新上传
    * 如果是是服务器现在保存的照片，那么url中将含有域名，不需要再上传
    */
-  uploadIdCardImg: function () {
+  _uploadIdCardImg: function () {
     let { id_card_img: { front, back } } = this.data.userInfo
     return Promise.all([
       front.indexOf(DOMAIN_NAME) === -1 ? uploadIdCardImg(front) : front,
@@ -115,7 +115,7 @@ Page({
   /**
    * 将服务器返回的图片路径加入到参数中，上传个人信息
    */
-  updateUserInfo: function (imgPaths) {
+  _updateUserInfo: function (imgPaths) {
     let uid = getUID()
     let userInfo = this.data.userInfo
     this.setData({
@@ -129,7 +129,7 @@ Page({
     })
   },
 
-  validate: function () {
+  _validate: function () {
     let {
       name, birthday, address, id_number, postcode,
       id_card_img: { front, back }

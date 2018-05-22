@@ -33,7 +33,7 @@ Page({
     })
   },
 
-  showHelpModal: function () {
+  onShowHelp: function () {
     wx.showModal({
       title: '借书步骤',
       content: '① 扫描图书馆图书的ISBN条形码，将其添加入借书栏，一次最多可添加两本图书\n ② 携带图书到前台，向管理员出示借书二维码\n ③管理员确认后，微信支付提交押金，借书成功',

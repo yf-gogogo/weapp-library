@@ -2,6 +2,7 @@ import { getLibraryById } from '../../../../apis/library'
 
 Page({
   data: {
+    isPageLoading: true,
     library: {
       id: undefined,
       status: 1, // 0：未认证，1：已认证
@@ -14,12 +15,13 @@ Page({
       photos: []
     }
   },
+
   onLoad: function (options) {
-    wx.showLoading()
     getLibraryById(options.id).then(res => {
       this.setData({ library: res.data })
-    }).finally(() => wx.hideLoading())
+    }).finally(() => this.setData({isPageLoading: false}))
   },
+
   onPreview: function (e) {
     let library = this.data.library
     let id = e.currentTarget.dataset.index

@@ -13,7 +13,6 @@
     "pages/book-detail/book-detail",
     "pages/cart/children/help",
     "pages/cart/children/qrcode",
-    "pages/test/test",
     "pages/booklist/children/modify",
     "pages/booklist/children/booklist-detail",
     "pages/booklist/children/children/modify",

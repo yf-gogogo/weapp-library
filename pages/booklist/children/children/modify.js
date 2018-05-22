@@ -1,5 +1,6 @@
 import { updateBooklistById } from '../../../../apis/booklist'
 
+// 保存页面参数options
 var options = {
   index: undefined,
   book_id: undefined,
@@ -13,9 +14,7 @@ Page({
 
   onLoad: function (opts) {
     options = opts
-    this.setData({
-      comment: opts.comment
-    })
+    this.setData({comment: opts.comment})
   },
 
   onInput: function (e) {
@@ -24,6 +23,7 @@ Page({
 
   /**
    * @event <bookDescriptionModified>
+   * 书单详情页(../booklist-detail)监听该事件
    */
   onSubmit: function () {
     wx.showLoading({ title: '加载中', mask: true })
@@ -39,7 +39,7 @@ Page({
       wx.showToast({ title: '操作成功', mask: true })
       setTimeout(_ => wx.navigateBack(), 1000)
 
-      // 触发事件，书单详情页(../booklist-detail)监听该事件
+      // 触发事件
       getApp().event.emit('bookCommentModified', {
         index: options.index,
         comment: this.data.comment

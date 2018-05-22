@@ -6,8 +6,8 @@ import { ORDER_STATUS_WAITING_FOR_OTHERS_TO_RETURN, ORDER_STATUS_WAITING_TO_TAKE
 
 Page({
   data: {
-    // 是否正在获取数据
-    loading: true,
+    // 页面是否正在加载
+    isPageLoading: true,
     // 图书信息
     book: {},
     // 图书馆信息
@@ -31,7 +31,7 @@ Page({
     getCollectionsByBookId(book_id, { library_id }).then(res => {
       let collection = res.data.collections[0]
       this.setData({
-        loading: false,
+        isPageLoading: false,
         book: collection.book,
         library: collection.library,
         'collection.total': collection.total_num,
@@ -40,7 +40,7 @@ Page({
       })
     }
     ).catch(() => {
-      this.setData({loading: false})
+      this.setData({isPageLoading: false})
     })
   },
 
@@ -51,14 +51,13 @@ Page({
   onSubmit: function (e) {
     wx.showLoading({ title: '加载中', mask: true })
     let { book, library, collection, appointedDate } = this.data
-    let params = [{
+    createOrders([{
       wechat_user_id: getUID(),
       status: collection.available ? ORDER_STATUS_WAITING_TO_TAKE_AT_PLANED_TIME : ORDER_STATUS_WAITING_FOR_OTHERS_TO_RETURN,
       isbn: book.isbn,
       library_id: library.id,
       should_take_time: appointedDate
-    }]
-    createOrders(params).then(() => {
+    }]).then(() => {
       let params = {
         title: collection.available ? '预订成功' : '预约成功',
         first: collection.available ? `取书时间：${appointedDate}` : `预约图书馆：${library.name}`,

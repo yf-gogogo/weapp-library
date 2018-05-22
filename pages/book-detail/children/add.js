@@ -60,13 +60,11 @@ Page({
     wx.showLoading({ title: '加载中', mask: true })
     updateBooklistById(booklists[selectedIndex].id, {
       add_items: [
-        {
-          book_id: id, comment
-        }
+        {book_id: id, comment}
       ]
     }).then(_ => {
       wx.showToast({ title: '操作成功', mask: true })
-      setTimeout(() => wx.navigateBack(), 1000) // 直接后退时当前页面的 toast 会消失
+      setTimeout(() => wx.navigateBack(), 1000) // 直接后退时当前页面的 toast 会立刻消失
     })
   }
 })

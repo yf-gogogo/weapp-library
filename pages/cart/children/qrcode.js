@@ -1,5 +1,5 @@
-var QR = require('../../../utils/qrcode.js')
-var app = getApp()
+import QR from '../../../utils/qrcode'
+import { getToken } from '../../../utils/permission'
 
 Page({
   onReady: function () {
@@ -8,7 +8,7 @@ Page({
       key: 'selectedBooks',
       success: (res) => {
         var params = {
-          phone: app.globalData.phone,
+          token: getToken(),
           book_id: []
         }
         res.data.forEach(i => params.book_id.push(i.id))

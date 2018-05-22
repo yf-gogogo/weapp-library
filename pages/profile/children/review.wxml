@@ -1,5 +1,5 @@
 <view wx:if="{{reviews.length}}" class="weui-cells weui-cells_after-title">
-  <view wx:for="{{reviews}}" wx:key="{{item.id}}" class="weui-cell ui-review-card font-30">
+  <navigator wx:for="{{reviews}}" wx:key="{{item.id}}" url="/pages/book-detail/book-detail?id={{item.book.id}}" hover-class="ui--active" class="weui-cell ui-review-card font-30">
     <view class="ui-review-card__info">
       <view class="ui-review-card__title">
         <text>发表于《{{item.book.title}}》</text>
@@ -10,8 +10,8 @@
       <view class="ui-review-card__content">{{item.content}}</view>
       <view class="color-gray">{{item.create_time}}</view>
     </view>
-    <view class="ui-review-card__delete-btn color-red" data-id="{{id}}" data-index="{{index}}" catchtap="onDelete">删除</view>
-  </view>
+    <view class="ui-review-card__delete-btn color-red" data-id="{{item.id}}" data-index="{{index}}" catchtap="onDelete">删除</view>
+  </navigator>
 </view>
 <!-- 加载更多、暂无数据 -->
 <load-more status="{{loadMoreStatus}}" nomore-text="没有更多评论了"></load-more>

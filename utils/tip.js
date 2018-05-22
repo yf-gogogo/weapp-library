@@ -33,6 +33,11 @@ var TIP_SETTINGS = {
   ADD_REVIEW: {
     show: true,
     message: '为喜欢的图书多打几颗星吧，评价的图书越多，系统推荐的内容就越精准'
+  },
+  // 我的评论
+  MY_REVIEWS: {
+    show: true,
+    message: '点击评论可以跳转到图书详情页'
   }
 }
 

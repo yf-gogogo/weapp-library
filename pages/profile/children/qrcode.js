@@ -1,11 +1,11 @@
 
-var QR = require('../../../utils/qrcode.js')
-var app = getApp()
+import QR from '../../../utils/qrcode.js'
+import { getToken } from '../../../utils/permission'
 
 Page({
   onReady: function () {
     var size = this.setCanvasSize() // 动态设置画布大小
-    var params = JSON.stringify({ phone: app.globalData.phone, time: Date.now()})
+    var params = JSON.stringify({ token: getToken(), time: Date.now()})
     QR.qrApi.draw(params, 'qrcode', size.w, size.h)
   },
 

@@ -1,3 +1,7 @@
+<!-- 加载动画 -->
+<spinner wx:if="{{isPageLoading}}" class="center"></spinner>
+<!-- 图书馆信息 -->
+<block wx:else>
 <view class="ui-label">基本信息</view>
 <view class="ui-card font-gray-28">
   <view class="font-black-34" style="margin-bottom: 5px;">{{library.name}}</view>
@@ -28,3 +32,4 @@
   </view>
   <view wx:else>暂无</view>
 </view>
+</block>

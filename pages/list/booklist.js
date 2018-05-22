@@ -49,7 +49,10 @@ Page({
 
   onReachBottom: function () {
     let { type, loadMoreStatus, isNoData, booklists } = this.data
+
+    // 推荐书单一次性加载完毕，不再加载
     if (loadMoreStatus !== 'hidding' || isNoData || type === 'recommend') return
+
     this.setData({ loadMoreStatus: 'loading' })
     this._fetchData(booklists.length).then(booklists => {
       this.setData({
@@ -85,6 +88,7 @@ Page({
         wx.showLoading({title: '加载中', mask: true})
         favoriteBooklistById(id).then(res => {
           // 这个书单可能是该用户之前创建的书单，因此不直接设为BL_IS_FAVORITE
+          // 而是根据服务器返回值设置
           booklists[index].status = res.data.status
           this.setData({booklists: booklists})
           wx.showToast({title: '操作成功'})

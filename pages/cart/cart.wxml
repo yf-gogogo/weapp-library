@@ -19,7 +19,7 @@
       </navigator>
     </view>
   </view>
-  <view class="weui-panel__ft" wx:if="{{selectedBooks.length}}" catchtap="showHelpModal">
+  <view class="weui-panel__ft" wx:if="{{selectedBooks.length}}" catchtap="onShowHelp">
     <view class="weui-cell weui-cell_access weui-cell_link">
       <view class="weui-cell__bd">查看借书步骤</view>
       <view class="weui-cell__ft weui-cell__ft_in-access"></view>

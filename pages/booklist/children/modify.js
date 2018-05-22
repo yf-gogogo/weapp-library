@@ -2,6 +2,7 @@ import { getBooklistById, createBooklist, updateBooklistById } from '../../../ap
 import { showTip } from '../../../utils/tip'
 import { getUID } from '../../../utils/permission'
 
+// 保存页面参数
 var options = {
   type: undefined, // 操作类型：create，modify
   id: undefined // 书单id
@@ -11,9 +12,7 @@ var toptip // 保存toptip组件的引用
 Page({
   data: {
     title: '',
-    description: '',
-    isWarning: false,
-    id: undefined
+    description: ''
   },
 
   onLoad: function (opts) {
@@ -30,7 +29,7 @@ Page({
         })
       }).catch(() => {
         wx.hideLoading()
-        wx.navigateBack()
+        wx.navigateBack() // 出错时（显示错误Modal后）返回上一页
       })
     }
 
@@ -54,7 +53,6 @@ Page({
     let { title, description } = this.data
     let params = { title, description }
     let fn
-
     if (options.type === 'create') {
       fn = createBooklist({
         ...params,

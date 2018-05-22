@@ -1,6 +1,6 @@
-import { getReviewsByPhone, deleteReviewById } from '../../../apis/review'
-
-var app = getApp()
+import { getReviewsByUserId, deleteReviewById } from '../../../apis/review'
+import { getUID } from '../../../utils/permission'
+import { showTip } from '../../../utils/tip'
 
 Page({
   data: {
@@ -12,11 +12,12 @@ Page({
   },
 
   onLoad: function (options) {
+    showTip('MY_REVIEWS')
     wx.showLoading({title: '加载中', mask: true})
-    getReviewsByPhone(app.globalData.phone).then(res => {
+    getReviewsByUserId(getUID()).then(res => {
       this.setData({
         reviews: res.data.reviews,
-        isNoData: res.data.reviews.length == 0
+        isNoData: res.data.reviews.length === 0
       })
     }).finally(() => wx.hideLoading())
   },
@@ -27,16 +28,11 @@ Page({
 
     this.setData({ loadMoreStatus: 'loading' })
     let reviews = this.data.reviews
-    let phone = app.globalData.phone
-    getReviewsByPhone(phone, reviews.length).then(res => {
-      if (res.data.reviews.length) {
-        this.setData({
-          'reviews': reviews.concat(res.data.reviews),
-          'loadMoreStatus': 'hidding'
-        })
-      } else {
-        this.setData({ loadMoreStatus: 'nomore' })
-      }
+    getReviewsByUserId(getUID(), reviews.length).then(res => {
+      this.setData({
+        'reviews': reviews.concat(res.data.reviews),
+        'loadMoreStatus': res.data.reviews.length ? 'hidding' : 'nomore'
+      })
     }).catch(() => this.setData({ loadMoreStatus: 'hidding' }))
   },
 
@@ -44,7 +40,7 @@ Page({
     let { id, index } = e.currentTarget.dataset
     wx.showModal({
       title: '删除评论',
-      content: '确定删除该条评论？这项操作将无法撤销',
+      content: '确定删除这条评论？这项操作将无法撤销',
       success: res => {
         if (res.confirm) {
           wx.showLoading({title: '删除中', mask: true})

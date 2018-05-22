@@ -1,3 +1,5 @@
+import { USER_STATUS_REVIEWING, USER_STATUS_APPROVED, USER_STATUS_REJECTED } from '../../../utils/constant'
+
 var app = getApp()
 
 Page({
@@ -18,13 +20,13 @@ Page({
   },
 
   /**
-   * @listens <userInfoChanged>
+   * @listens <userInfoChanged> app.setUserInfo 调用时触发
    */
   onLoad: function () {
     wx.showLoading({title: '加载中', mask: true})
     this._setUserInfo().finally(() => wx.hideLoading())
 
-    // 监听事件：app.setUserInfo 被调用时触发
+    // 监听事件
     app.event.on('userInfoChanged', this._setUserInfo)
   },
 
@@ -42,15 +44,15 @@ Page({
   _setUserInfo: function () {
     return app.getUserInfo().then(userInfo => {
       this.setData({userInfo})
-      if (userInfo.status === 0) {
+      if (userInfo.status === USER_STATUS_REVIEWING) {
         this.setData({
           tips: '您的信息正在审核中，在此期间您可以重新设置您的个人信息，审核通过后您将可以在线预约图书。'
         })
-      } else if (userInfo.status === 1) {
+      } else if (userInfo.status === USER_STATUS_APPROVED) {
         this.setData({
           tips: '您的信息已通过审核，您现在可以在线预约图书。如果您需要修改个人信息，请通过“意见反馈”联系管理员。'
         })
-      } else if (userInfo.status === 2) {
+      } else if (userInfo.status === USER_STATUS_REJECTED) {
         this.setData({
           tips: `您的信息没有通过审核，原因是：${userInfo.review_msg}。您可修改后重新提交审核，审核通过后您将可以在线预约图书。`
         })

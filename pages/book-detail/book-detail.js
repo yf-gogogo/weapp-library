@@ -33,7 +33,7 @@ Page({
   onShowTip: function () {
     wx.showModal({
       title: '参与贡献',
-      content: '您可访问 https://api.my-web-site.cn/wiki/#/book/' + this.data.book.id + ' 编辑本页内容 (PS: 这个维基项目还没有重构完成，暂时无公开链接)',
+      content: '您可访问 https://www.library-online.cn/wiki/#/book/' + this.data.book.id + ' 编辑本页内容',
       showCancel: false
     })
   },
