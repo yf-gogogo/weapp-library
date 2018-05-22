@@ -1,3 +1,6 @@
+<wxs module="ORDER_STATUS">
+  module.exports = require('../../../utils/constant.wxs').ORDER_STATUS
+</wxs>
 <view wx:if="{{orders.length}}" class="weui-cells weui-cells_after-title">
   <navigator wx:for="{{orders}}" wx:key="{{item.id}}" url="./children/order-detail?id={{item.id}}" class="weui-cell ui-book-card" hover-class="ui--active" id="{{item.id}}">
     <image class="ui-book-card__img" src="{{item.book.imgs.small}}" mode="widthFix"></image>
@@ -8,8 +11,13 @@
       </view>
       <view>出版社: {{item.book.publisher}}</view>
       <view>图书馆: {{item.library.name}}</view>
-      <view>借阅日期：{{item.actual_take_time}}</view>
-      <view>还书日期：{{item.actual_return_time}}</view>
+      <view wx:if="{{item.status == ORDER_STATUS.CANCELED_BY_USER}}">
+        订单状态：已取消
+      </view>
+      <block wx:else>
+        <view>借阅日期：{{item.actual_take_time}}</view>
+        <view>还书日期：{{item.actual_return_time}}</view>
+      </block>
     </view>
     <view class="weui-cell__ft_in-access"></view>
   </navigator>

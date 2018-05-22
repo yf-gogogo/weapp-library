@@ -1,3 +1,6 @@
+<wxs module="ORDER_STATUS">
+  module.exports = require('../../../utils/constant.wxs').ORDER_STATUS
+</wxs>
 <wxs src="../../../utils/biz-helper.wxs" module="helper" />
 <tab-bar tabs="{{tabs}}" bindclick="onClickTabBar">
   <scroll-view wx:for="{{types}}" wx:for-item="type" wx:key="{{type}}" slot="{{tabs[index]}}" scroll-y class="order-list" data-type="{{type}}" bindscrolltolower="onScrollToLower">
@@ -9,9 +12,24 @@
           <view>作者:
             <text wx:for="{{item.book.author}}" wx:key="{{item}}" class="ui-book-card__info-name">{{item}}</text>
           </view>
-          <view wx:for="{{helper.getFields(item)}}" wx:key="{{item.key}}">{{item.key}}：{{item.value}}</view>
-          <view>借阅状态：<text class="color-{{helper.getStatusColor(item)}}">{{helper.getStatusText(item)}}</text></view>
+          <view>出版社：{{item.book.publisher}}</view>
+          <view>图书馆：{{item.library.name}}</view>
+          <view wx:if="{{item.status <= ORDER_STATUS.WAITING_TO_TAKE_AT_PLANED_TIME}}">
+            预约日期：{{item.created_at}}
+          </view>
+          <view wx:if="{{item.status == ORDER_STATUS.WAITING_TO_TAKE_AT_PLANED_TIME}}">
+            预约取书日期：{{item.should_take_time}}
+          </view>
+          <block wx:if="{{item.status == ORDER_STATUS.BORROWING}}">
+            <view>取书日期：{{item.actual_take_time}}</view>
+            <view>应还日期：{{item.should_return_time}}</view>
+          </block>
+          <view>
+            借阅状态：
+            <text class="color-{{helper.getStatusColor(item)}}">{{item.status_text}}</text>
+          </view>
         </view>
+        <view wx:if="{{helper.isCancelable(item)}}" class="ui-book-card__delete-btn font-gray-28" id="{{item.id}}" catchtap="onCancel" hover-stop-propagation>取消</view>
         <view class="weui-cell__ft_in-access"></view>
       </navigator>
     </view>

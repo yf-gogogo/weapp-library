@@ -1,6 +1,6 @@
 /**
  * 权限控制（登录状态、用户信息）
- * 如登录、退出、检测是否登录、检测账号状态(是否被拉黑)等
+ * 登录、退出、检测是否登录、检测账号状态(是否被拉黑)等
  */
 
 /**
@@ -58,7 +58,7 @@ function autoLogin () {
 }
 
 /**
- * 登录
+ * 设置登录态，保存用户token与用户信息
  */
 function login (token, userInfo) {
   try {
@@ -82,6 +82,7 @@ function logout () {
     wx.clearStorageSync()
     setToken(null)
     setUID(null)
+    getApp().setUserInfo(null)
     return true
   } catch (e) {
     console.error('清空storage失败: ' + e)
@@ -90,9 +91,8 @@ function logout () {
 }
 
 /**
- * 检测是否登录，并给出相应提示
- * 用于可分享页面（图书详情、书单详情）中的操作按钮被点击时
- * TODO --- 检测当前账号是否被拉黑
+ * 检测是否登录，弹出登录对话框（可选）
+ * 用于需要登录的操作（如图书详情、书单详情等可分享页面中）
  * @param showModal {Boolean}
  * @return {Boolean}
  */

@@ -1,5 +1,6 @@
 import { getBookByISBN } from '../../apis/book'
 import Promisify from '../../utils/promisify'
+import { isISBN } from '../../utils/validator'
 
 Page({
   data: {
@@ -46,7 +47,15 @@ Page({
     }
 
     var scanfn = Promisify(wx.scanCode)
-    scanfn().then(res => {
+    scanfn({scanType: ['barCode']}).then(res => {
+      if (!isISBN(res.result)) {
+        return wx.showModal({
+          title: '扫描内容不合法',
+          content: '请扫描图书ISBN条形码',
+          showCancel: false
+        })
+      }
+
       // 如果已存在此图书，将其移动到第一个
       var index = this.data.selectedBooks.findIndex(i => i.isbn == res.result)
       if (index != -1) {

@@ -1,3 +1,5 @@
+@import "/templates/page-no-data/index.wxss";
+
 .review-container {
   padding-top: 64px;
 }
@@ -11,26 +13,6 @@
   box-sizing: border-box;
   background-color: #FFF;
   border-bottom: 1px solid #D9D9D9;
-}
-
-.no-data {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 100px 20px 0;
-  text-align: center;
-  background-color: #FFF;
-}
-.no-data__img {
-  width: 200px;
-  margin-bottom: 30px;
-}
-.no-data__text {
-  margin-bottom: 18px;
-  font-size: 17px;
-  color: #888;
 }
 
 .popup-bd {

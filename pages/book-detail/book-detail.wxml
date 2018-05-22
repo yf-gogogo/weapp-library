@@ -1,4 +1,5 @@
 <import src="/templates/showcase/index" />
+<import src="/templates/page-no-data/index" />
 <!-- 加载动画 -->
 <spinner wx:if="{{pageStatus.loading}}" class="center"></spinner>
 <!-- 获取到图书信息 -->
@@ -97,9 +98,5 @@
     </scroll-view>
   </popup>
 </block>
-<view wx:elif="{{pageStatus.code == 404}}" class="no-data">
-  <image class="no-data__img" mode="widthFix" src="/images/no_data.png"></image>
-  <view class="no-data__text">系统中暂无该图书信息，您可以通过图书wiki系统为该图书创建一个新条目</view>
-  <button class="no-data__btn" type="primary">创建新条目</button>
-</view>
+<template wx:elif="{{pageStatus.code == 404}}" is="page-no-data" data="{{message: '系统中暂无该图书信息，您可以通过图书wiki系统为该图书创建一个新条目', btnText: '创建新条目'}}"></template>
 <no-data wx:else></no-data>

@@ -1,85 +1,19 @@
+/**
+ * 业务相关的辅助函数
+ */
 
+/**
+ * 订单状态
+ * switch的case语句不支持获取对象属性，需要解构对象
+ */
 var ORDER_STATUS = require('./constant.wxs').ORDER_STATUS
-
-// switch的case语句不支持获取对象属性，需要解构对象
-var WAITING_FOR_OTHERS_TO_RETURN = ORDER_STATUS.WAITING_FOR_OTHERS_TO_RETURN
 var WAITING_TO_TAKE_RETURNED_BOOK = ORDER_STATUS.WAITING_TO_TAKE_RETURNED_BOOK
 var WAITING_TO_TAKE_AT_PLANED_TIME = ORDER_STATUS.WAITING_TO_TAKE_AT_PLANED_TIME
 var BORROWING = ORDER_STATUS.BORROWING
-var NORMAL_CLOSE = ORDER_STATUS.NORMAL_CLOSE
-var ABNORMAL_CLOSE = ORDER_STATUS.ABNORMAL_CLOSE
-var CANCELED_BY_USER = ORDER_STATUS.CANCELED_BY_USER
-
-/**
- * 根据订单状态展示不同字段
- * [
- *   {key: '预约日期', value: '2018-05-20'},
- *   {...}
- * ]
- */
-function getFields (order) {
-  var res = [{
-    key: '出版社',
-    value: order.book.publisher
-  }, {
-    key: '图书馆',
-    value: order.library.name
-  }]
-  if (order.status == ORDER_STATUS.WAITING_FOR_OTHERS_TO_RETURN ||
-   order.status == ORDER_STATUS.WAITING_TO_TAKE_RETURNED_BOOK ||
-   order.status == ORDER_STATUS.WAITING_TO_TAKE_AT_PLANED_TIME) {
-    res.push({
-      key: '预约日期',
-      value: order.created_at
-    })
-  }
-  if (order.status == ORDER_STATUS.WAITING_TO_TAKE_AT_PLANED_TIME) {
-    res.push({
-      key: '预约取书日期',
-      value: order.should_take_time
-    })
-  }
-  if (order.status == ORDER_STATUS.BORROWING) {
-    res.push({
-      key: '取书日期',
-      value: order.actual_take_time
-    }, {
-      key: '应还日期',
-      value: order.should_return_time
-    })
-  }
-  return res
-}
-
-/**
- * 获取订单状态的文案
- */
-function getStatusText (order) {
-  switch (order.status) {
-    case WAITING_FOR_OTHERS_TO_RETURN:
-      return '预约中，等待他人归还'
-    case WAITING_TO_TAKE_RETURNED_BOOK:
-    case WAITING_TO_TAKE_AT_PLANED_TIME:
-      return '可取书'
-    case BORROWING:
-      if (order.is_overdue) {
-        return '已逾期'
-      } else {
-        return '借阅中'
-      }
-    case NORMAL_CLOSE:
-    case ABNORMAL_CLOSE:
-      return '已归还'
-    case CANCELED_BY_USER:
-      return '已取消'
-    default:
-      return '未知状态'
-  }
-}
 
 /**
  * 获取订单状态的颜色
- * 可取书：绿色；已逾期：红色；其他：默认。
+ * 可取书-绿色；已逾期-红色；其他-默认。
  */
 function getStatusColor (order) {
   switch (order.status) {
@@ -96,6 +30,22 @@ function getStatusColor (order) {
   }
 }
 
-module.exports.getFields = getFields
-module.exports.getStatusText = getStatusText
-module.exports.getStatusColor = getStatusColor
+/**
+ * 订单可否续借
+ */
+function isRenewable (order) {
+  return order.renew_count == 0 && order.status == ORDER_STATUS.BORROWING
+}
+
+/**
+ * 订单可否取消
+ */
+function isCancelable (order) {
+  return order.status <= ORDER_STATUS.WAITING_TO_TAKE_AT_PLANED_TIME
+}
+
+module.exports = {
+  getStatusColor: getStatusColor,
+  isRenewable: isRenewable,
+  isCancelable: isCancelable
+}

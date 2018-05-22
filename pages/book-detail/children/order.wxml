@@ -11,7 +11,7 @@
         评分:
         <text class="color-yellow">{{book.total_score}}</text>（{{book.review_num}}条评论）</view>
       <view>作者:
-        <text wx:for="{{book.author}}" class="ui-book-card__info-name">{{item}}</text>
+        <text wx:for="{{book.author}}" wx:key="{{*this}}" class="ui-book-card__info-name">{{item}}</text>
       </view>
       <view>出版社: {{book.publisher}}</view>
       <view>出版日期: {{book.pubdate}}</view>
@@ -25,7 +25,7 @@
         <view class="library__name">
           <text class="font-black-34 ellipsis">{{library.name}}</text>
           <image wx:if="{{library.status}}" src="/images/icon_certificated.png" mode="aspectFit"></image>
-          <image wx:else="{{library.status}}" src="/images/icon_uncertificated.png" mode="aspectFit"></image>
+          <image wx:else src="/images/icon_uncertificated.png" mode="aspectFit"></image>
         </view>
         <view class="font-gray-26">地址：{{library.address}}</view>
       </view>

@@ -1,35 +1,34 @@
+<import src="/templates/page-no-data/index" />
 <toptip id="toptip"></toptip>
-<block wx:if="{{initialized}}">
-  <view class="review-container" wx:if="{{reviews.length}}">
-    <view class="weui-cell review-header">
-      <view class="weui-cell__bd">评论</view>
-      <button size="mini" type="primary" catchtap="onShowPopup" plain>发表评论</button>
-    </view>
-    <view class="weui-cells weui-cells_after-title">
-      <view wx:for="{{reviews}}" wx:key="{{item.id}}" class="weui-cell ui-review-card font-30">
-        <image class="ui-review-card__avatar" src="{{item.user.avatar}}"></image>
-        <view class="ui-review-card__info">
-          <view class="ui-review-card__title">
-            <text>{{item.user.nickname}} </text>
-            <view class="ui-review-card__rate">
-              <rate value="{{item.score}}" star-size="30" unit="rpx" disabled></rate>
-            </view>
+<!-- 加载动画 -->
+<spinner wx:if="{{isPageLoading}}" class="center"></spinner>
+<!-- 评论列表 -->
+<view wx:elif="{{reviews.length}}" class="review-container">
+  <view class="weui-cell review-header">
+    <view class="weui-cell__bd">评论</view>
+    <button size="mini" type="primary" catchtap="onShowPopup" plain>发表评论</button>
+  </view>
+  <view class="weui-cells weui-cells_after-title">
+    <view wx:for="{{reviews}}" wx:key="{{item.id}}" class="weui-cell ui-review-card font-30">
+      <image class="ui-review-card__avatar" src="{{item.user.avatar}}"></image>
+      <view class="ui-review-card__info">
+        <view class="ui-review-card__title">
+          <text>{{item.user.nickname}} </text>
+          <view class="ui-review-card__rate">
+            <rate value="{{item.score}}" star-size="30" unit="rpx" disabled></rate>
           </view>
-          <view class="ui-review-card__content">{{item.content}}</view>
-          <view class="color-gray">{{item.create_time}}</view>
         </view>
-        <view wx:if="{{item.is_creator}}" class="ui-review-card__delete-btn color-red" data-id="{{id}}" data-index="{{index}}" catchtap="onDelete">删除</view>
+        <view class="ui-review-card__content">{{item.content}}</view>
+        <view class="color-gray">{{item.create_time}}</view>
       </view>
+      <view wx:if="{{item.is_creator}}" class="ui-review-card__delete-btn color-red" data-id="{{item.id}}" data-index="{{index}}" catchtap="onDelete">删除</view>
     </view>
-    <!-- 加载更多、暂无数据 -->
-    <load-more status="{{loadMoreStatus}}" nomore-text="没有更多评论了"></load-more>
   </view>
-  <view wx:else class="no-data">
-    <image class="no-data__img" mode="widthFix" src="/images/no_data.png"></image>
-    <view class="no-data__text">暂无评论，快来做第一个评论的人吧</view>
-    <button class="no-data__btn" type="primary" bindtap="onShowPopup">发表评论</button>
-  </view>
-</block>
+  <!-- 加载更多、暂无数据 -->
+  <load-more status="{{loadMoreStatus}}" nomore-text="没有更多评论了"></load-more>
+</view>
+<!-- 暂无数据 -->
+<template wx:else is="page-no-data" data="{{message: '暂无评论，快来做第一个评论的人吧', btnText: '发表评论'}}"></template>
 <!-- 添加评论 -->
 <popup title="添加评论" hide-text="关闭" show="{{popup.show}}" bindhide="onHidePopup">
   <view class="popup-bd">
@@ -38,8 +37,8 @@
       <rate value="{{popup.score}}" gutter-size="7" bindchange="onChange"></rate>
     </view>
     <view class="popup-bd__textarea">
-      <textarea hidden="{{!popup.show}}" class="weui-textarea" style="height: 3.3em" placeholder="写几句评论吧..." maxlength="200" value="{{popup.review}}" bindinput="onInput" fixed/>
-      <view class="weui-textarea-counter">{{popup.review.length}}/200</view>
+      <textarea hidden="{{!popup.show}}" class="weui-textarea" style="height: 3.3em" placeholder="写几句评论吧..." maxlength="200" value="{{popup.content}}" bindinput="onInput" fixed/>
+      <view class="weui-textarea-counter">{{popup.content.length}}/200</view>
     </view>
     <view class="popup-bd__btn-area">
       <async-button text="发表评论" loading="{{popup.loading}}" bindtap="onSubmit"></async-button>

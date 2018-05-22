@@ -87,6 +87,10 @@ Page({
     }
   },
 
+  onTapPageNoDataBtn: function () {
+    throw new Error('点击事件未实现')
+  },
+
   /**
    * 根据 id 或根据 isbn 获取图书信息
    */

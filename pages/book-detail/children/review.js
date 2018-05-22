@@ -1,5 +1,6 @@
 import { showTip } from '../../../utils/tip'
 import { getReviewsByBookId, addReviewByBookId, deleteReviewById } from '../../../apis/review'
+import { getUID } from '../../../utils/permission'
 
 var toptip // 保存toptip组件的引用
 var once = false // 只提醒一次
@@ -14,7 +15,7 @@ Page({
     popup: {
       show: false,
       score: 0, // 评分
-      review: '', // 评论文本
+      content: '', // 评论文本
       label: [
         '点击星星评分', '很差', '很差', '较差', '较差',
         '还行', '还行', '推荐', '推荐', '力荐', '力荐'
@@ -23,19 +24,17 @@ Page({
     },
     // load-more组件状态：hidding, loading, nomore
     loadMoreStatus: 'hidding',
-    // 是否初始化完成
-    initialized: false
+    // 页面是否正在加载
+    isPageLoading: true
   },
 
   onLoad: function (options) {
     this.data.id = options.id
     toptip = this.selectComponent('#toptip')
-    wx.showLoading({title: '加载中', mask: true})
     getReviewsByBookId(options.id).then(res => {
       this.setData({reviews: res.data.reviews})
     }).finally(() => {
-      wx.hideLoading()
-      this.setData({initialized: true})
+      this.setData({isPageLoading: false})
     })
   },
 
@@ -61,6 +60,10 @@ Page({
     this.setData({'popup.score': e.detail.value})
   },
 
+  onTapPageNoDataBtn: function () {
+    this.onShowPopup()
+  },
+
   onShowPopup: function () {
     this.setData({'popup.show': true})
     if (!once) {
@@ -74,11 +77,11 @@ Page({
   },
 
   onInput: function (e) {
-    this.setData({'popup.review': e.detail.value})
+    this.setData({'popup.content': e.detail.value})
   },
 
   onDelete: function (e) {
-    let { id, index } = e.currentTarget.dataset
+    var { id, index } = e.currentTarget.dataset
     wx.showModal({
       title: '删除评论',
       content: '确定删除该条评论？这项操作将无法撤销',
@@ -98,23 +101,23 @@ Page({
 
   onSubmit: function () {
     let { id, reviews } = this.data
-    let { score, review, loading } = this.data.popup
-    let wechat_user_id = app.getUID()
+    let { score, content, loading } = this.data.popup
+    let wechat_user_id = getUID()
 
     if (loading) return
     if (!score) return toptip.show('请点击星星评分')
-    if (!review) return toptip.show('请输入评论')
+    if (!content) return toptip.show('请输入评论')
 
     this.setData({'popup.loading': true})
-    addReviewByBookId(id, { score, review, wechat_user_id }).then(res => {
+    addReviewByBookId(id, { score, content, wechat_user_id }).then(res => {
       wx.showToast({title: '操作成功'})
       this.setData({
         'popup.loading': false,
         'popup.show': false,
         'popup.score': 0,
-        'popup.review': '',
+        'popup.content': '',
         'reviews': [res.data, ...reviews]
       })
-    })
+    }).finally(() => this.setData({'popup.loading': false}))
   }
 })

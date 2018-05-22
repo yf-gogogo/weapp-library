@@ -30,10 +30,10 @@ Page({
       wx.hideNavigationBarLoading()
     })
 
+    // 下面要用 search.history.filter 方法，因此必须是一个数组
+    // getStorage的返回值可能是 undefined
     let tmp = wx.getStorageSync('history')
-    this.setData({
-      'search.history': tmp || [] // res.data 可能是 undefined，下面要用filter 方法，因此必须是数组
-    })
+    this.setData({'search.history': tmp || []})
   },
 
   onReady: function () {
@@ -90,8 +90,10 @@ Page({
    * @param {String} value  关键字值
    */
   _search: function (type, value) {
-    value = value.trim() // 去除前后空白符
+    // 去除前后空白符
+    value = value.trim()
 
+    // 保存搜索记录
     this._saveHistory(type, value)
 
     // 页面跳转
@@ -110,6 +112,8 @@ Page({
           wx.showModal({content: '请输入正确的13位ISBN', showCancel: false})
         }
         break
+      default:
+        throw new Error('wrong type: 不支持的搜索类型！')
     }
   },
 

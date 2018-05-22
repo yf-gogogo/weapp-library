@@ -81,10 +81,10 @@
 					"query": ""
 				},
 				{
-					"id": 6,
+					"id": 8,
 					"name": "图书详情",
 					"pathName": "pages/book-detail/book-detail",
-					"query": "id=15"
+					"query": "id=151313"
 				},
 				{
 					"id": -1,
@@ -193,6 +193,18 @@
 					"name": "分类搜索",
 					"pathName": "pages/home/children/classification",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "订单详情",
+					"pathName": "pages/profile/children/children/order-detail",
+					"query": "id=1"
+				},
+				{
+					"id": -1,
+					"name": "订单历史",
+					"pathName": "pages/profile/children/order-history",
+					"query": "id=1"
 				}
 			]
 		}

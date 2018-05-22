@@ -3,18 +3,13 @@ import promisePolyfill from './utils/promise-polyfill' // 添加 promise.finally
 import { initTipSettings } from './utils/tip' // 使用帮助
 import EventEmitter from './utils/event' // 事件总线
 import { getUserInfoById } from './apis/user' // 获取用户信息
-import Permission, { autoLogin, getUID } from './utils/permission'
+import { autoLogin, getUID } from './utils/permission'
 
 App({
   /**
    * 全局事件总线
    */
   event: new EventEmitter(),
-
-  /**
-   * 登录鉴权
-   */
-  permission: Permission,
 
   onLaunch: function () {
     // 自动登录
@@ -37,7 +32,6 @@ App({
     if (USER_INFO.id) {
       return Promise.resolve(USER_INFO)
     }
-
     return getUserInfoById(uid).then(res => {
       this.setUserInfo(res.data)
       return res.data
@@ -46,7 +40,7 @@ App({
 
   /**
    * 设置用户信息
-   * @event <userInfoChanged>
+   * @event <userInfoChanged> 在个人信息页(personal-information)被监听
    */
   setUserInfo: function (userInfo) {
     USER_INFO = userInfo

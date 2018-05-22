@@ -6,6 +6,7 @@
     "rate": "/components/rate/index",
     "popup": "/components/popup/index",
     "load-more": "/components/load-more/index",
-    "async-button": "/components/async-button/index"
+    "async-button": "/components/async-button/index",
+    "spinner": "/components/spinner/index"
   }
 }

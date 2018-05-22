@@ -1,29 +1,39 @@
-// pages/profile/children/children/order-detail.js
+import { getOrderById, cancelOrderByOrderId, renewBookByOrderId } from '../../../../apis/order'
+
+var ORDER_ID // 订单id
+var app = getApp()
+
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    order: {
+      id: undefined,
+      status: undefined,
+      book: {},
+      library: {}
+    },
+    pageStatus: 'loading' // nodata, done
   },
 
-  onCancel: function (e) {
-    let id = e.detail.id
+  onLoad: function (options) {
+    ORDER_ID = options.id
+    this._fetchData()
+  },
+
+  /**
+   * 续借
+   * @event <orderRenewed> 事件在订单列表页(../order-ongoing)被监听
+   */
+  onRenew: function () {
     wx.showModal({
-      title: '取消订单',
-      content: '确定取消该订单？这项操作将无法撤销',
+      title: '续借图书',
+      content: '每本图书只能续借一次，续借时间为一个月',
       success: res => {
         if (res.confirm) {
           wx.showLoading({ title: '取消中', mask: true })
-          cancelOrderByOrderId(id).then(() => {
-            // 从“全部(ongoing)”和“预约中(booking)”订单列表里同时删除该订单
-            const { ongoing, booking } = this.data.orders
-            this.setData({
-              'orders.ongoing': ongoing.filter(e => e.id == id),
-              'orders.booking': booking.filter(e => e.id == id)
-            })
-            wx.showToast({ title: '取消成功' })
+          renewBookByOrderId(ORDER_ID).then(res => {
+            wx.showToast({ title: '续借成功', mask: true })
+            this.setData({order: res.data})
+            app.event.emit('orderRenewed', {order: this.data.order})
           }).finally(() => wx.hideLoading())
         }
       }
@@ -31,58 +41,37 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面加载
+   * 取消订单
+   * @event <orderCanceled> 事件在订单列表页(../order-ongoing)被监听
    */
-  onLoad: function (options) {
-
+  onCancel: function () {
+    wx.showModal({
+      title: '取消订单',
+      content: '确定取消该订单？这项操作将无法撤销',
+      success: res => {
+        if (res.confirm) {
+          wx.showLoading({ title: '取消中', mask: true })
+          cancelOrderByOrderId(ORDER_ID).then(() => {
+            wx.showToast({ title: '取消成功' })
+            setTimeout(() => wx.navigateBack(), 1000)
+            app.event.emit('orderCanceled', {order: this.data.order})
+          }).finally(() => wx.hideLoading())
+        }
+      }
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  onTapPageNoDataBtn: function () {
+    this._fetchData()
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  _fetchData: function () {
+    this.setData({pageStatus: 'loading'})
+    getOrderById(ORDER_ID).then(res => {
+      this.setData({
+        order: res.data,
+        pageStatus: 'done'
+      })
+    }).catch(() => this.setData({pageStatus: 'nodata'}))
   }
 })

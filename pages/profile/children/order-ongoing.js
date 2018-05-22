@@ -1,5 +1,7 @@
-import { getOrdersByUserId } from '../../../apis/order'
+import { getOrdersByUserId, cancelOrderByOrderId } from '../../../apis/order'
 import { getUID } from '../../../utils/permission'
+
+var app = getApp()
 
 Page({
   data: {
@@ -27,9 +29,15 @@ Page({
   },
 
   /**
-   * 初始时加载所有类型订单
+   * 初始时加载所有类型订单/**
+   * @listens <orderCanceled> <orderRenewed>
+   * 事件在订单详情页(./children/order-detail)中被触发
    */
   onLoad: function () {
+    // 监听事件
+    app.event.on('orderCanceled', this.onOrderCanceled)
+    app.event.on('orderRenewed', this.onOrderRenewed)
+
     wx.showLoading({ title: '加载中', mask: true })
     Promise.all([
       getOrdersByUserId(getUID(), 'ongoing'),
@@ -86,5 +94,53 @@ Page({
 
   onClickTabBar: function (e) {
     this.setData({currentType: this.data.types[e.detail.index]})
+  },
+
+  onCancel: function (e) {
+    let id = e.currentTarget.id
+    wx.showModal({
+      title: '取消订单',
+      content: '确定取消该订单？这项操作将无法撤销',
+      success: res => {
+        if (res.confirm) {
+          wx.showLoading({ title: '取消中', mask: true })
+          cancelOrderByOrderId(id).then(() => {
+            wx.showToast({ title: '取消成功' })
+            this._deleteOrderById(id)
+          }).finally(() => wx.hideLoading())
+        }
+      }
+    })
+  },
+
+  /**
+   * 某个订单被取消，更新列表
+   */
+  onOrderCanceled: function (e) {
+    this._deleteOrderById(e.order.id)
+  },
+
+  /**
+   * 某个订单被续借，更新列表
+   */
+  onOrderRenewed: function (e) {
+    const id = e.order.id
+    const newOrder = e.order
+    const { ongoing, borrowing } = this.data.orders
+    this.setData({
+      'orders.ongoing': ongoing.map(old => old.id == id ? newOrder : old),
+      'orders.borrowing': borrowing.map(old => old.id == id ? newOrder : old)
+    })
+  },
+
+  /**
+   * 删除订单：从“全部(ongoing)”和“预约中(booking)”订单列表里同时删除
+   */
+  _deleteOrderById: function (id) {
+    const { ongoing, booking } = this.data.orders
+    this.setData({
+      'orders.ongoing': ongoing.filter(e => e.id != id),
+      'orders.booking': booking.filter(e => e.id != id)
+    })
   }
 })

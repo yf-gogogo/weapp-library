@@ -95,6 +95,12 @@
 .ui-book-card__info-name:first-child:before {
   content: '';
 }
+/* 删除按钮 */
+.ui-book-card__delete-btn {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
 /* 右箭头垂直居中对齐 */
 .weui-cell__ft_in-access {
   align-self: center;

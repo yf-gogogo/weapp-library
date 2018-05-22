@@ -1,4 +1,5 @@
 @import "/templates/showcase/index.wxss";
+@import "/templates/page-no-data/index.wxss";
 
 page {
   padding-bottom: 100rpx;
@@ -101,25 +102,4 @@ page {
   display: -webkit-flex;
   flex-direction: row;
   align-items: baseline;
-}
-
-
-.no-data {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 100px 20px 0;
-  text-align: center;
-  background-color: #FFF;
-}
-.no-data__img {
-  width: 200px;
-  margin-bottom: 30px;
-}
-.no-data__text {
-  margin-bottom: 18px;
-  font-size: 17px;
-  color: #888;
 }

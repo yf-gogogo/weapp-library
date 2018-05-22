@@ -1,5 +1,3 @@
-// 高级搜索参数
-var params = ['title', 'author', 'translator', 'publisher', 'pubdate_start', 'pubdate_end'] // 还有language
 
 Page({
   data: {
@@ -48,13 +46,12 @@ Page({
 
   onSearch: function () {
     let { languages, selectedLanguageIndex } = this.data
-
     var url = '/pages/list/book?type=advanced_search'
+    var params = ['title', 'author', 'translator', 'publisher',
+      'pubdate_start', 'pubdate_end']
 
-    // 默认至少有一个language参数
+    // 默认至少有一个language参数，其余参数如果只包含空格的话就忽略
     url += `&language=${languages[selectedLanguageIndex]}`
-
-    // 其余参数不能只包含空格
     params.forEach(e => {
       let str = this.data[e].trim()
       if (str) {

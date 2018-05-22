@@ -2,7 +2,7 @@ import { getSonNumbersByNumber } from '../../../apis/classification'
 
 Page({
   data: {
-    number: 0, // 当前分类号
+    number: 0, // 当前分类号，默认为根分类号‘0’
     sonNumbers: [], // 子分类号
     loadMoreStatus: 'hidding' // loading, nomore
   },
@@ -18,6 +18,7 @@ Page({
   onReachBottom: function () {
     let { loadMoreStatus, isNoData, sonNumbers } = this.data
     if (loadMoreStatus !== 'hidding' || isNoData) return
+
     this.setData({ loadMoreStatus: 'loading' })
     this._fetchData(sonNumbers.length).then(sonNumbers => {
       this.setData({
