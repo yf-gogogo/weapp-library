@@ -5,6 +5,7 @@ var app = getApp()
 
 Page({
   data: {
+    pageStatus: 'loading', // error, done
     tabs: ['全部', '预约中', '借阅中'],
     types: ['ongoing', 'booking', 'borrowing'],
     currentType: 'ongoing', // 当前激活的选项卡类型
@@ -20,11 +21,6 @@ Page({
       ongoing: 'hidding', // loading, nomore, hidding
       booking: 'hidding',
       borrowing: 'hidding'
-    },
-    isNoData: {
-      ongoing: false,
-      booking: false,
-      borrowing: false
     }
   },
 
@@ -38,26 +34,11 @@ Page({
     app.event.on('orderCanceled', this.onOrderCanceled)
     app.event.on('orderRenewed', this.onOrderRenewed)
 
-    wx.showLoading({ title: '加载中', mask: true })
-    Promise.all([
-      getOrdersByUserId(getUID(), 'ongoing'),
-      getOrdersByUserId(getUID(), 'booking'),
-      getOrdersByUserId(getUID(), 'borrowing')
-    ]).then(res => {
-      wx.hideLoading()
-      this.setData({
-        orders: {
-          ongoing: res[0].data.orders,
-          booking: res[1].data.orders,
-          borrowing: res[2].data.orders
-        },
-        isNoData: {
-          ongoing: res[0].data.orders.length === 0,
-          booking: res[1].data.orders.length === 0,
-          borrowing: res[2].data.orders.length === 0
-        }
-      })
-    }).catch(() => wx.hideLoading())
+    this._loadPage()
+  },
+
+  onReloadPage: function () {
+    this._loadPage()
   },
 
   /**
@@ -69,8 +50,7 @@ Page({
     const length = orders.length
 
     const loadMoreStatus = this.data.loadMoreStatus[type]
-    const isNoData = this.data.isNoData[type]
-    if (isNoData || loadMoreStatus !== 'hidding') return
+    if (loadMoreStatus !== 'hidding') return
 
     // 设置“加载中”
     let params = {}
@@ -142,5 +122,26 @@ Page({
       'orders.ongoing': ongoing.filter(e => e.id != id),
       'orders.booking': booking.filter(e => e.id != id)
     })
+  },
+
+  /**
+   * 加载页面
+   */
+  _loadPage: function () {
+    this.setData({pageStatus: 'loading'})
+    Promise.all([
+      getOrdersByUserId(getUID(), 'ongoing'),
+      getOrdersByUserId(getUID(), 'booking'),
+      getOrdersByUserId(getUID(), 'borrowing')
+    ]).then(res => {
+      this.setData({
+        pageStatus: 'done',
+        orders: {
+          ongoing: res[0].data.orders,
+          booking: res[1].data.orders,
+          borrowing: res[2].data.orders
+        }
+      })
+    }).catch(() => this.setData({pageStatus: 'error'}))
   }
 })

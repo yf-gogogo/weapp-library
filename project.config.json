@@ -84,7 +84,7 @@
 					"id": 8,
 					"name": "图书详情",
 					"pathName": "pages/book-detail/book-detail",
-					"query": "id=151313"
+					"query": "id=151111"
 				},
 				{
 					"id": -1,

@@ -1,21 +1,25 @@
-import { getOrderById, cancelOrderByOrderId, renewBookByOrderId } from '../../../../apis/order'
+import { getOrderById, cancelOrderByOrderId, renewBookByOrderId, deleteOrderByOrderId } from '../../../../apis/order'
 
 var ORDER_ID // 订单id
 var app = getApp()
 
 Page({
   data: {
+    pageStatus: 'loading', // error, done
     order: {
       id: undefined,
       status: undefined,
       book: {},
       library: {}
-    },
-    pageStatus: 'loading' // nodata, done
+    }
   },
 
   onLoad: function (options) {
     ORDER_ID = options.id
+    this._fetchData()
+  },
+
+  onReloadPage: function () {
     this._fetchData()
   },
 
@@ -24,20 +28,13 @@ Page({
    * @event <orderRenewed> 事件在订单列表页(../order-ongoing)被监听
    */
   onRenew: function () {
-    wx.showModal({
-      title: '续借图书',
-      content: '每本图书只能续借一次，续借时间为一个月',
-      success: res => {
-        if (res.confirm) {
-          wx.showLoading({ title: '取消中', mask: true })
-          renewBookByOrderId(ORDER_ID).then(res => {
-            wx.showToast({ title: '续借成功', mask: true })
-            this.setData({order: res.data})
-            app.event.emit('orderRenewed', {order: this.data.order})
-          }).finally(() => wx.hideLoading())
-        }
-      }
-    })
+    this._onAction(
+      '续借图书',
+      '每本图书只能续借一次，续借时间为一个月',
+      '续借',
+      'orderRenewed',
+      renewBookByOrderId
+    )
   },
 
   /**
@@ -45,24 +42,46 @@ Page({
    * @event <orderCanceled> 事件在订单列表页(../order-ongoing)被监听
    */
   onCancel: function () {
+    this._onAction(
+      '取消订单',
+      '确定取消该订单？这项操作将无法撤销',
+      '取消',
+      'orderCanceled',
+      cancelOrderByOrderId,
+      true
+    )
+  },
+
+  /**
+   * 删除订单
+   * @event <orderDeleted> 事件在订单历史页(../order-history)被监听
+   */
+  onDelete: function () {
+    this._onAction(
+      '删除订单',
+      '确定删除该订单？这项操作将无法撤销',
+      '删除',
+      'orderDeleted',
+      deleteOrderByOrderId,
+      true
+    )
+  },
+
+  _onAction: function (title, content, actionName, eventName, func, needGoBack = false) {
     wx.showModal({
-      title: '取消订单',
-      content: '确定取消该订单？这项操作将无法撤销',
+      title,
+      content,
       success: res => {
         if (res.confirm) {
-          wx.showLoading({ title: '取消中', mask: true })
-          cancelOrderByOrderId(ORDER_ID).then(() => {
-            wx.showToast({ title: '取消成功' })
-            setTimeout(() => wx.navigateBack(), 1000)
-            app.event.emit('orderCanceled', {order: this.data.order})
+          wx.showLoading({ title: `${actionName}中`, mask: true })
+          func(ORDER_ID).then(() => {
+            wx.showToast({ title: `${actionName}成功` })
+            app.event.emit(eventName, {order: this.data.order})
+            if (needGoBack) setTimeout(() => wx.navigateBack(), 1000)
           }).finally(() => wx.hideLoading())
         }
       }
     })
-  },
-
-  onTapPageNoDataBtn: function () {
-    this._fetchData()
   },
 
   _fetchData: function () {
@@ -72,6 +91,6 @@ Page({
         order: res.data,
         pageStatus: 'done'
       })
-    }).catch(() => this.setData({pageStatus: 'nodata'}))
+    }).catch(() => this.setData({pageStatus: 'error'}))
   }
 })

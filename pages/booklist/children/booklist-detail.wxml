@@ -1,5 +1,6 @@
-<spinner wx:if="{{isPageLoading}}" class="center"></spinner>
-<block wx:else>
+<import src="/templates/page-status-indicator/index" />
+<template data="{{pageStatus}}" is="page-status-indicator"></template>
+<block wx:if="{{pageStatus == 'done'}}">
   <view class="booklist-header font-gray-28">
     <view class="booklist-header__title" catchtap="onToggleDescription">
       <image src="{{booklistInfo.creator.avatar}}" class="booklist-header__title-avatar"></image>

@@ -1,3 +1,4 @@
+@import "/templates/page-status-indicator/index.wxss";
 
 .booklist-header {
   padding: 20px 15px 10px;

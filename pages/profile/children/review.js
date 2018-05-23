@@ -4,22 +4,18 @@ import { showTip } from '../../../utils/tip'
 
 Page({
   data: {
+    pageStatus: 'loading', // error, done
     reviews: [],
-    // load-more组件状态：hidding, loading, nomore
-    loadMoreStatus: 'hidding',
-    // 是否暂无数据
-    isNoData: false
+    loadMoreStatus: 'hidding' // loading, nomore
   },
 
   onLoad: function (options) {
     showTip('MY_REVIEWS')
-    wx.showLoading({title: '加载中', mask: true})
-    getReviewsByUserId(getUID()).then(res => {
-      this.setData({
-        reviews: res.data.reviews,
-        isNoData: res.data.reviews.length === 0
-      })
-    }).finally(() => wx.hideLoading())
+    this._loadPage()
+  },
+
+  onReloadPage: function () {
+    this._loadPage()
   },
 
   onReachBottom: function () {
@@ -53,5 +49,15 @@ Page({
         }
       }
     })
+  },
+
+  _loadPage: function () {
+    this.setData({pageStatus: 'loading'})
+    getReviewsByUserId(getUID()).then(res => {
+      this.setData({
+        pageStatus: 'done',
+        reviews: res.data.reviews
+      })
+    }).catch(() => this.setData({pageStatus: 'error'}))
   }
 })

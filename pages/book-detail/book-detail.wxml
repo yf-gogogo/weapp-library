@@ -1,9 +1,8 @@
 <import src="/templates/showcase/index" />
-<import src="/templates/page-no-data/index" />
-<!-- 加载动画 -->
-<spinner wx:if="{{pageStatus.loading}}" class="center"></spinner>
+<import src="/templates/page-status-indicator/index" />
+<template data="{{pageStatus}}" is="page-status-indicator"></template>
 <!-- 获取到图书信息 -->
-<block wx:elif="{{pageStatus.code == 200}}">
+<block wx:if="{{pageStatus == 'done'}}">
   <!-- 图书信息 -->
   <view class="ui-panel ui-book-card">
     <view class="ui-book-card__info font-gray-26">
@@ -98,5 +97,4 @@
     </scroll-view>
   </popup>
 </block>
-<template wx:elif="{{pageStatus.code == 404}}" is="page-no-data" data="{{message: '系统中暂无该图书信息，您可以通过图书wiki系统为该图书创建一个新条目', btnText: '创建新条目'}}"></template>
-<no-data wx:else></no-data>
+<template wx:elif="{{pageStatus == 'nodata'}}" is="page-empty" data="{{message: '系统中暂无该图书信息，您可以通过图书wiki系统为该图书创建一个新条目', btnText: '创建新条目'}}"></template>

@@ -7,6 +7,8 @@ var once = false // 帮助消息只提醒一次
 
 Page({
   data: {
+    // 页面加载状态
+    pageStatus: 'loading', // error, done
     // 图书id
     id: undefined,
     // 评论列表
@@ -23,27 +25,25 @@ Page({
       loading: false // 按钮加载状态
     },
     // load-more组件状态：hidding, loading, nomore
-    loadMoreStatus: 'hidding',
-    // 页面是否正在加载
-    isPageLoading: true
+    loadMoreStatus: 'hidding'
   },
 
   onLoad: function (options) {
     this.data.id = options.id
     toptip = this.selectComponent('#toptip')
-    getReviewsByBookId(options.id).then(res => {
-      this.setData({reviews: res.data.reviews})
-    }).finally(() => {
-      this.setData({isPageLoading: false})
-    })
+    this._loadPage()
+  },
+
+  onReloadPage: function () {
+    this._loadPage()
   },
 
   onReachBottom: function () {
     let status = this.data.loadMoreStatus
     if (status !== 'hidding') return
 
-    this.setData({ loadMoreStatus: 'loading' })
     let { id, reviews } = this.data
+    this.setData({ loadMoreStatus: 'loading' })
     getReviewsByBookId(id, reviews.length).then(res => {
       if (res.data.reviews.length) {
         this.setData({
@@ -120,5 +120,21 @@ Page({
         'reviews': [res.data, ...reviews]
       })
     }).finally(() => this.setData({'popup.loading': false}))
+  },
+
+  /**
+   * 加载页面
+   */
+  _loadPage: function () {
+    this.setData({pageStatus: 'loading'})
+    let { id } = this.data
+    getReviewsByBookId(id).then(res => {
+      this.setData({
+        reviews: res.data.reviews,
+        pageStatus: 'done'
+      })
+    }).catch(() => {
+      this.setData({pageStatus: 'error'})
+    })
   }
 })

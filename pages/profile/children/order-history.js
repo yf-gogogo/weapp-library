@@ -3,24 +3,29 @@ import { getUID } from '../../../utils/permission'
 
 Page({
   data: {
+    pageStatus: 'loading', // error, done
     orders: [],
-    loadMoreStatus: 'hidding', // loading, nomore
-    isNoData: false
+    loadMoreStatus: 'hidding' // loading, nomore
   },
 
+  /**
+   * @listens <orderDeleted>
+   * 事件在订单详情页(./children/order-detail)中被触发
+   */
   onLoad: function () {
-    wx.showLoading({ title: '加载中', mask: true })
-    getOrdersByUserId(getUID(), 'history').then(res => {
-      this.setData({
-        orders: res.data.orders,
-        isNoData: res.data.orders.length === 0
-      })
-    }).finally(() => wx.hideLoading())
+    // 监听事件
+    getApp().event.on('orderDeleted', this.onOrderDeleted)
+
+    this._loadPage()
+  },
+
+  onReloadPage: function () {
+    this._loadPage()
   },
 
   onReachBottom: function () {
-    const { loadMoreStatus, isNoData, orders } = this.data
-    if (isNoData || loadMoreStatus !== 'hidding') return
+    const { loadMoreStatus, orders } = this.data
+    if (loadMoreStatus !== 'hidding') return
 
     this.setData({loadMoreStatus: 'loading'})
     getOrdersByUserId(getUID(), 'history', orders.length).then(res => {
@@ -29,5 +34,21 @@ Page({
         loadMoreStatus: res.data.orders.length ? 'hidding' : 'nomore'
       })
     }).catch(() => this.setData({loadMoreStatus: 'hidding'}))
+  },
+
+  onOrderDeleted: function (e) {
+    const { orders } = this.data
+    const orderId = e.order.id
+    this.setData({orders: orders.filter(e => e.id != orderId)})
+  },
+
+  _loadPage: function () {
+    this.setData({pageStatus: 'loading'})
+    getOrdersByUserId(getUID(), 'history').then(res => {
+      this.setData({
+        pageStatus: 'done',
+        orders: res.data.orders
+      })
+    }).catch(() => this.setData({pageStatus: 'error'}))
   }
 })

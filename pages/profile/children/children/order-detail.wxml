@@ -1,14 +1,11 @@
-<import src="/templates/page-no-data/index" />
+<import src="/templates/page-status-indicator/index" />
 <wxs module="ORDER_STATUS">
   module.exports = require('../../../../utils/constant.wxs').ORDER_STATUS
 </wxs>
 <wxs src="../../../../utils/biz-helper.wxs" module="helper" />
-<!-- 加载动画 -->
-<spinner wx:if="{{pageStatus == 'loading'}}" class="center"></spinner>
-<!-- 暂无数据 -->
-<template wx:elif="{{pageStatus == 'nodata'}}" is="page-no-data"></template>
+<template data="{{pageStatus}}" is="page-status-indicator"></template>
 <!-- 订单信息 -->
-<block wx:else>
+<block wx:if="{{pageStatus == 'done'}}">
   <view class="ui-label">订单信息</view>
   <view class="ui-card font-gray-26">
     <view class="font-black-34">
@@ -64,5 +61,6 @@
   <view class="weui-btn-area">
     <button wx:if="{{helper.isRenewable(order)}}" class="weui-btn" type="primary" bindtap="onRenew">续借图书</button>
     <button wx:if="{{helper.isCancelable(order)}}" class="weui-btn" type="default" bindtap="onCancel">取消订单</button>
+    <button wx:if="{{helper.isDeletable(order)}}" class="weui-btn" type="default" bindtap="onDelete">删除订单</button>
   </view>
 </block>

@@ -2,10 +2,12 @@ import { getBooklistById, getBooksByBooklistId, updateBooklistById, favoriteBook
 import { isLogin } from '../../../utils/permission'
 import { BL_NO_RELATION, BL_IS_CREATOR, BL_IS_FAVORITE } from '../../../utils/constant'
 
+var BOOKLIST_ID = null // 书单id
+
 Page({
   data: {
-    // 页面是否正在加载
-    isPageLoading: true,
+    // 页面加载状态
+    pageStatus: 'loading', // error, done
     // 书单信息
     booklistInfo: {
       // 用户是否创建或收藏了此书单(0: 未收藏, 1: 创建, 2: 收藏)
@@ -59,14 +61,15 @@ Page({
    * 事件在书单描述修改页(./children/modify)被触发
    */
   onLoad: function (options) {
-    getBooklistById(options.id).then(res => {
-      this.setData({booklistInfo: res.data})
-    }).finally(() => {
-      this.setData({isPageLoading: false})
-    })
-
     // 监听事件
     getApp().event.on('bookCommentModified', this.onModifed)
+
+    BOOKLIST_ID = options.id
+    this._loadPage()
+  },
+
+  onReloadPage: function () {
+    this._loadPage()
   },
 
   onReachBottom: function () {
@@ -233,5 +236,18 @@ Page({
       desc: this.data.booklistInfo.title,
       path: '/pages/booklist/children/booklist-detail?id=' + this.data.booklistInfo.id
     }
+  },
+
+  /**
+   * 加载页面
+   */
+  _loadPage: function () {
+    this.setData({pageStatus: 'loading'})
+    getBooklistById(BOOKLIST_ID).then(res => {
+      this.setData({
+        booklistInfo: res.data,
+        pageStatus: 'done'
+      })
+    }).catch(() => this.setData({pageStatus: 'error'}))
   }
 })

@@ -5,7 +5,7 @@ import { debounce } from '../../../utils/utils'
  * searching属性初始值
  * 每次输入框focu、clear、input时都要重置searching为初始状态
  */
-var SEARCHING_INITIAL_CONFIG = {
+const SEARCHING_INITIAL_CONFIG = {
   libraries: [], // 图书馆列表
   loadMoreStatus: 'hidding', // 加载更多组件：loading, nomore，hidding
   isNoData: false // 是否暂无数据

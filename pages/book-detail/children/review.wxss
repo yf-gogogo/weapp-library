@@ -1,4 +1,4 @@
-@import "/templates/page-no-data/index.wxss";
+@import "/templates/page-status-indicator/index.wxss";
 
 .review-container {
   padding-top: 64px;

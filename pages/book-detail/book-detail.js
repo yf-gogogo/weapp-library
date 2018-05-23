@@ -2,20 +2,18 @@ import { getBookById, getBookByISBN, getCollectionsByBookISBN } from '../../apis
 import { getCollectionsByBookId } from '../../apis/collection'
 import { isLogin } from '../../utils/permission'
 
+var options // 保存页面参数
+
 Page({
   data: {
-    // 页面状态
-    pageStatus: {
-      // 是否正在获取图书信息
-      loading: true,
-      /**
-       * 图书信息接口返回的状态码：
-       * 200: 成功，显示图书信息
-       * 404: 数据库无该图书信息，显示创建条目提示
-       * 其他: 获取数据失败
-       */
-      code: 404
-    },
+    /**
+     * 页面状态
+     * loading：加载中
+     * error：获取数据失败
+     * done：成功，显示图书信息
+     * nodata：数据库无该图书信息，显示创建条目提示
+     */
+    pageStatus: 'loading',
     // 图书信息
     book: {},
     // 图书馆列表
@@ -26,8 +24,13 @@ Page({
     }
   },
 
-  onLoad: function (options) {
-    this._getBook(options).then(() => this._getCollections(options))
+  onLoad: function (opts) {
+    options = opts
+    this._loadPage()
+  },
+
+  onReloadPage: function () {
+    this._loadPage()
   },
 
   onShowTip: function () {
@@ -92,22 +95,28 @@ Page({
   },
 
   /**
+   * 加载页面
+   */
+  _loadPage: function () {
+    this._getBook().then(() => this._getCollections())
+  },
+
+  /**
    * 根据 id 或根据 isbn 获取图书信息
    */
-  _getBook: function (options) {
+  _getBook: function () {
+    this.setData({pageStatus: 'loading'})
     let fn = options.id
       ? getBookById(options.id)
       : getBookByISBN(options.isbn)
     return fn.then(res => {
-      this.setData({book: res.data})
       this.setData({
-        'pageStatus.loading': false,
-        'pageStatus.code': res.statusCode
+        book: res.data,
+        pageStatus: 'done'
       })
     }).catch(res => {
       this.setData({
-        'pageStatus.loading': false,
-        'pageStatus.code': res.statusCode || 500 // 没网的时候不会有statusCode
+        pageStatus: res.statusCode === 404 ? 'nodata' : 'error'
       })
       return Promise.reject(new Error('图书不存在'))
     })
@@ -116,7 +125,7 @@ Page({
   /**
    * 根据 id 或根据 isbn 获取图书馆藏信息
    */
-  _getCollections: function (options) {
+  _getCollections: function () {
     let fn = options.id
       ? getCollectionsByBookId(options.id)
       : getCollectionsByBookISBN(options.isbn)

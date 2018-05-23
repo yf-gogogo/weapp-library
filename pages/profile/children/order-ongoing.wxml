@@ -2,8 +2,10 @@
   module.exports = require('../../../utils/constant.wxs').ORDER_STATUS
 </wxs>
 <wxs src="../../../utils/biz-helper.wxs" module="helper" />
+<import src="/templates/page-status-indicator/index" />
+<template data="{{pageStatus}}" is="page-status-indicator"></template>
 <tab-bar tabs="{{tabs}}" bindclick="onClickTabBar">
-  <scroll-view wx:for="{{types}}" wx:for-item="type" wx:key="{{type}}" slot="{{tabs[index]}}" scroll-y class="order-list" data-type="{{type}}" bindscrolltolower="onScrollToLower">
+  <scroll-view wx:if="{{pageStatus == 'done'}}" wx:for="{{types}}" wx:for-item="type" wx:key="{{type}}" slot="{{tabs[index]}}" scroll-y class="order-list" data-type="{{type}}" bindscrolltolower="onScrollToLower">
     <view wx:if="{{orders[type].length}}" class="weui-cells weui-cells_after-title">
       <navigator wx:for="{{orders[type]}}" wx:key="{{item.id}}" url="./children/order-detail?id={{item.id}}" class="weui-cell ui-book-card" hover-class="ui--active" id="{{item.id}}">
         <image class="ui-book-card__img" src="{{item.book.imgs.small}}" mode="widthFix"></image>
@@ -33,8 +35,7 @@
         <view class="weui-cell__ft_in-access"></view>
       </navigator>
     </view>
-    <!-- 加载更多、暂无数据 -->
+    <no-data wx:else></no-data>
     <load-more status="{{loadMoreStatus[type]}}" nomore-text="没有更多订单了"></load-more>
-    <no-data wx:if="{{isNoData[type]}}"></no-data>
   </scroll-view>
 </tab-bar>

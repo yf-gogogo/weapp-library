@@ -15,5 +15,8 @@ module.exports = {
   },
   renewBookByOrderId: function (id) {
     return post(`/orders/${id}/renew`)
+  },
+  deleteOrderByOrderId: function (id) {
+    return del(`/orders/${id}`)
   }
 }

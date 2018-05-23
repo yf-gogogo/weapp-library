@@ -3,6 +3,7 @@
   "usingComponents":
   {
     "load-more": "/components/load-more/index",
-    "no-data": "/components/no-data/index"
+    "no-data": "/components/no-data/index",
+    "spinner": "/components/spinner/index"
   }
 }

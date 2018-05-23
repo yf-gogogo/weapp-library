@@ -1,8 +1,10 @@
 import { getLibraryById } from '../../../../apis/library'
 
+var options // 保存页面参数
+
 Page({
   data: {
-    isPageLoading: true,
+    pageStatus: 'loading', // error, done
     library: {
       id: undefined,
       status: 1, // 0：未认证，1：已认证
@@ -16,10 +18,13 @@ Page({
     }
   },
 
-  onLoad: function (options) {
-    getLibraryById(options.id).then(res => {
-      this.setData({ library: res.data })
-    }).finally(() => this.setData({isPageLoading: false}))
+  onLoad: function (opts) {
+    options = opts
+    this._loadPage()
+  },
+
+  onReloadPage: function () {
+    this._loadPage()
   },
 
   onPreview: function (e) {
@@ -29,5 +34,15 @@ Page({
       current: library.photos[id],
       urls: library.photos
     })
+  },
+
+  _loadPage: function () {
+    this.setData({pageStatus: 'loading'})
+    getLibraryById(options.id).then(res => {
+      this.setData({
+        library: res.data,
+        pageStatus: 'done'
+      })
+    }).catch(() => this.setData({pageStatus: 'error'}))
   }
 })

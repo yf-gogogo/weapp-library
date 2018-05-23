@@ -31,21 +31,29 @@ function getStatusColor (order) {
 }
 
 /**
- * 订单可否续借
+ * 订单可否续借：正在借阅、未超时、且续借次数少于1
  */
 function isRenewable (order) {
-  return order.renew_count == 0 && order.status == ORDER_STATUS.BORROWING
+  return order.renew_count == 0 && order.status == ORDER_STATUS.BORROWING && !order.is_overdue
 }
 
 /**
- * 订单可否取消
+ * 订单可否取消：未取书时可取消
  */
 function isCancelable (order) {
   return order.status <= ORDER_STATUS.WAITING_TO_TAKE_AT_PLANED_TIME
 }
 
+/**
+ * 订单可否删除：已归还或已取消订单可以删除
+ */
+function isDeletable (order) {
+  return order.status >= ORDER_STATUS.NORMAL_CLOSE
+}
+
 module.exports = {
   getStatusColor: getStatusColor,
   isRenewable: isRenewable,
-  isCancelable: isCancelable
+  isCancelable: isCancelable,
+  isDeletable: isDeletable
 }

@@ -9,6 +9,7 @@ var searchBar // 保存home-search-bar组件的引用
 
 Page({
   data: {
+    pageStatus: 'loading', // done, error
     search: {
       focus: false,
       history: []
@@ -23,17 +24,19 @@ Page({
   },
 
   onLoad: function (options) {
-    wx.showNavigationBarLoading()
-    this._fetchData().then(() => {
-      wx.hideNavigationBarLoading()
-    }).catch(() => {
-      wx.hideNavigationBarLoading()
-    })
-
-    // 下面要用 search.history.filter 方法，因此必须是一个数组
-    // getStorage的返回值可能是 undefined
+    // getStorage的返回值可能是 undefined, 而下面要用
+    // search.history.filter 方法，因此默认为空数组
     let tmp = wx.getStorageSync('history')
     this.setData({'search.history': tmp || []})
+
+    wx.showNavigationBarLoading()
+    this._loadPage().then(() => {
+      wx.hideNavigationBarLoading()
+    }).catch(() => wx.hideNavigationBarLoading())
+  },
+
+  onReloadPage: function () {
+    this._loadPage()
   },
 
   onReady: function () {
@@ -86,6 +89,19 @@ Page({
   },
 
   /**
+   * 加载页面
+   */
+  _loadPage: function () {
+    this.setData({pageStatus: 'loading'})
+    return this._fetchData().then(() => {
+      this.setData({pageStatus: 'done'})
+    }).catch(() => {
+      this.setData({pageStatus: 'error'})
+    })
+  },
+
+  /**
+   * 搜索图书：设置参数并跳转至图书搜索页
    * @param {String} type   搜索类型
    * @param {String} value  关键字值
    */
@@ -118,7 +134,7 @@ Page({
   },
 
   /**
-   * 获取首页数据
+   * 获取数据
    */
   _fetchData: function () {
     return Promise.all([

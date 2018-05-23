@@ -4,10 +4,12 @@ import { createOrders } from '../../../apis/order'
 import { getUID } from '../../../utils/permission'
 import { ORDER_STATUS_WAITING_FOR_OTHERS_TO_RETURN, ORDER_STATUS_WAITING_TO_TAKE_AT_PLANED_TIME } from '../../../utils/constant'
 
+var options // 保存页面参数
+
 Page({
   data: {
-    // 页面是否正在加载
-    isPageLoading: true,
+    // 页面加载状态
+    pageStatus: 'loading', // error, done
     // 图书信息
     book: {},
     // 图书馆信息
@@ -26,22 +28,13 @@ Page({
     appointedDate: formatDate(new Date())
   },
 
-  onLoad: function (options) {
-    let { book_id, library_id } = options
-    getCollectionsByBookId(book_id, { library_id }).then(res => {
-      let collection = res.data.collections[0]
-      this.setData({
-        isPageLoading: false,
-        book: collection.book,
-        library: collection.library,
-        'collection.total': collection.total_num,
-        'collection.available': collection.available_num,
-        'collection.isAvailable': collection.is_available
-      })
-    }
-    ).catch(() => {
-      this.setData({isPageLoading: false})
-    })
+  onLoad: function (opts) {
+    options = opts
+    this._loadPage()
+  },
+
+  onReloadPage: function () {
+    this._loadPage()
   },
 
   onChange: function (e) {
@@ -70,5 +63,22 @@ Page({
 
   onBack: function () {
     wx.navigateBack()
+  },
+
+  _loadPage: function () {
+    this.setData({pageStatus: 'loading'})
+    let { book_id, library_id } = options
+    getCollectionsByBookId(book_id, { library_id }).then(res => {
+      let collection = res.data.collections[0]
+      this.setData({
+        pageStatus: 'done',
+        book: collection.book,
+        library: collection.library,
+        'collection.total': collection.total_num,
+        'collection.available': collection.available_num,
+        'collection.isAvailable': collection.is_available
+      })
+    }
+    ).catch(() => this.setData({pageStatus: 'error'}))
   }
 })

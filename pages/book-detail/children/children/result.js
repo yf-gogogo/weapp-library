@@ -5,6 +5,7 @@ Page({
     first: undefined,
     second: undefined
   },
+
   onLoad: function (options) {
     wx.setNavigationBarTitle({title: options.title})
     this.setData({
@@ -13,9 +14,11 @@ Page({
       second: options.second
     })
   },
+
   onBack: function () {
     wx.navigateBack()
   },
+
   onSwitch: function () {
     wx.switchTab({
       url: '/pages/home/home'

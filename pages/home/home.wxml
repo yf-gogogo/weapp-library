@@ -1,7 +1,9 @@
 <import src="/templates/showcase/index" />
+<import src="/templates/page-status-indicator/index" />
 <home-search-bar id="searchBar" bindfocus="onFocus" bindcancel="onCancel" bindsearch="onSearch"></home-search-bar>
+<template data="{{pageStatus}}" is="page-status-indicator"></template>
 <!-- 主页 -->
-<block wx:if="{{!search.focus}}">
+<block wx:if="{{pageStatus == 'done' && !search.focus}}">
   <panel title="阅读统计" url="/pages/profile/children/order-history">
     <view class="color-green statistics-panel__number">
       {{statistics.book_num}}<span class="statistics-panel__unit">本</span>
@@ -21,7 +23,7 @@
   </panel>
 </block>
 <!-- 搜索栏容器 -->
-<view wx:else class="search-box">
+<view wx:if="{{search.focus}}" class="search-box">
   <scroll-view scroll-y="true" style="height: 100%">
     <!-- 搜索历史 -->
     <block wx:if="{{search.history.length}}">
@@ -40,7 +42,9 @@
         </image>
         <view class="search-box-trending__item-info">
           <view class="font-black-34">{{item.title}}</view>
-          <view class="font-gray-26"><text wx:for="{{item.author}}" wx:key="{{*this}}" class="ui-book-card__info-name">{{item}}</text></view>
+          <view class="font-gray-26">
+            <text wx:for="{{item.author}}" wx:key="{{*this}}" class="ui-book-card__info-name">{{item}}</text>
+          </view>
         </view>
       </view>
     </view>
