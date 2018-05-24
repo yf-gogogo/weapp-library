@@ -216,7 +216,7 @@ Page({
     let booklistId = this.data.booklistInfo.id
     let bookId = this.data.booklistInfo.items[index].book.id
     let comment = this.data.booklistInfo.items[index].comment
-    let url = `./children/modify?index=${index}&booklist_id=${booklistId}&book_id=${bookId}&comment=${comment}`
+    let url = `./children/modify?index=${index}&booklist_id=${booklistId}&book_id=${bookId}&comment=${encodeURIComponent(comment)}`
     wx.navigateTo({ url: url })
   },
 

@@ -118,12 +118,12 @@ Page({
       case '作者':
       case '标签':
         wx.navigateTo({
-          url: '/pages/list/book?type=search&search_type=' + type + '&keyword=' + value
+          url: `/pages/list/book?type=search&search_type=${type}&keyword=${encodeURIComponent(value)}`
         })
         break
       case 'ISBN':
         if (isISBN(value)) {
-          wx.navigateTo({url: '../book-detail/book-detail?isbn=' + value})
+          wx.navigateTo({url: `../book-detail/book-detail?isbn=${value}`})
         } else {
           wx.showModal({content: '请输入正确的13位ISBN', showCancel: false})
         }

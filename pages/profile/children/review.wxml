@@ -2,7 +2,7 @@
 <template data="{{pageStatus}}" is="page-status-indicator"></template>
 <block wx:if="{{pageStatus == 'done'}}">
   <view wx:if="{{reviews.length}}" class="weui-cells weui-cells_after-title">
-    <navigator wx:for="{{reviews}}" wx:key="{{item.id}}" url="/pages/book-detail/book-detail?id={{item.book.id}}" hover-class="ui--active" class="weui-cell ui-review-card font-30">
+    <navigator wx:for="{{reviews}}" wx:key="{{item.id}}" url="/pages/book-detail/children/review?id={{item.book.id}}&show_book_info=true" hover-class="ui--active" class="weui-cell ui-review-card font-30">
       <view class="ui-review-card__info">
         <view class="ui-review-card__title">
           <text>发表于《{{item.book.title}}》</text>

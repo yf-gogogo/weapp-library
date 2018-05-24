@@ -37,7 +37,7 @@ var TIP_SETTINGS = {
   // 我的评论
   MY_REVIEWS: {
     show: true,
-    message: '点击评论可以跳转到图书详情页'
+    message: '点击评论可以跳转到图书评论页'
   }
 }
 

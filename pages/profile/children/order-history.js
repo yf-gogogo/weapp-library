@@ -15,7 +15,6 @@ Page({
   onLoad: function () {
     // 监听事件
     getApp().event.on('orderDeleted', this.onOrderDeleted)
-
     this._loadPage()
   },
 

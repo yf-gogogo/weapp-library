@@ -4,7 +4,6 @@
   {
     "tab-bar": "/components/tab-bar/index",
     "load-more": "/components/load-more/index",
-    "no-data": "/components/no-data/index",
-    "spinner": "/components/spinner/index"
+    "no-data": "/components/no-data/index"
   }
 }

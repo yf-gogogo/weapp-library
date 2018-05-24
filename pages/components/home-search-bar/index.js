@@ -92,7 +92,7 @@ Component({
           })
         } else {
           wx.navigateTo({
-            url: '../book-detail/book-detail?isbn=' + res.result
+            url: `../book-detail/book-detail?isbn=${res.result}`
           })
         }
       }).catch(e => wx.showModal({

@@ -5,7 +5,6 @@
  * https://github.com/ConnorAtherton/loaders.css/blob/master/loaders.css
  */
 Component({
-  externalClasses: ['class'], // 可以为根元素添加外部class
   properties: {
     /**
      * 动画类型

@@ -35,8 +35,7 @@
 </template>
 
 <!-- 
-  当前页面状态指示器，依赖spinner组件，需要在页面json内引入
-  加载时(loading)显示加载组件，加载失败(error)显示重新加载按钮，其他情况隐藏
+  当前页面状态指示器：加载时(loading)、加载失败(error，重新加载按钮)、其他情况隐藏
 
   pageStatus: 页面状态，'loading', 'error'. other('done'/'nodata'/...)
   message: 错误说明文本
@@ -44,6 +43,12 @@
   onReloadPage: 重新加载页面数据，由页面提供
 -->
 <template name="page-status-indicator">
-  <spinner wx:if="{{pageStatus == 'loading'}}" class="page-status-indicator__spinner"></spinner>
+  <view wx:if="{{pageStatus == 'loading'}}" class="page-status-indicator__spinner">
+    <view class="page-status-indicator__spinner-rect1"></view>
+    <view class="page-status-indicator__spinner-rect2"></view>
+    <view class="page-status-indicator__spinner-rect3"></view>
+    <view class="page-status-indicator__spinner-rect4"></view>
+    <view class="page-status-indicator__spinner-rect5"></view>
+  </view>
   <template wx:elif="{{pageStatus == 'error'}}" is="page-reloader" data="{{message, btnText, onReloadPage}}"></template>
 </template>

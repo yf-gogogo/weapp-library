@@ -33,9 +33,9 @@
 			"current": -1,
 			"list": [
 				{
-					"id": -1,
+					"id": 0,
 					"name": "测试",
-					"pathName": "pages/test/test",
+					"pathName": "pages/test/index",
 					"query": ""
 				},
 				{
@@ -147,10 +147,10 @@
 					"query": "id=8"
 				},
 				{
-					"id": -1,
+					"id": 19,
 					"name": "图书评论",
 					"pathName": "pages/book-detail/children/review",
-					"query": "id=1"
+					"query": "id=15004&show_book_info=true"
 				},
 				{
 					"id": -1,

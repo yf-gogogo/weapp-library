@@ -1,5 +1,4 @@
 @import "/templates/showcase/index.wxss"
-@import "/templates/page-status-indicator/index.wxss";
 
 /* TODO --- 抵掉最后一个 panel 的 margin-bottom */
 

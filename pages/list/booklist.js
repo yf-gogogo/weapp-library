@@ -28,7 +28,7 @@ Page({
 
   onLoad: function (options) {
     this.setData({
-      keyword: options.keyword || '',
+      keyword: options.keyword ? decodeURIComponent(options.keyword) : '',
       type: options.type
     })
     if (options.type === 'search') {

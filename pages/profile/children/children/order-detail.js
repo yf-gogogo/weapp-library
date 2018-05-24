@@ -16,11 +16,11 @@ Page({
 
   onLoad: function (options) {
     ORDER_ID = options.id
-    this._fetchData()
+    this._loadPage()
   },
 
   onReloadPage: function () {
-    this._fetchData()
+    this._loadPage()
   },
 
   /**
@@ -84,7 +84,7 @@ Page({
     })
   },
 
-  _fetchData: function () {
+  _loadPage: function () {
     this.setData({pageStatus: 'loading'})
     getOrderById(ORDER_ID).then(res => {
       this.setData({

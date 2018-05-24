@@ -25,7 +25,7 @@ Page({
 
   onSearch: function (e) {
     wx.navigateTo({
-      url: '/pages/list/booklist?type=search&keyword=' + e.detail.value
+      url: `/pages/list/booklist?type=search&keyword=${encodeURIComponent(e.detail.value)}`
     })
   },
 
@@ -49,7 +49,7 @@ Page({
       // 如果点击了“编辑书单”，则跳转至书单信息编辑页
       if (res.tapIndex === 0 && type === 'create') {
         wx.navigateTo({
-          url: './children/modify?type=modify&id=' + id
+          url: `./children/modify?type=modify&id=${id}`
         })
       } else {
         let title

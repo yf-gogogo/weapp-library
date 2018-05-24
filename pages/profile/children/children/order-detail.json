@@ -1,7 +1,3 @@
 {
-  "navigationBarTitleText": "订单详情",
-  "usingComponents":
-  {
-    "spinner": "/components/spinner/index"
-  }
+  "navigationBarTitleText": "订单详情"
 }

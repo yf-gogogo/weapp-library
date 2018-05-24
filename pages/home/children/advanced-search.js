@@ -55,7 +55,7 @@ Page({
     params.forEach(e => {
       let str = this.data[e].trim()
       if (str) {
-        url += `&${e}=${str}`
+        url += `&${e}=${encodeURIComponent(str)}`
       }
     })
 

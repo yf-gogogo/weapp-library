@@ -1,7 +1,3 @@
 {
-    "navigationBarTitleText": "图书馆详情",
-  "usingComponents":
-  {
-    "spinner": "/components/spinner/index"
-  }
+    "navigationBarTitleText": "图书馆详情"
 }

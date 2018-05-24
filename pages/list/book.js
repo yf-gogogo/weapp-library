@@ -1,7 +1,7 @@
 import { getRankingBooks, getRecommendedBooksByUserId, getBooksByKeyword, getBooksByAuthor, getBooksByTag, getBooksByAdvancedSearch, getBooksByClassificationNumber } from '../../apis/book'
 import { getUID } from '../../utils/permission'
 
-var options // 保存 options 参数
+var options = {} // 保存 options 参数
 
 Page({
   data: {
@@ -13,10 +13,10 @@ Page({
   },
 
   onLoad: function (opt) {
-    options = opt
-    this.setData({
-      type: options.type
+    Object.keys(opt).forEach(key => {
+      options[key] = decodeURIComponent(opt[key])
     })
+    this.setData({type: options.type})
     switch (options.type) {
       case 'search':
       case 'advanced_search':

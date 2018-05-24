@@ -4,7 +4,6 @@
   "usingComponents":
   {
     "home-search-bar": "/pages/components/home-search-bar/index",
-    "panel": "/components/panel/index",
-    "spinner": "/components/spinner/index"
+    "panel": "/components/panel/index"
   }
 }

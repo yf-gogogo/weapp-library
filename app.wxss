@@ -5,6 +5,9 @@
 @import 'styles/ui.wxss';
 @import 'styles/helper.wxss';
 
+/* 组件wxss */
+@import "/templates/page-status-indicator/index.wxss";
+
 page {
   background-color: #F0EFF5;
   padding-bottom:1rpx;  /* 解决 load-more 底部 margin 不显示的问题 */

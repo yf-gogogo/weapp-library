@@ -9,8 +9,12 @@ Page({
   data: {
     // 页面加载状态
     pageStatus: 'loading', // error, done
+    // 是否展示图书信息: 从“我的书评”跳转过来时展示
+    showBookInfo: false,
     // 图书id
     id: undefined,
+    // 图书信息
+    book: {},
     // 评论列表
     reviews: [],
     // popup组件数据
@@ -29,13 +33,20 @@ Page({
   },
 
   onLoad: function (options) {
-    this.data.id = options.id
+    this.setData({
+      id: options.id,
+      showBookInfo: !!options.show_book_info
+    })
     toptip = this.selectComponent('#toptip')
     this._loadPage()
   },
 
   onReloadPage: function () {
     this._loadPage()
+  },
+
+  onPageScroll: function () {
+    this.selectAllComponents('.sticky').forEach(sticky => sticky.onSticky())
   },
 
   onReachBottom: function () {
@@ -131,7 +142,8 @@ Page({
     getReviewsByBookId(id).then(res => {
       this.setData({
         reviews: res.data.reviews,
-        pageStatus: 'done'
+        pageStatus: 'done',
+        book: res.data.book
       })
     }).catch(() => {
       this.setData({pageStatus: 'error'})

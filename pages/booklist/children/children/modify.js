@@ -14,7 +14,7 @@ Page({
 
   onLoad: function (opts) {
     options = opts
-    this.setData({comment: opts.comment})
+    this.setData({comment: decodeURIComponent(opts.comment)})
   },
 
   onInput: function (e) {

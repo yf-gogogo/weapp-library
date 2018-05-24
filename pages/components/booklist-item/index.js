@@ -27,7 +27,7 @@ Component({
   },
 
   methods: {
-    onTapCard: function () {
+    _onTapCard: function () {
       const { isSelecting, checked, book: { id } } = this.data
       if (isSelecting) {
         this.setData({checked: !checked})
@@ -39,7 +39,7 @@ Component({
       }
     },
 
-    onShowActionSheet: function () {
+    _onShowActionSheet: function () {
       Promisify(wx.showActionSheet)({
         itemList: ['编辑图书描述'],
         itemColor: '#000'

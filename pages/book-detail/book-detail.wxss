@@ -1,5 +1,4 @@
 @import "/templates/showcase/index.wxss";
-@import "/templates/page-status-indicator/index.wxss";
 
 page {
   padding-bottom: 100rpx;
