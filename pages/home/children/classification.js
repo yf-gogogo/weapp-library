@@ -9,6 +9,7 @@ Page({
 
   onLoad: function (options) {
     this.setData({number: options.number || 0})
+    wx.setNavigationBarTitle({title: options.name || '分类检索'})
     wx.showLoading({ title: '加载中', mask: true })
     this._fetchData().then(sonNumbers => {
       this.setData({sonNumbers: this.data.sonNumbers.concat(sonNumbers)})

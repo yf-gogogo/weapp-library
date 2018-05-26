@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "分类检索",
+  "navigationBarTitleText": "",
   "usingComponents":
   {
     "load-more": "/components/load-more/index"

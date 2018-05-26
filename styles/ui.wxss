@@ -166,7 +166,6 @@
 }
 /* 评论标题 */
 .ui-review-card__title {
-  margin-bottom: 5px;
 }
 /* 评分 */
 .ui-review-card__rate {
@@ -174,10 +173,14 @@
   margin-left: 5px;
   height: 1em;  /* 这里注意<rate>组件的size应该与字体大小相等 */
 }
+/* 评论时间 */
+.ui-review-card__time {
+  margin-top: 6px;
+  margin-bottom: 4px;
+}
 /* 评论内容 */
 .ui-review-card__content {
   line-height: 1.62em;
-  margin-bottom: 5px;
 }
 /* 删除按钮 */
 .ui-review-card__delete-btn {

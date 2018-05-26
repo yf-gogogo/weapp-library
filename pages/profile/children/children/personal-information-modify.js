@@ -89,8 +89,9 @@ Page({
    */
   onSubmit: function () {
     if (this._validate() !== true) return
-    wx.showLoading({title: '加载中', mask: true})
-    this._uploadIdCardImg().then(this._updateUserInfo).then(res => {
+
+    // 先上传身份证照片，获取图片url，再上传用户信息
+    this._uploadIdCardImgs().then(this._updateUserInfo).then(res => {
       wx.showToast({title: '修改成功', mask: true})
       if (isFromRegisterPage) {
         setTimeout(() => wx.switchTab({url: '/pages/home/home'}), 1000)
@@ -101,29 +102,50 @@ Page({
   },
 
   /**
-   * 上传身份证图片。如果是刚刚选择的本地照片，需要重新上传
-   * 如果是是服务器现在保存的照片，那么url中将含有域名，不需要再上传
+   * 上传身份证图片，返回图片url数组
    */
-  _uploadIdCardImg: function () {
+  _uploadIdCardImgs: function () {
     let { id_card_img: { front, back } } = this.data.userInfo
-    return Promise.all([
-      front.indexOf(DOMAIN_NAME) === -1 ? uploadIdCardImg(front) : front,
-      back.indexOf(DOMAIN_NAME) === -1 ? uploadIdCardImg(back) : back
-    ])
+    let res = []
+
+    // 如果是刚刚选择的本地照片，需要上传
+    // 如果是服务器url，那么直接返回
+    var upload = function (imgPath) {
+      return new Promise((resolve, reject) => {
+        if (imgPath.indexOf(DOMAIN_NAME) === -1) {
+          wx.showLoading({title: '上传身份证中', mask: true})
+          uploadIdCardImg(imgPath)
+            .then(res => resolve(res))
+            .catch(err => reject(err))
+        } else {
+          resolve(imgPath)
+        }
+      })
+    }
+
+    // 一张一张传，不用promise.all()
+    return upload(front).then(frontPath => {
+      res[0] = frontPath
+      return upload(back)
+    }).then(backPath => {
+      res[1] = backPath
+      return res
+    })
   },
 
   /**
    * 将服务器返回的图片路径加入到参数中，上传个人信息
    */
   _updateUserInfo: function (imgPaths) {
+    wx.showLoading({title: '修改中', mask: true})
     let uid = getUID()
-    let userInfo = this.data.userInfo
-    this.setData({
-      'userInfo.id_card_img': {
+    let userInfo = {
+      ...this.data.userInfo,
+      id_card_img: {
         front: imgPaths[0],
         back: imgPaths[1]
       }
-    })
+    }
     return updateUserInfoById(uid, userInfo).then(res => {
       app.setUserInfo(res.data)
     })

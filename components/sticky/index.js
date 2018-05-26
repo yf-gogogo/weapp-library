@@ -18,8 +18,10 @@ var SYNC_ID = 0 // 获取元素信息为异步获取，因此用一个变量记�
  *   }
  *
  * TODO:
- * 1. 固定位置离页面顶部的距离
- * 2. 性能优化：现在渲染不够流畅，因为小程序获取wxml信息是异步的
+ * 1. 添加属性topSpacing，可设置元素固定位置离视窗顶部的距离
+ * 2. 性能优化：现在有一个问题：如果页面滚动慢的话，能在4ms内获取到元素位置信息，看起来过渡就很流畅；而
+      如果一下子将页面滚动到顶部或者底部（页面到头后会超出可滚动区域然后回弹一下），这个时候获取位置信息
+      就会很慢，平均500ms，这会导致过渡的时候有一个卡顿
  */
 Component({
   properties: {
@@ -36,9 +38,11 @@ Component({
   },
 
   methods: {
-    onSticky: function () {
+    onSticky: debounce(function () {
       const TEMP_ID = ++SYNC_ID // 记录当前id
+
       console.log(TEMP_ID)
+      var time = Date.now()
 
       this.createSelectorQuery()
         .selectAll('.sticky--selected')
@@ -53,9 +57,12 @@ Component({
         nodesRef => {
           if (TEMP_ID !== SYNC_ID) return
 
+          nodesRef[0]['height'] = nodesRef[1]['height'] = 64
           let { isSticky } = this.data
           let { top: outTop, height: outHeight } = nodesRef[0] // 外部wrapper信息
           let { top: stickyTop, height: stickyHeight } = nodesRef[1] // 被包裹元素信息
+
+          console.log('获取元素位置信息用时', Date.now() - time)
 
           if (!isSticky && stickyTop < 0) {
             this.setData({
@@ -72,6 +79,6 @@ Component({
             console.log('trigger stickyend')
           }
         }).exec()
-    }
+    }, 100)
   }
 })

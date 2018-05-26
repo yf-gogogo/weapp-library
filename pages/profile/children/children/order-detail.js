@@ -77,7 +77,7 @@ Page({
           func(ORDER_ID).then(() => {
             wx.showToast({ title: `${actionName}成功` })
             app.event.emit(eventName, {order: this.data.order})
-            if (needGoBack) setTimeout(() => wx.navigateBack(), 1000)
+            if (needGoBack) setTimeout(() => wx.navigateBack(), 700)
           }).finally(() => wx.hideLoading())
         }
       }

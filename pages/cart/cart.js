@@ -76,10 +76,6 @@ Page({
           data: this.data.selectedBooks
         })
       }).finally(() => wx.hideLoading())
-    }).catch(e => wx.showModal({
-      title: '扫码失败',
-      content: e.errMsg,
-      showCancel: false
-    }))
+    })
   }
 })

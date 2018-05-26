@@ -3,7 +3,7 @@
 <template data="{{pageStatus}}" is="page-status-indicator"></template>
 <block wx:if="{{pageStatus == 'done'}}">
   <!-- 评论列表 -->
-  <view wx:if="{{reviews.length}}" class="{{showBookInfo ? '' : 'review-container--fixed-header'}}">
+  <view wx:if="{{reviews.length}}" class="{{showBookInfo ? '' : 'fixed-header-container'}}">
     <navigator wx:if="{{showBookInfo}}" url="/pages/book-detail/book-detail?id={{book.id}}"  class="ui-panel ui-book-card review-book">
       <image class="ui-book-card__img" src="{{book.imgs.small}}" mode="widthFix"></image>
       <view class="ui-book-card__info font-gray-26">
@@ -20,7 +20,7 @@
       </view>
       <view class="weui-cell__ft weui-cell__ft_in-access"></view>
     </navigator>
-    <view class="weui-cell review-header {{showBookInfo ? '' : 'review-header--fixed'}}">
+    <view class="weui-cell review-header">
       <view class="weui-cell__bd">评论</view>
       <button size="mini" type="primary" catchtap="onShowPopup" plain>发表评论</button>
     </view>
@@ -34,10 +34,10 @@
               <rate value="{{item.score}}" star-size="30" unit="rpx" disabled></rate>
             </view>
           </view>
+          <view class="ui-review-card__time font-gray-26">{{item.created_at}}</view>
           <view class="ui-review-card__content">{{item.content}}</view>
-          <view class="color-gray">{{item.create_time}}</view>
         </view>
-        <view wx:if="{{item.is_creator}}" class="ui-review-card__delete-btn color-red" data-id="{{item.id}}" data-index="{{index}}" catchtap="onDelete">删除</view>
+        <view wx:if="{{item.is_creator}}" class="ui-review-card__delete-btn color-gray" data-id="{{item.id}}" data-index="{{index}}" catchtap="onDelete">删除</view>
       </view>
     </view>
     <!-- 加载更多、暂无数据 -->

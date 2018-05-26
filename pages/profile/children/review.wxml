@@ -10,10 +10,10 @@
             <rate value="{{item.score}}" star-size="30" unit="rpx" disabled></rate>
           </view>
         </view>
+        <view class="ui-review-card__time font-gray-26">{{item.created_at}}</view>
         <view class="ui-review-card__content">{{item.content}}</view>
-        <view class="color-gray">{{item.create_time}}</view>
       </view>
-      <view class="ui-review-card__delete-btn color-red" data-id="{{item.id}}" data-index="{{index}}" catchtap="onDelete">删除</view>
+      <view class="ui-review-card__delete-btn color-gray" data-id="{{item.id}}" data-index="{{index}}" catchtap="onDelete">删除</view>
     </navigator>
   </view>
   <no-data wx:else text="暂未发表评论"></no-data>

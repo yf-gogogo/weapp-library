@@ -95,11 +95,7 @@ Component({
             url: `../book-detail/book-detail?isbn=${res.result}`
           })
         }
-      }).catch(e => wx.showModal({
-        title: '扫码失败',
-        content: e.errMsg,
-        showCancel: false
-      }))
+      })
     },
 
     // 在输入框不为空时搜索

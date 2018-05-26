@@ -13,9 +13,12 @@ var Promise = require('../utils/es6-promise')
 /**
  * 服务器根路径
  */
-// export const BASE_URL = 'https://www.easy-mock.com/mock/5aacc9a1d3f6bd35dfb4be65/api/v1'
-export const BASE_URL = 'http://localhost:8080/library/public/index.php/api'
-export const DOMAIN_NAME = 'http://localhost:8080'
+// 远程服务器
+export const BASE_URL = 'https://www.library-online.cn/api/public/index.php/api'
+export const DOMAIN_NAME = 'https://www.library-online.cn'
+// 本地服务器
+// export const BASE_URL = 'http://localhost:8080/library/public/index.php/api'
+// export const DOMAIN_NAME = 'http://localhost:8080'
 
 /**
  * get 方法
@@ -51,7 +54,7 @@ export function requestWithModal (method, relativeUrl, param, header) {
     if (res.data && res.data.message) {
       errMsg = res.data.message
     } else {
-      errMsg = res.errMsg || '发生未知错误，请检查您的网络状态'
+      errMsg = res.statusCode ? '发生未知错误，请联系开发者' : res.errMsg
     }
     wx.showModal({
       content: errMsg,
