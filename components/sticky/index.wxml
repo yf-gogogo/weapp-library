@@ -1,5 +1,6 @@
-<view class="sticky--selected sticky__wrapper" style="{{isSticky ? 'height: ' + wrapperHeight + 'px;' : ''}}">
-  <view class="sticky--selected {{isSticky ? 'is-sticky' : ''}}" style="z-index: {{zIndex}};">
-    <slot></slot>
+<view class="sticky">
+  <slot></slot>
+  <view hidden="{{ !fixed }}" class="sticky-faker" style="top: {{topSpacing}}px">
+    <slot name="sticky"></slot>
   </view>
 </view>

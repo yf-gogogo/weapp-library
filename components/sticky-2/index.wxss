@@ -1,11 +1,7 @@
-.sticky {
+.is-sticky {
   z-index: 200;
-}
-
-.sticky-faker {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 200;
 }

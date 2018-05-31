@@ -29,7 +29,8 @@ Page({
       loading: false // 按钮加载状态
     },
     // load-more组件状态：hidding, loading, nomore
-    loadMoreStatus: 'hidding'
+    loadMoreStatus: 'hidding',
+    scrollTop: 0
   },
 
   onLoad: function (options) {
@@ -45,8 +46,8 @@ Page({
     this._loadPage()
   },
 
-  onPageScroll: function () {
-    this.selectAllComponents('.sticky').forEach(sticky => sticky.onSticky())
+  onPageScroll: function (e) {
+    this.setData({scrollTop: e.scrollTop})
   },
 
   onReachBottom: function () {

@@ -1,5 +1,5 @@
 .toptip {
-  z-index: 5000;
+  z-index: 500;
   display: block;
   position: fixed;
   -webkit-transform: translateZ(0) translateY(-100%);

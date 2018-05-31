@@ -4,23 +4,36 @@
 <block wx:if="{{pageStatus == 'done'}}">
   <!-- 评论列表 -->
   <view wx:if="{{reviews.length}}" class="{{showBookInfo ? '' : 'fixed-header-container'}}">
-    <navigator wx:if="{{showBookInfo}}" url="/pages/book-detail/book-detail?id={{book.id}}"  class="ui-panel ui-book-card review-book">
-      <image class="ui-book-card__img" src="{{book.imgs.small}}" mode="widthFix"></image>
-      <view class="ui-book-card__info font-gray-26">
-        <view class="ui-book-card__info-title font-black-34">{{book.title}}</view>
-        <view>
-          评分:
-          <text class="color-yellow">{{book.total_score}}</text>（{{book.review_num}}条评论）</view>
-        <view>作者:
-          <text wx:for="{{book.author}}" wx:key="{{*this}}" class="ui-book-card__info-name">{{item}}</text>
+    <block wx:if="{{showBookInfo}}">
+      <navigator url="/pages/book-detail/book-detail?id={{book.id}}" class="ui-panel ui-book-card review-book">
+        <image class="ui-book-card__img" src="{{book.imgs.small}}" mode="widthFix"></image>
+        <view class="ui-book-card__info font-gray-26">
+          <view class="ui-book-card__info-title font-black-34">{{book.title}}</view>
+          <view>
+            评分:
+            <text class="color-yellow">{{book.total_score}}</text>（{{book.review_num}}条评论）</view>
+          <view>作者:
+            <text wx:for="{{book.author}}" wx:key="{{*this}}" class="ui-book-card__info-name">{{item}}</text>
+          </view>
+          <view>出版社: {{book.publisher}}</view>
+          <view>出版日期: {{book.pubdate}}</view>
+          <view>ISBN: {{book.isbn}}</view>
         </view>
-        <view>出版社: {{book.publisher}}</view>
-        <view>出版日期: {{book.pubdate}}</view>
-        <view>ISBN: {{book.isbn}}</view>
-      </view>
-      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-    </navigator>
-    <view class="weui-cell review-header">
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
+      <sticky scroll-top="{{scrollTop}}">
+        <view class="weui-cell review-header">
+          <view class="weui-cell__bd">评论</view>
+          <button size="mini" type="primary" catchtap="onShowPopup" plain>发表评论</button>
+        </view>
+        <view slot="sticky" class="weui-cell review-header">
+          <view class="weui-cell__bd">评论</view>
+          <button size="mini" type="primary" catchtap="onShowPopup" plain>发表评论</button>
+        </view>
+      </sticky>
+    </block>
+    <!-- 也可以删除这个wx:else，但是会在滚动时过渡会不太自然 -->
+    <view wx:else class="weui-cell review-header">
       <view class="weui-cell__bd">评论</view>
       <button size="mini" type="primary" catchtap="onShowPopup" plain>发表评论</button>
     </view>
