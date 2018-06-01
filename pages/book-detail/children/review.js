@@ -72,7 +72,10 @@ Page({
     this.setData({'popup.score': e.detail.value})
   },
 
-  onTapPageNoDataBtn: function () {
+  /**
+   * 点击<page-empty>模板的操作按钮
+   */
+  onTapPageEmptyBtn: function () {
     this.onShowPopup()
   },
 

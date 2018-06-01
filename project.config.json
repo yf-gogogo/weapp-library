@@ -12,6 +12,12 @@
 	"appid": "wx0eff868e8d0bef7f",
 	"projectname": "weapp-library",
 	"isGameTourist": false,
+	"packOptions": {
+		"ignore": [{
+			"type": "file",
+			"value": "./ui.png"
+		}]
+	},
 	"condition": {
 		"search": {
 			"current": -1,

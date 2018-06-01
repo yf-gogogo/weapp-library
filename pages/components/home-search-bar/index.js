@@ -1,11 +1,10 @@
-/**
- * 主页的搜索输入框
- */
-
 import Promisify from '../../../utils/promisify'
 import { showTip } from '../../../utils/tip'
 import { isISBN } from '../../../utils/validator'
 
+/**
+ * 主页的搜索输入框
+ */
 Component({
   properties: {
 

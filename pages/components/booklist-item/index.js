@@ -22,8 +22,7 @@ Component({
   },
 
   data: {
-    // 是否被选中
-    checked: false
+    checked: false // 是否被选中
   },
 
   methods: {

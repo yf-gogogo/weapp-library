@@ -7,14 +7,14 @@
   isPlain: 是否为线性按钮，默认false
   btnText: 按钮文本，默认‘操作按钮’
   hideBtn: 是否隐藏按钮，默认false
-  onTapPageNoDataBtn: 点击按钮时执行的函数，由页面提供
+  onTapPageEmptyBtn: 点击按钮时执行的函数，由页面提供
 -->
 <template name="page-empty">
   <view class="page-empty-container" style="background-color: {{bgColor || '#FFF'}}">
     <view class="page-empty">
       <image class="page-empty__img" mode="widthFix" src="/images/no_data.png"></image>
       <view class="page-empty__text">{{message}}</view>
-      <button wx:if="{{!hideBtn}}" class="page-empty__btn" type="{{btnType || 'primary'}}" plain="{{isPlain}}" bindtap="onTapPageNoDataBtn">{{btnText || '操作按钮'}}</button>
+      <button wx:if="{{!hideBtn}}" class="page-empty__btn" type="{{btnType || 'primary'}}" plain="{{isPlain}}" bindtap="onTapPageEmptyBtn">{{btnText || '操作按钮'}}</button>
     </view>
   </view>
 </template>

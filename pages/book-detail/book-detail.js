@@ -57,7 +57,9 @@ Page({
     this.setData({'libraryList.show': false})
   },
 
-  // 跳转页面前判断是否登录，如果没有登录，显示登录对话框
+  /**
+   * 跳转页面前判断是否登录，如果没有登录，显示登录对话框
+   */
   onNavigate: function (e) {
     if (!isLogin(true)) return
 
@@ -90,7 +92,10 @@ Page({
     }
   },
 
-  onTapPageNoDataBtn: function () {
+  /**
+   * 点击<page-empty>模板的操作按钮
+   */
+  onTapPageEmptyBtn: function () {
     throw new Error('点击事件未实现')
   },
 
