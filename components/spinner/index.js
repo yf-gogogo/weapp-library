@@ -1,14 +1,14 @@
 
 /**
  * 加载组件
- * 修改了下面的库的css，目前只整合了两个样式
+ * 修改了下面的库的css，目前只整合了三个样式
  * https://github.com/ConnorAtherton/loaders.css/blob/master/loaders.css
  */
 Component({
   properties: {
     /**
      * 动画类型
-     * 可选：line-scale，line-scale-pulse-out
+     * 可选：line-scale，line-scale-pulse-out，ball-pulse-sync
      */
     type: {
       type: String,
@@ -20,13 +20,6 @@ Component({
     bgColor: {
       type: String,
       value: '#999'
-    },
-    /**
-     * 加载组件显示时，页面是否可点击
-     */
-    mask: {
-      type: Boolean,
-      value: false
     }
   }
 })

@@ -1,0 +1,5 @@
+<view class="weui-cells__tips">点击图片进入“附近的图书馆”小程序体验该功能</view>
+
+<navigator open-type="navigate" target="miniProgram" app-id="wx5b8cfa452106035c" url="" class="code">
+  <image src="/assets/miniapp_code.jpg"></image>
+</navigator>

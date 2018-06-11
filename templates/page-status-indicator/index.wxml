@@ -43,12 +43,12 @@
   onReloadPage: 重新加载页面数据，由页面提供
 -->
 <template name="page-status-indicator">
-  <view wx:if="{{pageStatus == 'loading'}}" class="page-status-indicator__spinner">
-    <view class="page-status-indicator__spinner-rect1"></view>
-    <view class="page-status-indicator__spinner-rect2"></view>
-    <view class="page-status-indicator__spinner-rect3"></view>
-    <view class="page-status-indicator__spinner-rect4"></view>
-    <view class="page-status-indicator__spinner-rect5"></view>
+  <view wx:if="{{pageStatus == 'loading'}}" class="page-status-indicator__spinner line-scale-pulse-out">
+    <view class="rect1"></view>
+    <view class="rect2"></view>
+    <view class="rect3"></view>
+    <view class="rect4"></view>
+    <view class="rect5"></view>
   </view>
   <template wx:elif="{{pageStatus == 'error'}}" is="page-reloader" data="{{message, btnText, onReloadPage}}"></template>
 </template>

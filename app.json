@@ -29,7 +29,9 @@
     "pages/profile/children/review",
     "pages/profile/children/children/order-detail",
     "pages/home/children/advanced-search",
-    "pages/home/children/classification"
+    "pages/home/children/classification",
+    "pages/profile/navigate",
+    "pages/profile/children/about"
   ],
   "window": {
     "backgroundTextStyle": "dark",

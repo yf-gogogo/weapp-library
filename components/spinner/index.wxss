@@ -1,14 +1,4 @@
 
-.mask {
-  z-index: 9999;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0);
-}
-
 /**
  * line-scale
  */
@@ -51,8 +41,12 @@
 }
 
 @-webkit-keyframes sk-stretchdelay {
-  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }  
-  20% { -webkit-transform: scaleY(1.0) }
+  0%, 40%, 100% { 
+    -webkit-transform: scaleY(0.4) 
+  }  
+  20% { 
+    -webkit-transform: scaleY(1.0) 
+  }
 }
 
 @keyframes sk-stretchdelay {
@@ -108,5 +102,71 @@
     -webkit-transform: scaley(1);
     transform: scaley(1);
   }
+}
+
+/**
+ * ball-pulse-sync
+ */
+.ball-pulse-sync {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ball-pulse-sync > view {
+  background-color: #999;
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  margin: 2px;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+  display: inline-block; 
+}
+
+@-webkit-keyframes ball-pulse-sync {
+  33% {
+    -webkit-transform: translateY(10px);
+            transform: translateY(10px); 
+  }
+  66% {
+    -webkit-transform: translateY(-10px);
+            transform: translateY(-10px); 
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0); 
+  } 
+}
+
+@keyframes ball-pulse-sync {
+  33% {
+    -webkit-transform: translateY(10px);
+            transform: translateY(10px); 
+  }
+  66% {
+    -webkit-transform: translateY(-10px);
+            transform: translateY(-10px); 
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0); 
+   } 
+}
+
+.ball-pulse-sync > ball1 {
+  -webkit-animation: ball-pulse-sync 0.6s -0.14s infinite ease-in-out;
+          animation: ball-pulse-sync 0.6s -0.14s infinite ease-in-out;
+}
+
+.ball-pulse-sync > ball2 {
+  -webkit-animation: ball-pulse-sync 0.6s -0.07s infinite ease-in-out;
+          animation: ball-pulse-sync 0.6s -0.07s infinite ease-in-out;
+}
+
+.ball-pulse-sync > ball3 {
+  -webkit-animation: ball-pulse-sync 0.6s 0s infinite ease-in-out;
+          animation: ball-pulse-sync 0.6s 0s infinite ease-in-out; 
 }
 

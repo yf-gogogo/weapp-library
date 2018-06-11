@@ -1,0 +1,20 @@
+page {
+  background-color: #fff;
+}
+
+
+.weui-cells__tips {
+  margin: 30px 16px;
+  text-align: center;
+}
+
+.code {
+  width: 300px;
+  height:300px;
+  margin: 0 auto;
+}
+
+.code > image {
+  width: 300px;
+  height:300px;
+}

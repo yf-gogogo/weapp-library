@@ -34,7 +34,7 @@
     <view class="weui-cell__bd">借阅历史</view>
     <view class="weui-cell__ft weui-cell__ft_in-access"></view>
   </navigator>
-  <navigator url="./children/deposit" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+  <navigator url="./navigate" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
     <view class="weui-cell__hd">
       <image src="/images/icon_deposit.png" class="icon"></image>
     </view>
@@ -50,18 +50,18 @@
   </navigator>
 </view>
 <view class="weui-cells">
-  <navigator url="./children/feedback" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+  <navigator url="./navigate" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
     <view class="weui-cell__hd">
       <image src="/images/icon_help.png" class="icon"></image>
     </view>
     <view class="weui-cell__bd">意见反馈</view>
     <view class="weui-cell__ft weui-cell__ft_in-access"></view>
   </navigator>
-  <navigator url="./children/setting" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+  <navigator url="./children/about" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
     <view class="weui-cell__hd">
-      <image src="../../images/icon_setting.png" class="icon"></image>
+      <image src="../../images/icon_info.png" class="icon"></image>
     </view>
-    <view class="weui-cell__bd">设置</view>
+    <view class="weui-cell__bd">关于</view>
     <view class="weui-cell__ft weui-cell__ft_in-access"></view>
   </navigator>
 </view>
