@@ -15,7 +15,7 @@
     <view>订单编号：{{order.id}}</view>
     <view>订单创建日期：{{order.created_at}}</view>
     <view wx:if="{{order.status == ORDER_STATUS.WAITING_TO_TAKE_AT_PLANED_TIME}}">
-      预约取书日期：{{item.should_take_time}}
+      预约取书日期：{{order.should_take_time}}
     </view>
     <block wx:elif="{{order.status == ORDER_STATUS.BORROWING}}">
       <view>取书日期：{{order.actual_take_time}}</view>

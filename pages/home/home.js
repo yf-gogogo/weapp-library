@@ -28,11 +28,7 @@ Page({
     // search.history.filter 方法，因此默认为空数组
     let tmp = wx.getStorageSync('history')
     this.setData({'search.history': tmp || []})
-
-    wx.showNavigationBarLoading()
-    this._loadPage().then(() => {
-      wx.hideNavigationBarLoading()
-    }).catch(() => wx.hideNavigationBarLoading())
+    this._loadPage()
   },
 
   onReloadPage: function () {
