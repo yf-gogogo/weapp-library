@@ -1,5 +1,5 @@
 <view class="logo-container">
-    <image src="/assets/logo.jpeg"></image>
+    <image src="/images/logo.jpeg"></image>
     <view class="font-black-34">在线借书平台</view>
 </view>
 <view class="weui-cells">

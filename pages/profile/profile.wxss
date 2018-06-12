@@ -15,6 +15,7 @@ page {
   margin-right: 15px;
   vertical-align: middle;
   border-radius: 32px;
+  overflow: hidden;
 }
 
 .user-info__name {

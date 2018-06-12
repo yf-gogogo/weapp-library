@@ -13,6 +13,11 @@ Page({
   },
 
   onLoad: function () {
+    /**
+     * getUserInfo 接口已取消
+     */
+
+    /*
     Promisify(wx.login)().then(() => {
       // 获取用户授权，更新用户昵称与头像
       Promisify(wx.getUserInfo)().then(res => {
@@ -32,6 +37,7 @@ Page({
         })
       })
     })
+    */
   },
 
   onLogout: function () {
