@@ -1,4 +1,4 @@
-<view class="panel {{isLastChild ? 'panel--is-last' : '' }}">
+<view class="panel">
   <navigator url="{{url}}" hover-class="panel-hd--active">
     <view class="panel-hd">
       <view>{{title}}</view>

@@ -13,10 +13,10 @@ Component({
       type: String,
       value: '搜索'
     },
-    // 是否显示背景遮罩
+    // 是否显示背景遮罩，默认否
     showMask: {
       type: Boolean,
-      value: true
+      value: false
     },
     // 点击背景是否自动关闭，默认是
     tappableMask: {

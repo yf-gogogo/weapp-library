@@ -1,6 +1,5 @@
 .panel {
   position: relative;
-  margin-bottom: 10px;
   overflow: hidden;
   background-color: #FFFFFF;
 }
@@ -56,7 +55,4 @@
   border-color: #c8c8c8;
   border-style: solid;
   transform: translateY(-50%) matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
-}
-.panel--is-last {
-  margin-bottom: 0;
 }

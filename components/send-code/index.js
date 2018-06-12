@@ -1,5 +1,3 @@
-var timer
-var leftTime
 
 /**
  * 发送短信的倒计时按钮
@@ -30,12 +28,16 @@ Component({
   },
 
   data: {
-    str: '获取验证码', // 当前显示的文字
-    disabled: false // 倒计时过程中禁用
+    str: '', // 当前显示的文字
+    disabled: false, // 倒计时过程中禁用
+    timer: null, // 计时器
+    leftTime: 0 // 倒计时剩余时间
   },
 
   attached: function () {
-    leftTime = this.data.duration
+    let { defaultText, duration } = this.data
+    this.setData({str: defaultText})
+    this.data.leftTime = duration
   },
 
   methods: {
@@ -54,8 +56,8 @@ Component({
 
     // 结束倒计时
     stop: function () {
-      clearTimeout(timer)
-      leftTime = this.data.duration
+      clearTimeout(this.data.timer)
+      this.data.leftTime = this.data.duration
       this.setData({
         disabled: false,
         str: this.data.defaultText
@@ -71,13 +73,13 @@ Component({
 
     _countDown: function () {
       let countingText = this.data.countingText
-      if (leftTime > 0) {
-        leftTime--
+      if (this.data.leftTime > 0) {
+        this.data.leftTime--
         this.setData({
           disabled: true,
-          str: `${countingText}(${leftTime})`
+          str: `${countingText}(${this.data.leftTime})`
         })
-        timer = setTimeout(() => {
+        this.data.timer = setTimeout(() => {
           this._countDown()
         }, 1000)
       } else {

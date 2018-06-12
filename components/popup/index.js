@@ -27,6 +27,8 @@ Component({
 
   methods: {
     _onTapMask: function () {
+      // 原来这里会直接设置 show 为 false
+      // 现在只触发事件，由父组件设置 show 属性
       if (this.data.tappableMask) {
         this.triggerEvent('hide')
       }

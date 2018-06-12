@@ -34,7 +34,7 @@ Component({
       }
 
       // 扩展默认参数
-      options = Object.assign(DEFAULT_CONFIG, options)
+      options = Object.assign({}, DEFAULT_CONFIG, options)
 
       // 设置定时器，定时关闭
       timer = setTimeout(() => {

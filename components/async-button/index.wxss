@@ -82,8 +82,8 @@
   background: -o-linear-gradient(left, #4f4b4a 10%, rgba(206,208,208, 0) 42%);
   background: -ms-linear-gradient(left, #4f4b4a 10%, rgba(206,208,208, 0) 42%);
   background: linear-gradient(to right, #4f4b4a 10%, rgba(206,208,208, 0) 42%);
-  -webkit-animation: loading 0.8s infinite linear;
-  animation: loading 0.8s infinite linear;
+  -webkit-animation: async-button__loading 0.8s infinite linear;
+  animation: async-button__loading 0.8s infinite linear;
   -webkit-transform: translateZ(0);
   -ms-transform: translateZ(0);
   transform: translateZ(0);
@@ -107,8 +107,8 @@
   background: -o-linear-gradient(left, #ffa299 10%, rgba(206,208,208, 0) 42%);
   background: -ms-linear-gradient(left, #ffa299 10%, rgba(206,208,208, 0) 42%);
   background: linear-gradient(to right,   10%, rgba(206,208,208, 0) 42%);
-  -webkit-animation: loading 0.8s infinite linear;
-  animation: loading 0.8s infinite linear;
+  -webkit-animation: async-button__loading 0.8s infinite linear;
+  animation: async-button__loading 0.8s infinite linear;
   -webkit-transform: translateZ(0);
   -ms-transform: translateZ(0);
   transform: translateZ(0);

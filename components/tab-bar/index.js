@@ -40,13 +40,16 @@ Component({
   methods: {
     // 设置当前激活页
     setActiveIndex: function (index) {
-      this.setData({activeIndex: index})
+      this.setData({
+        sliderOffset: this.data.sliderWidth * index,
+        activeIndex: index
+      })
     },
     // 切换当前激活页
     _onClick: function (e) {
       let { offsetLeft, id } = e.currentTarget
       this.setData({
-        sliderOffset: offsetLeft,
+        sliderOffset: offsetLeft, // 或者 this.data.sliderWidth * index
         activeIndex: id
       })
       this.triggerEvent('click', {index: id})

@@ -1,6 +1,6 @@
 
 /**
- * 评分组件，满分10分
+ * 可打半星的评分组件，默认满分10分
  * @event <change>
  */
 Component({
@@ -11,6 +11,11 @@ Component({
     disabled: {
       type: Boolean,
       value: false
+    },
+    // 五角星个数
+    number: {
+      type: Number,
+      value: 5
     },
     // 五角星大小
     starSize: {
@@ -33,7 +38,19 @@ Component({
     // 满星、半星、空星图片url
     fullSrc: './images/icon_star_full.png',
     halfSrc: './images/icon_star_half.png',
-    normalSrc: './images/icon_star_normal.png'
+    normalSrc: './images/icon_star_normal.png',
+
+    // wx-for 中的辅助数组，为每颗星星设置 value
+    starArray: []
+  },
+
+  attached: function () {
+    let t = 0
+    let ta = []
+    for (let i = 0; i < this.properties.number; i++, t += 2) {
+      ta.push(t)
+    }
+    this.setData({starArray: ta})
   },
 
   methods: {

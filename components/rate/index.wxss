@@ -1,5 +1,4 @@
 .star {
-  height: 30px;
 }
 
 .star__image{

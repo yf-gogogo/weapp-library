@@ -14,30 +14,18 @@ Page({
 
   onLoad: function () {
     /**
-     * getUserInfo 接口已取消
+     * getUserInfo 接口即将取消
      */
-
-    /*
     Promisify(wx.login)().then(() => {
       // 获取用户授权，更新用户昵称与头像
       Promisify(wx.getUserInfo)().then(res => {
-        this.setData({
-          'userInfo.nickname': res.userInfo.nickName,
-          'userInfo.avatar': res.userInfo.avatarUrl
-        })
         app.setUserInfo(this.data.userInfo)
-        updateUserInfoById(getUID(), this.data.userInfo)
-      }).catch(() => {
-        // 用户拒绝授权时获取后台记录的用户信息和头像
-        app.getUserInfo().then(userInfo => {
-          this.setData({
-            'userInfo.nickname': userInfo.nickname,
-            'userInfo.avatar': userInfo.avatar
-          })
+        updateUserInfoById(getUID(), {
+          nickname: res.userInfo.nickName,
+          avatar: res.userInfo.avatarUrl
         })
       })
     })
-    */
   },
 
   onLogout: function () {

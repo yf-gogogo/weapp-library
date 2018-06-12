@@ -1,5 +1,5 @@
-<view class="star">
-  <block wx:for="{{[0, 2, 4, 6, 8]}}">
+<view class="star" style="height: {{starSize + unit}}">
+  <block wx:for="{{starArray}}">
     <image 
       class="star__image" 
       style="width: {{starSize + unit}};height: {{starSize + unit}};margin-right: {{gutterSize + unit}}" 

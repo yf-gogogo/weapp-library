@@ -1,4 +1,4 @@
-<search-bar default-text="搜索书单" focus-text="书单标题、创建者" bindsearch="onSearch"></search-bar>
+<search-bar default-text="搜索书单" focus-text="书单标题、创建者" bindsearch="onSearch" show-mask></search-bar>
 <collapse title="我创建的书单" action-text="新建" bindtapaction="onCreate">
   <view class="ui-panel">
     <navigator wx:for="{{booklists.create}}" wx:key="{{item.id}}" class="weui-cell ui-booklist-card" hover-class="ui--active" url="./children/booklist-detail?id={{item.id}}">

@@ -85,3 +85,11 @@
 .statistics-panel__unit {
   font-size: 34rpx;
 }
+
+.panel-area > panel {
+  display: block;
+  margin-bottom: 10px;
+}
+.panel-area > panel:last-child {
+  margin-bottom: 0;
+}

@@ -6,7 +6,6 @@
 Component({
   properties: {
     url: String,
-    title: String,
-    isLastChild: Boolean
+    title: String
   }
 })

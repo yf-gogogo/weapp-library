@@ -17,6 +17,9 @@
 			{
 				"type": "file",
 				"value": "./ui.png"
+			},{
+				"type": "file",
+				"value": "./component.png"
 			}
 		]
 	},
@@ -38,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 31,
 			"list": [
 				{
 					"id": 0,
@@ -224,6 +227,90 @@
 					"id": -1,
 					"name": "关于",
 					"pathName": "pages/profile/children/about",
+					"query": "id=151111"
+				},
+				{
+					"id": -1,
+					"name": "组件展示",
+					"pathName": "component-demos/index/index",
+					"query": "id=151111"
+				},
+				{
+					"id": -1,
+					"name": "组件展示async-button",
+					"pathName": "component-demos/async-button/index",
+					"query": "id=151111"
+				},
+				{
+					"id": -1,
+					"name": "组件展示async-switch",
+					"pathName": "component-demos/async-switch/index",
+					"query": "id=151111"
+				},
+				{
+					"id": -1,
+					"name": "组件展示collapse",
+					"pathName": "component-demos/collapse/index",
+					"query": "id=151111"
+				},
+				{
+					"id": -1,
+					"name": "组件展示load-more",
+					"pathName": "component-demos/load-more/index",
+					"query": "id=151111"
+				},
+				{
+					"id": -1,
+					"name": "组件展示no-data",
+					"pathName": "component-demos/no-data/index",
+					"query": "id=151111"
+				},
+				{
+					"id": 37,
+					"name": "组件展示popup",
+					"pathName": "component-demos/popup/index",
+					"query": "id=151111"
+				},
+				{
+					"id": 38,
+					"name": "组件展示search-bar",
+					"pathName": "component-demos/search-bar/index",
+					"query": "id=151111"
+				},
+				{
+					"id": -1,
+					"name": "组件展示send-code",
+					"pathName": "component-demos/send-code/index",
+					"query": "id=151111"
+				},
+				{
+					"id": -1,
+					"name": "组件展示spinner",
+					"pathName": "component-demos/spinner/index",
+					"query": "id=151111"
+				},
+				{
+					"id": -1,
+					"name": "组件展示sticky",
+					"pathName": "component-demos/sticky/index",
+					"query": "id=151111"
+				},
+				{
+					"id": -1,
+					"name": "组件展示tab-bar",
+					"pathName": "component-demos/tab-bar/index",
+					"query": "id=151111"
+				},
+				{
+					"id": -1,
+					"name": "组件展示toast",
+					"pathName": "component-demos/toast/index",
+					"query": "id=151111"
+				},
+				{
+					"id": -1,
+					"name": "组件展示toptip",
+					"pathName": "component-demos/toptip/index",
 					"query": "id=151111"
 				}
 			]

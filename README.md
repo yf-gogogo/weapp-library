@@ -20,6 +20,11 @@
 }
 ```
 
+### 组件化
+在线借书平台小程序——我的——组件展示
+
+![组件展示](./component.png)
+
 ### 文件结构
 
 ```
@@ -28,6 +33,7 @@
 ├── app.js
 ├── app.json
 ├── app.wxss
+├── component-demos       // 组件展示
 ├── components            // 可复用组件
 │   ├── async-button      // 异步按钮
 │   ├── async-switch      // 异步切换器
