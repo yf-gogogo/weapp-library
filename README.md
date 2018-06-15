@@ -6,6 +6,11 @@
 ### UI
 ![ui](./ui.png)
 
+### 组件化
+在线借书平台小程序——我的——组件展示
+
+![组件展示](./component.png)
+
 ### 运行
 参考[文档-安装](https://www.library-online.cn/docs/guide/install.html)
 
@@ -19,11 +24,6 @@
   }]
 }
 ```
-
-### 组件化
-在线借书平台小程序——我的——组件展示
-
-![组件展示](./component.png)
 
 ### 文件结构
 
