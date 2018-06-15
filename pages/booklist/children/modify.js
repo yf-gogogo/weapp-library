@@ -2,6 +2,8 @@ import { getBooklistById, createBooklist, updateBooklistById } from '../../../ap
 import { showTip } from '../../../utils/tip'
 import { getUID } from '../../../utils/permission'
 
+var NB_TIMER
+
 // 保存页面参数
 var options = {
   type: undefined, // 操作类型：create，modify
@@ -38,6 +40,10 @@ Page({
     }
   },
 
+  onUnload: function () {
+    clearTimeout(NB_TIMER)
+  },
+
   onInput: function (e) {
     let label = e.currentTarget.dataset.label
     let params = {}
@@ -64,7 +70,7 @@ Page({
     fn.then(() => {
       wx.hideLoading()
       wx.showToast({ title: '操作成功', mask: true })
-      setTimeout(() => wx.navigateBack(), 1000) // 直接后退时当前页面的toast会消失
+      NB_TIMER = setTimeout(() => wx.navigateBack(), 1000)
     }).catch(() => wx.hideLoading())
   }
 })

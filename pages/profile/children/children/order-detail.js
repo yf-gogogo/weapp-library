@@ -2,6 +2,7 @@ import { getOrderById, cancelOrderByOrderId, renewBookByOrderId, deleteOrderByOr
 
 var ORDER_ID // 订单id
 var app = getApp()
+var NB_TIMER
 
 Page({
   data: {
@@ -17,6 +18,10 @@ Page({
   onLoad: function (options) {
     ORDER_ID = options.id
     this._loadPage()
+  },
+
+  onUnload: function () {
+    clearTimeout(NB_TIMER)
   },
 
   onReloadPage: function () {
@@ -77,7 +82,7 @@ Page({
           func(ORDER_ID).then(() => {
             wx.showToast({ title: `${actionName}成功` })
             app.event.emit(eventName, {order: this.data.order})
-            if (needGoBack) setTimeout(() => wx.navigateBack(), 700)
+            if (needGoBack) NB_TIMER = setTimeout(() => wx.navigateBack(), 700)
           }).finally(() => wx.hideLoading())
         }
       }

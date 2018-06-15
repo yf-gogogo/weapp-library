@@ -6,6 +6,7 @@ import { DOMAIN_NAME } from '../../../../apis/request'
 var toptip // 保存toptip组件的引用
 var app = getApp()
 var isFromRegisterPage = false // 如果是从注册页进入，则在上传完资料后自动跳转到主页
+var NB_TIMER
 
 Page({
   data: {
@@ -38,6 +39,10 @@ Page({
       'userInfo.id_card_img.front': userInfo.id_card_img.front,
       'userInfo.id_card_img.back': userInfo.id_card_img.back
     })).finally(() => wx.hideLoading())
+  },
+
+  onUnload: function () {
+    clearTimeout(NB_TIMER)
   },
 
   onReady: function () {
@@ -94,9 +99,9 @@ Page({
     this._uploadIdCardImgs().then(this._updateUserInfo).then(res => {
       wx.showToast({title: '修改成功', mask: true})
       if (isFromRegisterPage) {
-        setTimeout(() => wx.switchTab({url: '/pages/home/home'}), 1000)
+        NB_TIMER = setTimeout(() => wx.switchTab({url: '/pages/home/home'}), 1000)
       } else {
-        setTimeout(() => wx.navigateBack(), 1000)
+        NB_TIMER = setTimeout(() => wx.navigateBack(), 1000)
       }
     }).catch(() => wx.hideLoading())
   },

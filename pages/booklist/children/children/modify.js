@@ -1,5 +1,7 @@
 import { updateBooklistById } from '../../../../apis/booklist'
 
+var NB_TIMER
+
 // 保存页面参数options
 var options = {
   index: undefined,
@@ -15,6 +17,10 @@ Page({
   onLoad: function (opts) {
     options = opts
     this.setData({comment: decodeURIComponent(opts.comment)})
+  },
+
+  onUnload: function () {
+    clearTimeout(NB_TIMER)
   },
 
   onInput: function (e) {
@@ -37,7 +43,7 @@ Page({
     }).then(() => {
       wx.hideLoading()
       wx.showToast({ title: '操作成功', mask: true })
-      setTimeout(_ => wx.navigateBack(), 1000)
+      NB_TIMER = setTimeout(_ => wx.navigateBack(), 1000)
 
       // 触发事件
       getApp().event.emit('bookCommentModified', {

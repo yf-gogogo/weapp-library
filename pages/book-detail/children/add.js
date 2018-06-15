@@ -2,6 +2,8 @@ import { getBooklistsByUserId, updateBooklistById } from '../../../apis/booklist
 import { showTip } from '../../../utils/tip'
 import { getUID } from '../../../utils/permission'
 
+var NB_TIMER
+
 Page({
   data: {
     // 图书 id
@@ -19,6 +21,10 @@ Page({
   onLoad: function (options) {
     this.data.id = options.id
     showTip('ADD_TO_BOOKLIST')
+  },
+
+  onUnload: function () {
+    clearTimeout(NB_TIMER)
   },
 
   // 从创建书单页返回时刷新书单列表
@@ -64,7 +70,7 @@ Page({
       ]
     }).then(_ => {
       wx.showToast({ title: '操作成功', mask: true })
-      setTimeout(() => wx.navigateBack(), 1000) // 直接后退时当前页面的 toast 会立刻消失
+      NB_TIMER = setTimeout(() => wx.navigateBack(), 1000) // 直接后退时当前页面的 toast 会立刻消失
     })
   }
 })
