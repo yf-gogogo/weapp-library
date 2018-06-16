@@ -43,7 +43,7 @@ App({
    * @event <userInfoChanged> 在个人信息页(personal-information)被监听
    */
   setUserInfo: function (userInfo) {
-    USER_INFO = userInfo
+    USER_INFO = Object.assign({}, USER_INFO, userInfo)
     this.event.emit('userInfoChanged', {userInfo: userInfo})
   }
 })

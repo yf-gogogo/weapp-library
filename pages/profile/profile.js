@@ -6,26 +6,14 @@ var app = getApp()
 
 Page({
   data: {
-    userInfo: {
-      nickname: '',
-      avatar: ''
-    }
+    showLoginBtn: false
   },
 
   onLoad: function () {
-    /**
-     * getUserInfo 接口即将取消
-     */
-    Promisify(wx.login)().then(() => {
-      // 获取用户授权，更新用户昵称与头像
-      Promisify(wx.getUserInfo)().then(res => {
-        app.setUserInfo(this.data.userInfo)
-        updateUserInfoById(getUID(), {
-          nickname: res.userInfo.nickName,
-          avatar: res.userInfo.avatarUrl
-        })
-      })
-    })
+    // 获取用户授权，更新用户昵称与头像
+    Promisify(wx.getUserInfo)()
+      .then(this._updateUserInfo)
+      .catch(() => this.setData({showLoginBtn: true}))
   },
 
   onLogout: function () {
@@ -37,5 +25,22 @@ Page({
         }
       }
     })
+  },
+
+  onClickLoginBtn: function (e) {
+    let { errMsg } = e.detail
+    if (errMsg.indexOf('fail') === -1) {
+      this._updateUserInfo(e.detail).then(() => {
+        this.setData({showLoginBtn: false})
+      })
+      wx.showToast({title: '授权成功'})
+    }
+  },
+
+  _updateUserInfo: function (userInfo) {
+    return updateUserInfoById(getUID(), {
+      nickname: userInfo.userInfo.nickName,
+      avatar: userInfo.userInfo.avatarUrl
+    }).then(res => app.setUserInfo(res))
   }
 })
