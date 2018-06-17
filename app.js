@@ -5,6 +5,12 @@ import EventEmitter from './utils/event' // 事件总线
 import { getUserInfoById } from './apis/user' // 获取用户信息
 import { autoLogin, getUID } from './utils/permission'
 
+// fundebug 错误监控
+var fundebug = require('/utils/fundebug.0.5.0.min.js')
+fundebug.apikey = 'ba2e4f401a4fbb88ddb6a2da757e694ad0af82eebc7b193869095e8eff75c6e4'
+fundebug.setSystemInfo = true
+fundebug.releaseStage = 'production'
+
 App({
   /**
    * 全局事件总线
@@ -17,6 +23,8 @@ App({
 
     // 初始化帮助信息
     initTipSettings()
+
+    fundebug.notify('test')
   },
 
   /**

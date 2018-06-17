@@ -73,7 +73,8 @@
     ├── qrcode.js         // 二维码生成
     ├── tip.js            // 使用帮助
     ├── utils.js          // 辅助函数
-    └── validator.js      // 正则校验器
+    ├── validator.js      // 正则校验器
+    └── fundebug.js       // 错误监控
 ```
 
 ### 代码规范
