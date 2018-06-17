@@ -23,8 +23,6 @@ App({
 
     // 初始化帮助信息
     initTipSettings()
-
-    fundebug.notify('test')
   },
 
   /**
